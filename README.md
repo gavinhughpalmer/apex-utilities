@@ -9,7 +9,8 @@ This repository contains a number of reusable components that can be used accros
     * Usage: `Assert.pageMessage('The page message you wish to assert')`
 * **Logger**:
     * Description: This class is used to control logging in the system, it provides an adapter so logging can be easily swapped out whenever needed, within the class it has provided a wrapper for the debug logs to allow logs written to this and a logger for the page messages.
-    * Usage: ```
+    * Usage:
+```java
 Logger log = new Logger(new DebugLogAdapter());
 log.warn('A warning is here');
 try {
@@ -20,7 +21,8 @@ try {
 ```
 * **BulkLogObjectAdapter**:
     * Description: This class allows logging against an sobject defined in the system. This is defined as a singleton so that logs can be inserted once during a transaction
-    * Usage: ```
+    * Usage:
+```java
 Logger log = new Logger(BulkLogObjectAdapter.getInstance('Integration'));
 log.warn('A warning message');
 BulkLogObjectAdapter.writeLogs();
@@ -30,7 +32,8 @@ BulkLogObjectAdapter.writeLogs();
     * Usage: See `DateUtilsTest` class
 * **StringBuilder**:
     * Description: This class is intended to be similar to the java StringBuilder, it allows strings to be dynamically constructed but only assigned at the point that it needs to be.
-    * Usage: ```
+    * Usage:
+```java
 StringBuilder text = new StringBuilder();
 for (Integer i = 0; i < 10; i++) {
     text.append(String.valueOf(i));
