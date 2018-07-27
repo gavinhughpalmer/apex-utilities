@@ -43,3 +43,14 @@ System.debug(text.toString());
 * **CsvBuilder**:
     * Description: This class is used to build a Csv dynamically, it is a sub-class to the StringBuilder
     * Usage: See `CsvBuilderTest` class
+* **SchemaFacade**:
+    * Description: This is a facade for the schema describe functions to make accessing the schema much easier within apex. It is implemented as a sigleton so that it can perform some form of cacheing, this probably isn't nessisary as I think salesforce implements cacheing on the schema methods anyway, but this is just to be safe
+    * Usage:
+```java
+SchemaFacade schema = SchemaFacade.getInstance();
+DescribeSObjectResult accountDescribe = schema.getDescribe('Account');
+System.debug(accountDescribe.getName());
+
+DescribeFieldResult fieldDescribe = schema.getFieldDescribe('Account', 'Name');
+System.debug(fieldDescribe.getName());
+```
