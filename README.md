@@ -54,3 +54,11 @@ System.debug(accountDescribe.getName());
 DescribeFieldResult fieldDescribe = schema.getFieldDescribe('Account', 'Name');
 System.debug(fieldDescribe.getName());
 ```
+* **SObjectWrapper**:
+    * Description: This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
+    * Usage:
+```java
+Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
+SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
+String accountName = (String) wrappedContact.get('Account.Name');
+```
