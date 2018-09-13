@@ -1,5 +1,5 @@
 /**
- * Created by admin-1019 on 25/07/2018.
+ * Test class for the BulkLogObjectAdapter
  */
 @isTest
 private class BulkLogObjectAdapterTest {

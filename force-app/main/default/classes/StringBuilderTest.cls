@@ -11,13 +11,13 @@ private class StringBuilderTest {
 
         System.assertEquals(
             1,
-            builder.stringsToBuild.size(),
+            builder.buffer.size(),
             'There should be a single string in the builder'
         );
 
         System.assertEquals(
             expectedOutput,
-            builder.stringsToBuild[0],
+            builder.buffer[0],
             'The string in the builder should be what was appended to the string builder'
         );
     }
@@ -30,13 +30,13 @@ private class StringBuilderTest {
 
         System.assertEquals(
             1,
-            builder.stringsToBuild.size(),
+            builder.buffer.size(),
             'There should be a single string in the builder'
         );
 
         System.assertEquals(
             '1',
-            builder.stringsToBuild[0],
+            builder.buffer[0],
             'The string in the builder should be what was appended to the string builder'
         );
     }
@@ -49,7 +49,7 @@ private class StringBuilderTest {
 
         System.assertEquals(
             0,
-            builder.stringsToBuild.size(),
+            builder.buffer.size(),
             'The empty string should not be added to be built'
         );
     }

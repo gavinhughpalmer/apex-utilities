@@ -62,3 +62,13 @@ Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
 SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
 String accountName = (String) wrappedContact.get('Account.Name');
 ```
+* **DisplayTypeParser**:
+    * Description: This is a class that can be used to parse field values, if the target field is known this can be used to ensure the field value is correct
+    * Usage:
+```java
+DescribeFieldResult field = Account.NumberOfEmployees.getDescribe(); // this would be more dynamic
+Parsable parser = new DisplayTypeParser(field.getType());
+
+Account newAccount = new Account();
+newAccount.put(field.getName(), parser.parse('100'));
+```
