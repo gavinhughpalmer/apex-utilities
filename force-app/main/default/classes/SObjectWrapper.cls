@@ -1,7 +1,7 @@
 /*
  This class is a wrapper around the SObject class to allow users to retrieve parent fields from the sobject
 */
-public class SObjectWrapper {
+public virtual class SObjectWrapper {
 
     @testVisible private static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
     public class InvalidFieldException extends Exception {}
@@ -15,11 +15,15 @@ public class SObjectWrapper {
         objectApiName = String.valueOf(sObjectToWrap.getSObjectType());
     }
 
-    public Object get(String fieldApiName) {
+    public virtual Object get(String fieldApiName) {
         if (isRelatedField(fieldApiName)) {
             return getParentField(fieldApiName);
         }
         return wrappedSObject.get(fieldApiName);
+    }
+
+    public virtual void put(String fieldApiName, Object fieldValue) {
+        wrappedSObject.put(fieldApiName, fieldValue);
     }
 
     private static Boolean isRelatedField(String fieldApiName) {

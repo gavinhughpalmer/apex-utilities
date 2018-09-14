@@ -62,6 +62,9 @@ Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
 SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
 String accountName = (String) wrappedContact.get('Account.Name');
 ```
+* **SecureSObjectWrapper**:
+    * Description: This is a wrapper around the SObject class that will enforce FLS when accessing and setting fields on the SObject record
+    * Usage: See SecureSObjectWrapperTest for examples
 * **DisplayTypeParser**:
     * Description: This is a class that can be used to parse field values, if the target field is known this can be used to ensure the field value is correct
     * Usage:
