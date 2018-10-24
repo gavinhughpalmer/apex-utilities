@@ -1,7 +1,7 @@
 @isTest
 private class DisplayTypeParserTest {
     @isTest
-    private static void parseTest_StringValue() {
+    private static void parseTestStringValue() {
         final String valueToParse = 'value to parse';
         Parsable parser = new DisplayTypeParser(DisplayType.TEXTAREA);
         Object parsedValue = parser.parse(valueToParse);
@@ -18,7 +18,7 @@ private class DisplayTypeParserTest {
     }
 
     @isTest
-    private static void parseTest_NumberValue() {
+    private static void parseTestNumberValue() {
         Parsable parser = new DisplayTypeParser(DisplayType.DOUBLE);
         Object parsedValue = parser.parse('3.3');
 
@@ -34,7 +34,7 @@ private class DisplayTypeParserTest {
     }
 
     @isTest
-    private static void parseTest_DateValue() {
+    private static void parseTestDateValue() {
         Parsable parser = new DisplayTypeParser(DisplayType.DATE);
         Object parsedValue = parser.parse('1993-06-29');
 
@@ -50,7 +50,7 @@ private class DisplayTypeParserTest {
     }
 
     @isTest
-    private static void parseTest_DatetimeValue() {
+    private static void parseTestDatetimeValue() {
         Parsable parser = new DisplayTypeParser(DisplayType.DATETIME);
         Object parsedValue = parser.parse('1993-06-29 10:10:10');
 
@@ -66,7 +66,7 @@ private class DisplayTypeParserTest {
     }
 
     @isTest
-    private static void parseTest_BooleanValue() {
+    private static void parseTestBooleanValue() {
         Parsable parser = new DisplayTypeParser(DisplayType.BOOLEAN);
         Object parsedValue = parser.parse('true');
 
@@ -82,7 +82,7 @@ private class DisplayTypeParserTest {
     }
 
     @isTest
-    private static void parseTest_IdValue() {
+    private static void parseTestIdValue() {
         Parsable parser = new DisplayTypeParser(DisplayType.ID);
         Object parsedValue = parser.parse(UserInfo.getUserId());
 
@@ -98,7 +98,7 @@ private class DisplayTypeParserTest {
     }
 
     @isTest
-    private static void parseTest_InvalidDisplayType() {
+    private static void parseTestInvalidDisplayType() {
         Parsable parser = new DisplayTypeParser(DisplayType.DATE);
         try {
             parser.parse('Invalid date');

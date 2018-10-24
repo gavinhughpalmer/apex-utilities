@@ -5,7 +5,7 @@
 private class SObjectWrapperTest {
 
     @isTest
-    private static void getTest_ObjectField() {
+    private static void getTestObjectField() {
         final String testAccountName = 'Test Account';
         Account testAccount = new Account(Name = testAccountName);
 
@@ -17,7 +17,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
-    private static void getTest_RelatedObjectField() {
+    private static void getTestRelatedObjectField() {
         final String testAccountName = 'Test Account';
         Account testAccount = new Account(Name = testAccountName);
         Contact testContact = new Contact(Account = testAccount);
@@ -30,12 +30,12 @@ private class SObjectWrapperTest {
     }
 
     @isTest
-    private static void getRelatedObjectNameTest_CustomObject() {
+    private static void getRelatedObjectNameTestCustomObject() {
         // TODO Write a test for an object that has a lookup to a standard object to get 100% coverage
     }
 
     @isTest
-    private static void describeTest_ObjectField() {
+    private static void describeTestObjectField() {
         Account testAccount = new Account();
         SObjectWrapper wrappedTestAccount = new SObjectWrapper(testAccount);
         System.assertEquals(
@@ -45,7 +45,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
-    private static void describeTest_RelatedObjectField() {
+    private static void describeTestRelatedObjectField() {
         Contact testContact = new Contact();
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
         System.assertEquals(
@@ -55,7 +55,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
-    private static void testRelationshipField_InvalidRelationshipField() {
+    private static void testRelationshipFieldInvalidRelationshipField() {
         try {
             new SObjectWrapper.RelationshipField('NotAField');
             System.assert(

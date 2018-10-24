@@ -1,17 +1,15 @@
-/*
-
-*/
 @isTest
 private class StringBuilderTest {
+
     @isTest
-    private static void appendTest_ValidString() {
+    private static void appendTestValidString() {
         final String expectedOutput = 'Hello';
         StringBuilder builder = new StringBuilder();
         builder.append(expectedOutput);
 
         System.assertEquals(
             1,
-            builder.buffer.size(),
+            builder.length(),
             'There should be a single string in the builder'
         );
 
@@ -23,14 +21,13 @@ private class StringBuilderTest {
     }
 
     @isTest
-    private static void appendTest_ValidObject() {
+    private static void appendTestValidObject() {
         final Integer value = 1;
-        StringBuilder builder = new StringBuilder();
-        builder.append(value);
+        StringBuilder builder = new StringBuilder(value);
 
         System.assertEquals(
             1,
-            builder.buffer.size(),
+            builder.length(),
             'There should be a single string in the builder'
         );
 
@@ -42,20 +39,20 @@ private class StringBuilderTest {
     }
 
     @isTest
-    private static void appendTest_NullString() {
+    private static void appendTestNullString() {
         StringBuilder builder = new StringBuilder();
         String value = null;
         builder.append(value);
 
         System.assertEquals(
             0,
-            builder.buffer.size(),
+            builder.length(),
             'The empty string should not be added to be built'
         );
     }
 
     @isTest
-    private static void TestSetSeparator() {
+    private static void setSeparatorTest() {
         final String expectedOutput = 'Hello';
         StringBuilder builder = new StringBuilder();
         builder.setSeparator(expectedOutput);
@@ -68,7 +65,7 @@ private class StringBuilderTest {
     }
 
     @isTest
-    private static void TestSetSeparator_NullString() {
+    private static void setSeparatorTestNullString() {
         StringBuilder builder = new StringBuilder();
         builder.setSeparator(null);
 
@@ -83,7 +80,7 @@ private class StringBuilderTest {
     * this will test the whole process of using the string builder
     */
     @isTest
-    private static void TestToString() {
+    private static void toStringTest() {
         final String expectedOutputStart = 'String';
         final String separator = '\n';
         final String expectedOutputEnd = 'Ending';

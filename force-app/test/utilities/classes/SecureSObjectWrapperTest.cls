@@ -5,7 +5,7 @@
 private class SecureSObjectWrapperTest {
 
     @isTest
-    private static void getTest_IsAccessible() {
+    private static void getTestIsAccessible() {
         Account testAccount = new Account(
             Name = 'Test Account'
         );
@@ -17,7 +17,7 @@ private class SecureSObjectWrapperTest {
     }
 
     @isTest
-    private static void getTest_IsNotAccessible() {
+    private static void getTestIsNotAccessible() {
         Account testAccount = new Account(
             Name = 'Test Account'
         );
@@ -31,7 +31,7 @@ private class SecureSObjectWrapperTest {
     }
 
     @isTest
-    private static void putTest_IsEditable() {
+    private static void putTestIsEditable() {
         Account testAccount = new Account();
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
         final String testName = 'Gavin';
@@ -43,7 +43,7 @@ private class SecureSObjectWrapperTest {
     }
 
     @isTest
-    private static void putTest_IsNotEditable() {
+    private static void putTestIsNotEditable() {
         Account testAccount = new Account();
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
         System.runAs(getTestUser()) {

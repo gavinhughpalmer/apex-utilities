@@ -32,10 +32,14 @@ public class CsvBuilder {
         return this;
     }
 
+    public Integer totalRows() {
+        return headerToValues.values() != null ? headerToValues.values().size() : 0;
+    }
+
     public override String toString() {
         ColumnBuilder csvDocument = new ColumnBuilder(lineEnding);
         RowBuilder headerRow = new RowBuilder();
-        RowBuilder[] rows = new RowBuilder[currentRow + 1];
+        RowBuilder[] rows = new RowBuilder[totalRows()];
         for (String headerName : headerToValues.keySet()) {
             headerRow.append(headerName);
             Map<Integer, String> values = headerToValues.get(headerName);
@@ -51,7 +55,6 @@ public class CsvBuilder {
         }
         csvDocument.append(headerRow);
         for (RowBuilder row : rows) {
-            System.assertEquals(2, headerRow.length(), '' + row);
             csvDocument.append(row);
         }
         return csvDocument.toString();
@@ -75,7 +78,6 @@ public class CsvBuilder {
         public ColumnBuilder append(RowBuilder rowToAdd) {
             Boolean isAddedRowValid = numberOfColumns == null || rowToAdd.length() == numberOfColumns;
             if (!isAddedRowValid) {
-                System.assertEquals(rowToAdd.length(), numberOfColumns, '' + rowToAdd);
                 throw new InvalidRowException('The number of columns provided does not match those already in the csv');
             }
             numberOfColumns = rowToAdd.length();

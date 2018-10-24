@@ -55,7 +55,7 @@ private class SchemaFacadeTest {
     }
 
     @IsTest
-    private static void getDescribe_Exception() {
+    private static void getDescribeException() {
         final String invalidObjectName = 'Invalid Object';
         try {
             SchemaFacade.getInstance().getDescribe(invalidObjectName);
@@ -71,7 +71,7 @@ private class SchemaFacadeTest {
     }
 
     @IsTest
-    private static void getFieldDescribe_Exception() {
+    private static void getFieldDescribeException() {
         final String invalidFieldName = 'Invalid Field';
         try {
             SchemaFacade.getInstance().getFieldDescribe('Account', invalidFieldName);

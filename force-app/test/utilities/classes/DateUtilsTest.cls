@@ -21,7 +21,7 @@ private class DateUtilsTest {
     }
 
     @isTest
-    private static void getNow_PriorDateSet() {
+    private static void getNowPriorDateSet() {
         Datetime aDatetime = Datetime.newInstance(1023333);
         DateUtils.setNow(aDatetime);
         System.assertEquals(
@@ -31,7 +31,7 @@ private class DateUtilsTest {
     }
 
     @isTest
-    private static void getToday_PriorDateSet() {
+    private static void getTodayPriorDateSet() {
         Date aDate = Date.newInstance(1993, 06, 29);
         DateUtils.setToday(aDate);
         System.assertEquals(

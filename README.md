@@ -75,3 +75,10 @@ Parsable parser = new DisplayTypeParser(field.getType());
 Account newAccount = new Account();
 newAccount.put(field.getName(), parser.parse('100'));
 ```
+* **AbstractSObjectTestFactory**
+    * Description: This is a factory class that can be used in test classes to generate sobject test data
+    * Usage: see `AccountTestFactory` for details
+
+
+## TODO
+* Move the admin profile details into a permission set

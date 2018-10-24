@@ -16,19 +16,15 @@ private class LoggerTest {
         private final String messageToAssert;
         private final String levelToAssert;
         private final LogLevel levelCalled;
-        private final Boolean containsMessage;
+        private Boolean containsMessage = false;
 
         public TestLoggerAdapter(String messageToAssert, String levelToAssert, LogLevel levelCalled) {
             this.messageToAssert = messageToAssert;
             this.levelToAssert = levelToAssert;
             this.levelCalled = levelCalled;
-            this.containsMessage = false;
         }
 
-        public TestLoggerAdapter(String messageToAssert, String levelToAssert, LogLevel levelCalled, Boolean containsMessage) {
-            this.messageToAssert = messageToAssert;
-            this.levelToAssert = levelToAssert;
-            this.levelCalled = levelCalled;
+        public void setContainsMessage(Boolean containsMessage) {
             this.containsMessage = containsMessage;
         }
 
@@ -79,10 +75,11 @@ private class LoggerTest {
     }
 
     @isTest
-    private static void debugTest_WithApexClass() {
+    private static void debugTestWithApexClass() {
         final String message = 'A test Message';
         final String customLogLevel = 'debug';
-        TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG, true);
+        TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG);
+        adapter.setContainsMessage(true);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
@@ -123,10 +120,11 @@ private class LoggerTest {
     }
 
     @isTest
-    private static void errorTest_WithException() {
+    private static void errorTestWithException() {
         final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
-        TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR, true);
+        TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
+        adapter.setContainsMessage(true);
         Logger logger = new Logger(adapter);
 
         try {
@@ -138,7 +136,7 @@ private class LoggerTest {
     }
 
     @isTest
-    private static void testPageMessageLogAdapter_Error() {
+    private static void testPageMessageLogAdapterError() {
         System.Test.clearApexPageMessages();
 
         Logger logger = new Logger(new Logger.PageMessageLogAdapter());
@@ -151,7 +149,7 @@ private class LoggerTest {
     }
 
     @isTest
-    private static void testPageMessageLogAdapter_Warn() {
+    private static void testPageMessageLogAdapterWarn() {
         System.Test.clearApexPageMessages();
 
         Logger logger = new Logger(new Logger.PageMessageLogAdapter());
@@ -164,7 +162,7 @@ private class LoggerTest {
     }
 
     @isTest
-    private static void testPageMessageLogAdapter_Debug() {
+    private static void testPageMessageLogAdapterDebug() {
         System.Test.clearApexPageMessages();
 
         Logger logger = new Logger(new Logger.PageMessageLogAdapter());
@@ -177,7 +175,7 @@ private class LoggerTest {
     }
 
     @isTest
-    private static void testPageMessageLogAdapter_Info() {
+    private static void testPageMessageLogAdapterInfo() {
         System.Test.clearApexPageMessages();
 
         Logger logger = new Logger(new Logger.PageMessageLogAdapter());
