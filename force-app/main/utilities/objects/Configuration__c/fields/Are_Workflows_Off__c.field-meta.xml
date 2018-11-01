@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Are_Workflows_Off__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This setting will be used to turn off the workflow rules that are configured in the system</description>
+    <externalId>false</externalId>
+    <label>Are Workflows Off</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
