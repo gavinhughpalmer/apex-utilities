@@ -7,6 +7,7 @@ public virtual class StringBuilder {
     @testVisible private final List<String> buffer = new List<String>();
     @testVisible private String separator = '';
 
+    @SuppressWarnings('PMD.EmptyStatementBlock')
     public StringBuilder() {}
 
     public StringBuilder(Object value) {

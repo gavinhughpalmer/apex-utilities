@@ -11,6 +11,16 @@ public without sharing class ApexProfiler {
     // TODO Create custom metadata to store the percentage
     @testVisible private static final Decimal DEFAULT_WARNING_PERCENTAGE = 0.75;
     @testVisible private final Map<String, ProfileInfo> profilingInfos = new Map<String, ProfileInfo>();
+    private static final Map<String, Decimal> WARNING_PERCENTAGES = new Map<String, Decimal>();
+    
+    static {
+        for (Apex_Profiling_Warning_Limit__mdt warningLimit : [
+            SELECT DeveloperName, Warning_Level__c
+            FROM Apex_Profiling_Warning_Limit__mdt
+        ]) {
+            WARNING_PERCENTAGES.put(warningLimit.DeveloperName, warningLimit.Warning_Level__c);
+        }
+    }
 
     public ApexProfiler() {
         refreshProfiling();
@@ -77,11 +87,13 @@ public without sharing class ApexProfiler {
         }
 
         private String getReportLine() {
-            return 'Number of ' + limitName + ': ' + recorded + ' of ' + limitTotal;
+            String prefix = isBreachingWarning() ? 'Warning hit for ' : 'Number of ';
+            return prefix + limitName + ': ' + recorded + ' of ' + limitTotal;
         }
 
         private Boolean isBreachingWarning() {
-            return getPercentage() > ApexProfiler.DEFAULT_WARNING_PERCENTAGE;
+            Decimal warningPercentage = WARNING_PERCENTAGES.containsKey(limitName) ? (WARNING_PERCENTAGES.get(limitName) / 100) : DEFAULT_WARNING_PERCENTAGE;
+            return getPercentage() > warningPercentage;
         }
     }
 

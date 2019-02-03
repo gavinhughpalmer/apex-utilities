@@ -28,6 +28,7 @@ public without sharing class ConfigurationManager {
 
     private final Configuration__c configurationSetting = Configuration__c.getInstance();
 
+    @SuppressWarnings('PMD.EmptyStatementBlock')
     private ConfigurationManager() {}
 
     public Boolean areTriggersOff() {

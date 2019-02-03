@@ -5,7 +5,7 @@
 * allowing developers to easily enforce required fields accross all test classes if they are ever added
 * in the UI
 */
-public abstract class AbstractSObjectTestFactory {
+public without sharing abstract class AbstractSObjectTestFactory {
 
     public String uniqueValue = 'test';
 
@@ -24,6 +24,7 @@ public abstract class AbstractSObjectTestFactory {
             uniqueValue = uniqueValuePrefix + i;
             sObjectsToReturn.add(getSObject());
         }
+        uniqueValue = uniqueValuePrefix;
         return sObjectsToReturn;
     }
 

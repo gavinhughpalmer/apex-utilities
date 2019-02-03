@@ -5,10 +5,10 @@ public class SchemaFacade {
 
     public class InvalidDescribeException extends Exception {}
 
-    private static final SchemaFacade instance = new SchemaFacade();
+    private static final SchemaFacade INSTANCE = new SchemaFacade();
 
     public static SchemaFacade getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private Map<String, SObjectType> sObjectTypeByObjectNames = Schema.getGlobalDescribe();
@@ -16,8 +16,8 @@ public class SchemaFacade {
     private Map<String, Map<String, SObjectField>> fieldTypesByNameAndObject = new Map<String, Map<String, SObjectField>>();
     private Map<String, Map<String, DescribeFieldResult>> fieldDescribeByNameAndObject = new Map<String, Map<String, DescribeFieldResult>>();
 
-    private SchemaFacade() {
-    }
+    @SuppressWarnings('PMD.EmptyStatementBlock')
+    private SchemaFacade() {}
 
     public Boolean isValidSObject(String objectApiName) {
         return sObjectTypeByObjectNames.containsKey(objectApiName);

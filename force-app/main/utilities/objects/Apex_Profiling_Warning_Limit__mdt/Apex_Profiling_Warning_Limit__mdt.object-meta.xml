@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This metadata type will be used in the profiling of the apex code by the logging framework, the name of the record should be provided as the limit type that should be used. The format will be based on the methods from the Limits class (eg. for the Limits.getQueries, you should name the record Queries).
+The default limit will be 75%.</description>
+    <label>Apex Profiling Warning Limit</label>
+    <pluralLabel>Apex Profiling Warning Limits</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

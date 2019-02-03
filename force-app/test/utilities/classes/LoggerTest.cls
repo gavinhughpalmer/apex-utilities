@@ -2,6 +2,7 @@
  Test class for the logger
 */
 @isTest
+@SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
 private class LoggerTest {
 
     private enum LogLevel {
