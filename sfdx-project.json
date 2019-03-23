@@ -1,11 +1,20 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "apex-utilities",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "45.0",
+    "packageAliases": {
+        "apex-utilities": "0Ho1t000000blWXCAY",
+        "apex-utilities@0.1.0-1": "04t1t000003DHKNAA4",
+        "apex-utilities@0.1.0-2": "04t1t000003DHKSAA4",
+        "apex-utilities@0.1.0-3": "04t1t000003DHKXAA4"
     }
-  ],
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "43.0"
 }

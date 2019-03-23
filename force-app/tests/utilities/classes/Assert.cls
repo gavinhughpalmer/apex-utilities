@@ -1,0 +1,46 @@
+/**
+* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @version 1.0
+* @description This class is intended to extend the usage of the standard System.assert methods in salesforce,
+* the class has been anotated with @IsTest because it is untestable due to the assert statement
+*
+* 2018-06-27 : Gavin Palmer - Original
+**/
+@IsTest
+public class Assert {
+
+    public static void pageMessage(final String expectedPageMessage) {
+
+        hasPageMessages();
+
+        Boolean containsMessage = false;
+        for (ApexPages.Message message : ApexPages.getMessages()) {
+            String actualErrorMessage = message.getSummary();
+            if (actualErrorMessage.containsIgnoreCase(expectedPageMessage)) {
+                containsMessage = true;
+                break;
+            }
+        }
+        System.assert(
+            containsMessage,
+            'The message \'' + expectedPageMessage + '\' was not found in the page messages. Actual: ' + ApexPages.getMessages()
+        );
+    }
+
+    public static void hasPageMessages() {
+        System.assert(ApexPages.hasMessages(), 'There are no messages on the page');
+    }
+
+    public static void doesNotHavePageMessages() {
+        System.assert(!ApexPages.hasMessages(), 'There are messages visible on the page: ' + getPageMessagesString());
+    }
+
+    private static String getPageMessagesString() {
+        StringBuilder pageMessages = new StringBuilder();
+        pageMessages.setSeparator('\n');
+        for (ApexPages.Message message : ApexPages.getMessages()) {
+            pageMessages.append(message.getSummary());
+        }
+        return pageMessages.toString();
+    }
+}

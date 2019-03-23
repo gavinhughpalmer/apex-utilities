@@ -1,9 +1,12 @@
-/*
- The date utils class provides a wrapper around the standard date + datetime classes to allow users to set the current date from within test classes
- this can be useful for any time dependant tests
-*/
-public class DateUtils {
-
+/**
+* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @version 1.0
+* @description This class will be used for reusable date functions
+*
+* 2019-03-11 : Gavin Palmer - Original
+**/
+public without sharing class DateUtils {
+    
     private static Datetime now;
     private static Date today;
 
@@ -23,5 +26,10 @@ public class DateUtils {
     @testVisible
     private static void setToday(Date newToday) {
         today = newToday;
+    }
+    
+    public static Date toEndOfMonth(final Date input) {
+        final Integer lastDayOfMonth = Date.daysInMonth(input.year(), input.month());
+        return Date.newInstance(input.year(), input.month(), lastDayOfMonth);
     }
 }
