@@ -1,6 +1,10 @@
-/*
- This class is a secure wrapper for the sobject that obeys field level security for the user accessing it
-*/
+/**
+* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @version 1.0
+* @description This class is a secure wrapper for the sobject that obeys field level security for the user accessing it
+*
+* 2019-03-23 : Gavin Palmer - Original
+**/
 public class SecureSObjectWrapper extends SObjectWrapper {
 
     public SecureSObjectWrapper(SObject sObjectToWrap) {

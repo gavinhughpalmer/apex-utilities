@@ -5,3 +5,4 @@ setup.sh
 *.sublime-project
 *.sublime-workspace
 test-results
+package.txt

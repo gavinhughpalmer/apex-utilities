@@ -1,6 +1,10 @@
-/*
- This class is a wrapper around the SObject class to allow users to retrieve parent fields from the sobject
-*/
+/**
+* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @version 1.0
+* @description This class is a wrapper around the SObject class to allow users to retrieve parent fields from the sobject
+*
+* 2019-03-23 : Gavin Palmer - Original
+**/
 public virtual class SObjectWrapper {
 
     @testVisible private static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
