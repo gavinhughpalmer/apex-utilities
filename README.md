@@ -33,6 +33,24 @@ log.warn('A warning message');
 BulkLogObjectAdapter.writeLogs();
 ```
 
+- **ApexProfiler**:
+  - Description: This class is used by the logging framework to log out the limits in apex when limits are approched
+  - Usage: See `BulkLogObjectAdapter` for details
+- **LoggedSchedulable**:
+  - Description: This is a wrapper arround the standard `Schedulable` class which utilises the logging framework to remove the need for users to remember to call the write logs at the end of the class
+  - Usage: Works in a similar way to how `Schedulable` works
+- **LoggedQueueable**:
+  - Description:This is a wrapper arround the standard `Queueable` class which utilises the logging framework to remove the need for users to remember to call the write logs at the end of the class
+  - Usage: Works in a similar way to how `Queueable` works
+- **QueueableScheduler**:
+  - Description: This class handles scheduling of queuable classes, this extends the `LoggedQueueable` and simply takes in a queuable and will then run it
+  - Usage:
+
+```java
+QueueableScheduler scheduler = new QueueableScheduler(new MyQueueable());
+scheduler.scheduleDaily();
+```
+
 - **DateUtils**:
   - Description: This class is used as a replacement for the standard `Date.today()` and `Datetime.now()` methods, which will allow for the current date / datetime to be set dynamically in test classes, which can help for any time / date dependant actions.
   - Usage: See `DateUtilsTest` class
@@ -89,19 +107,44 @@ Account newAccount = new Account();
 newAccount.put(field.getName(), parser.parse('100'));
 ```
 
-- **AbstractSObjectTestFactory**
+- **AbstractSObjectTestFactory**:
   - Description: This is a factory class that can be used in test classes to generate sobject test data
   - Usage: see `AccountTestFactory` for details
-- **ConfigurationManager**
+- **DatabaseUtils**:
+  - Description: This class is a collection of classes that are used on the Database class
+  - Usage: See `DatabaseUtils` for details
+- **ConfigurationManager**:
   - Description: This uses a custom setting underneath that will allow callers to programatically disable triggers, workflows, process builders and validation rules through code. This requires all new configurations to include a catch as the first line so that they can all be turned off. If you are using some form of a trigger framework the catch can be added in there so that this doesn't need to be remembered by all developers when adding new triggers. The class is mostly useful for turning off automation while setting up test data in test classes so that you can fully test your classes
   - Usage:
 
-```Java
+```java
 // inside a test setup method
 ConfigurationManager.turnAutomationsOff();
 insert new Account(Name = 'Test');
 // set up some other test data
 ConfigurationManager.turnAutomationsOn();
+```
+
+- **DeletionValidator**:
+
+  - Description: This class can be used to block deletion on objects that arent covered by profile permissions (eg ContentVersion). This can then be set utilising the Configuration\_\_c custom setting
+  - Usage: A before delete trigger should be created on any object that the deletion should be blocked on with this class as the initial triggerable action.
+
+- **Trigger Framework**:
+  - Description: This trigger framework focuses around single trigger per object per action, each trigger will be in the format `{ObjectName}{Action}` (eg `AccountBeforeInsert`). Each trigger will call directly into the `TriggerHandler.performAllActions()` method passing in a list of actions you wish to perform.
+  - Usage:
+
+```java
+trigger OpportunityBeforeInsert on Opportunity (before insert) {
+    TriggerHandler.performAllActions(
+        new List<Triggerable>{
+            new MyFirstAction(),
+            new MySecondAction()
+        },
+        Trigger.new,
+        Trigger.oldMap
+    );
+}
 ```
 
 ## TODO
@@ -110,4 +153,5 @@ ConfigurationManager.turnAutomationsOn();
 - document new pieces
 - Document the installation
 - add versioning scripts, that replaces the install link
+- Add something that generates the readme based on the class headers
 - Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DHKXAA4 As an alternative, you can use the "sfdx force:package:install" command.
