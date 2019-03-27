@@ -4,6 +4,15 @@
 
 This repository contains a number of reusable components that can be used accross Apex development projects. You can pick and chose which components will be useful to your project
 
+## Installation
+
+The simplest installation option would be to install the unlocked package using one of the following links
+
+1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DHKXAA4)
+2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DHKXAA4)s
+
+Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t000003DHKXAA4`
+
 ## Components
 
 - **Assert**:
@@ -150,8 +159,5 @@ trigger OpportunityBeforeInsert on Opportunity (before insert) {
 ## TODO
 
 - log adapter for platform events
-- document new pieces
-- Document the installation
 - add versioning scripts, that replaces the install link
 - Add something that generates the readme based on the class headers
-- Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DHKXAA4 As an alternative, you can use the "sfdx force:package:install" command.
