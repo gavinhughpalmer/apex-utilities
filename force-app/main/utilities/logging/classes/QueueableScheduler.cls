@@ -2,6 +2,9 @@
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
 * @description This class will schedule a queuebale class to run by injecting the queuebale into the class
+* Usage:
+* QueueableScheduler scheduler = new QueueableScheduler(new MyQueueable());
+* scheduler.scheduleDaily();
 *
 * 2019-03-11 : Gavin Palmer - Original
 **/

@@ -26,8 +26,8 @@ private class LoggedSchedulableTest {
             FROM CronTrigger
             WHERE Id = :cronJobId
         ];
-        System.assertEquals(
-            Date.today().addDays(1), cronJob.NextFireTime, 
+        System.assert(
+            cronJob.NextFireTime <= Date.today().addDays(1), 
             'The cron job should be scheduled for tomorrow'
         );
         System.assertEquals(
@@ -43,7 +43,9 @@ private class LoggedSchedulableTest {
         LoggedSchedulable schedulable = new TestLog();
         
         // call the execute method to mock the running of the schedulable
+        Test.startTest();
         schedulable.execute(null);
+        Test.stopTest();
 
         List<Log__c> logs = [SELECT Messages__c FROM Log__c];
         System.assertEquals(

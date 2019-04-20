@@ -62,7 +62,7 @@ private class BulkLogObjectAdapterTest {
             1, loggerAdapter.logsToWrite.size(),
             'The logs should not be empty after log is called'
         );
-        Log__c logToAssert = loggerAdapter.logsToWrite[0];
+        Log_Event__e logToAssert = loggerAdapter.logsToWrite[0];
         System.assertEquals(
             logType, logToAssert.Type__c,
             'The type should match the type passed into the adapters constructor'
@@ -97,7 +97,7 @@ private class BulkLogObjectAdapterTest {
             1, loggerAdapter.logsToWrite.size(),
             'The logs should not be empty after log is called'
         );
-        Log__c logToAssert = loggerAdapter.logsToWrite[0];
+        Log_Event__e logToAssert = loggerAdapter.logsToWrite[0];
         System.assertEquals(
             logType, logToAssert.Type__c,
             'The type should match the type passed into the adapters constructor'
@@ -129,6 +129,7 @@ private class BulkLogObjectAdapterTest {
 
         loggerAdapter.log(logLevel, message);
 
+        Test.startTest();
         try {
             BulkLogObjectAdapter.writeLogs();
         } catch (Exception exceptionToHandle) {
@@ -137,6 +138,7 @@ private class BulkLogObjectAdapterTest {
                 'An error should not be thrown when writing logs, error provided: ' + exceptionToHandle.getMessage()
             );
         }
+        Test.stopTest();
 
         List<Log__c> writtenLogs = [SELECT Type__c, Level__c, Messages__c FROM Log__c];
 

@@ -17,9 +17,16 @@
 /**
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
-* @description The logger provides an extendable logging interface,
-* the actual logging option can be easily switched by the use of the LoggerAdapter inner class
+* @description The logger provides an extendable logging interface, the actual logging option can be easily switched by the use of the LoggerAdapter inner class. 
 * This class was adapted from https://github.com/blueprinthealth/sirono-common/blob/master/src/classes/Logger.cls
+* Usage:
+* Logger log = new Logger(new DebugLogAdapter());
+* log.warn('A warning is here');
+* try {
+*     insert new Account();
+* } catch (DmlException exceptionToHandle) {
+*     log.error(exceptionToHandle);
+* }
 *
 * 2018-06-27 : Gavin Palmer - Original
 **/

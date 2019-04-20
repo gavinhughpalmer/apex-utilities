@@ -1,8 +1,8 @@
 /**
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
-* @description This class is intended to extend the usage of the standard System.assert methods in salesforce,
-* the class has been anotated with @IsTest because it is untestable due to the assert statement
+* @description The assert class is a utility to help in test classes, any additional assert functions can be added in here as static methods, this class is annotated with @isTest as it is a mostly untestable due to the assert statement inside it.
+* 
 *
 * 2018-06-27 : Gavin Palmer - Original
 **/

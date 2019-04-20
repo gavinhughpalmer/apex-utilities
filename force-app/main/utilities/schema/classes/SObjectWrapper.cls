@@ -1,7 +1,11 @@
 /**
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
-* @description This class is a wrapper around the SObject class to allow users to retrieve parent fields from the sobject
+* @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
+* Usage: 
+* Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
+* SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
+* String accountName = (String) wrappedContact.get('Account.Name');
 *
 * 2019-03-23 : Gavin Palmer - Original
 **/

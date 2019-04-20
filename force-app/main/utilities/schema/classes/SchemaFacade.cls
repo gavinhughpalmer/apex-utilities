@@ -1,8 +1,13 @@
 /**
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
-* @description SchemaFacade is a wrapper around the standard schema describe api, to allow simple access and cacheing to the describe calls
-*
+* @description This is a facade for the schema describe functions to make accessing the schema much easier within apex. It is implemented as a sigleton so that it can perform some form of cacheing, this probably isn't nessisary as I think salesforce implements cacheing on the schema methods anyway, but this is just to be safe
+* SchemaFacade schema = SchemaFacade.getInstance();
+* DescribeSObjectResult accountDescribe = schema.getDescribe('Account');
+* System.debug(accountDescribe.getName());
+* 
+* DescribeFieldResult fieldDescribe = schema.getFieldDescribe('Account', 'Name');
+* System.debug(fieldDescribe.getName());
 * 2019-02-02 : Gavin Palmer - Original
 **/
 public without sharing class SchemaFacade {

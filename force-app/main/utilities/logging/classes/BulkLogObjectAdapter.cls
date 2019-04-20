@@ -1,8 +1,14 @@
 /**
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
-* @version 1.0
+* @version 2.0
 * @description The bulk log object adapter can be used to insert logs as a custom object into the database,
 * as a singleton the write logs can be called at the end of a trigger to insert the full logs into the system only once per object
+* The class has been adapted to use events so that it can still insert log objects when a transaction is rolled back, allowing it 
+* to be more robust in trigger contexts
+* Usage:
+* Logger log = new Logger(BulkLogObjectAdapter.getInstance('Integration'));
+* log.warn('A warning message');
+* BulkLogObjectAdapter.writeLogs();
 *
 * 2018-06-27 : Gavin Palmer - Original
 **/
@@ -16,7 +22,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
     private static BulkLogObjectAdapter instance = new BulkLogObjectAdapter();
 
 	private String logType;
-	@testVisible private final List<Log__c> logsToWrite = new List<Log__c>();
+	@testVisible private final List<Log_Event__e> logsToWrite = new List<Log_Event__e>();
 
     public static BulkLogObjectAdapter getInstance(String logType) {
         instance.setLogType(logType);
@@ -41,7 +47,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 
 	public override void log(Object logLevel, String message) {
 		logsToWrite.add(
-			new Log__c(
+			new Log_Event__e(
 				Type__c = logType,
 				Level__c = (String) logLevel,
 				Messages__c = message
@@ -51,7 +57,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 
 	public override void log(Object logLevel, String message, Id recordId) {
 		logsToWrite.add(
-			new Log__c(
+			new Log_Event__e(
 				Type__c = logType,
 				Level__c = (String) logLevel,
 				Messages__c = message,
@@ -77,7 +83,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 		logProfilingWarning();
 		if (!logsToWrite.isEmpty()) {
 			// if error occurs allow to surface to the user as there is nothing else we can do here
-			insert logsToWrite;
+			EventBus.publish(logsToWrite);
             logsToWrite.clear();
 		}
 	}
