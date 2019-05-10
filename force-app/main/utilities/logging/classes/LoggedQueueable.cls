@@ -11,11 +11,16 @@ public abstract inherited sharing class LoggedQueueable implements Queueable {
     protected QueueableContext context;
     // the logger adapter is called as an instance method as the static singleton variable isnt maintained in the Queueable transaction
     private final BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('Logged Queueable');
+    protected final Logger log = new Logger(loggerAdapter);
 
     public void execute(QueueableContext context) {
         BulkLogObjectAdapter.setInstance(loggerAdapter);
         this.context = context;
-        execute();
+        try {
+            execute();
+        } catch (Exception exceptionToHandle) {
+            log.error(exceptionToHandle);
+        }
         BulkLogObjectAdapter.writeLogs();
     }
 

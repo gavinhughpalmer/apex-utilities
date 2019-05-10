@@ -2,7 +2,7 @@
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
 *
-* 2019-22-02 : Gavin Palmer - Original
+* 2019-02-02 : Gavin Palmer - Original
 **/
 @IsTest
 public without sharing class UserTestFactory extends AbstractSObjectTestFactory {

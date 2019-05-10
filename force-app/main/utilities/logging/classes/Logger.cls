@@ -30,6 +30,7 @@
 *
 * 2018-06-27 : Gavin Palmer - Original
 **/
+@SuppressWarnings('PMD.ExcessivePublicCount')
 public without sharing class Logger {
 
     private static final String MESSAGE_FORMAT = 'An error has occured in the class {0} with the message: {1}';

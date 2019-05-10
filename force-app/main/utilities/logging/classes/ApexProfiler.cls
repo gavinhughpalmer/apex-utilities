@@ -54,6 +54,15 @@ public without sharing class ApexProfiler {
         addProfilingInfo(new SavepointRollbacksProfileInfo());
         addProfilingInfo(new SavepointsProfileInfo());
         addProfilingInfo(new SoslQueriesProfileInfo());
+        addOrgLimits();
+    }
+
+    private void addOrgLimits() {
+        Map<String, OrgLimit> orgLimitsMap = OrgLimits.getMap();
+        for (String limitName : orgLimitsMap.keySet()) {
+            OrgLimit orgLimit = orgLimitsMap.get(limitName);
+            addProfilingInfo(new ProfileInfo(limitName, orgLimit.getValue(), orgLimit.getLimit()));
+        }
     }
 
     private void addProfilingInfo(ProfileInfo profilingInfo) {
@@ -69,7 +78,7 @@ public without sharing class ApexProfiler {
         return report.toString();
     }
 
-    private abstract class ProfileInfo {
+    private virtual class ProfileInfo {
 
         private final String limitName;
         @testVisible private final Integer recorded;

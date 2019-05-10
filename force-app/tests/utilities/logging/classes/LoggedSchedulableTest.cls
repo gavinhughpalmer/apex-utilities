@@ -10,7 +10,6 @@ private class LoggedSchedulableTest {
     private static final String LOG_MESSAGE = 'My test message';
 
     private class TestLog extends LoggedSchedulable {
-        private final Logger log = new Logger(BulkLogObjectAdapter.getInstance('Test Log'));
         protected override void execute() {
             log.debug(LOG_MESSAGE);
         }
