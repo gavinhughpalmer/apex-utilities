@@ -35,25 +35,25 @@ public without sharing class ApexProfiler {
     }
 
     public void refreshProfiling() {
-        addProfilingInfo(new AggregateQueriesProfileInfo());
-        addProfilingInfo(new CalloutsProfileInfo());
-        addProfilingInfo(new CpuTimeProfileInfo());
-        addProfilingInfo(new DatabaseTimeProfileInfo());
-        addProfilingInfo(new DmlRowsProfileInfo());
-        addProfilingInfo(new DmlStatementsProfileInfo());
-        addProfilingInfo(new EmailInvocationsProfileInfo());
-        addProfilingInfo(new FindSimilarCallsProfileInfo());
-        addProfilingInfo(new FutureCallsProfileInfo());
-        addProfilingInfo(new HeapSizeProfileInfo());
-        addProfilingInfo(new MobilePushApexCallsProfileInfo());
-        addProfilingInfo(new QueriesProfileInfo());
-        addProfilingInfo(new QueryLocatorRowsProfileInfo());
-        addProfilingInfo(new QueryRowsProfileInfo());
-        addProfilingInfo(new QueueableJobsProfileInfo());
-        addProfilingInfo(new RunAsProfileInfo());
-        addProfilingInfo(new SavepointRollbacksProfileInfo());
-        addProfilingInfo(new SavepointsProfileInfo());
-        addProfilingInfo(new SoslQueriesProfileInfo());
+        addProfilingInfo(new ProfileInfo('AggregateQueries', Limits.getAggregateQueries(), Limits.getLimitAggregateQueries()));
+        addProfilingInfo(new ProfileInfo('Callouts', Limits.getCallouts(), Limits.getLimitCallouts()));
+        addProfilingInfo(new ProfileInfo('CpuTime', Limits.getCpuTime(), Limits.getLimitCpuTime()));
+        addProfilingInfo(new ProfileInfo('DatabaseTime', Limits.getDatabaseTime(), Limits.getLimitDatabaseTime()));
+        addProfilingInfo(new ProfileInfo('DmlRows', Limits.getDmlRows(), Limits.getLimitDmlRows()));
+        addProfilingInfo(new ProfileInfo('DmlStatements', Limits.getDmlStatements(), Limits.getLimitDmlStatements()));
+        addProfilingInfo(new ProfileInfo('EmailInvocations', Limits.getEmailInvocations(), Limits.getLimitEmailInvocations()));
+        addProfilingInfo(new ProfileInfo('FindSimilarCalls', Limits.getFindSimilarCalls(), Limits.getLimitFindSimilarCalls()));
+        addProfilingInfo(new ProfileInfo('FutureCalls', Limits.getFutureCalls(), Limits.getLimitFutureCalls()));
+        addProfilingInfo(new ProfileInfo('HeapSize', Limits.getHeapSize(), Limits.getLimitHeapSize()));
+        addProfilingInfo(new ProfileInfo('MobilePushApexCalls', Limits.getMobilePushApexCalls(), Limits.getLimitMobilePushApexCalls()));
+        addProfilingInfo(new ProfileInfo('Queries', Limits.getQueries(), Limits.getLimitQueries()));
+        addProfilingInfo(new ProfileInfo('QueryLocatorRows', Limits.getQueryLocatorRows(), Limits.getLimitQueryLocatorRows()));
+        addProfilingInfo(new ProfileInfo('QueryRows', Limits.getQueryRows(), Limits.getLimitQueryRows()));
+        addProfilingInfo(new ProfileInfo('QueueableJobs', Limits.getQueueableJobs(), Limits.getLimitQueueableJobs()));
+        addProfilingInfo(new ProfileInfo('RunAs', Limits.getRunAs(), Limits.getLimitRunAs()));
+        addProfilingInfo(new ProfileInfo('SavepointRollbacks', Limits.getSavepointRollbacks(), Limits.getLimitSavepointRollbacks()));
+        addProfilingInfo(new ProfileInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints()));
+        addProfilingInfo(new ProfileInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries()));
         addOrgLimits();
     }
 
@@ -78,7 +78,7 @@ public without sharing class ApexProfiler {
         return report.toString();
     }
 
-    private virtual class ProfileInfo {
+    private class ProfileInfo {
 
         private final String limitName;
         @testVisible private final Integer recorded;
@@ -102,102 +102,6 @@ public without sharing class ApexProfiler {
         private Boolean isBreachingWarning() {
             Decimal warningPercentage = WARNING_PERCENTAGES.containsKey(limitName) ? (WARNING_PERCENTAGES.get(limitName) / 100) : DEFAULT_WARNING_PERCENTAGE;
             return getPercentage() > warningPercentage;
-        }
-    }
-
-    private class AggregateQueriesProfileInfo extends ProfileInfo {
-        private AggregateQueriesProfileInfo() {
-            super('AggregateQueries', Limits.getAggregateQueries(), Limits.getLimitAggregateQueries());
-        }
-    }
-    private class CalloutsProfileInfo extends ProfileInfo {
-        private CalloutsProfileInfo() {
-            super('Callouts', Limits.getCallouts(), Limits.getLimitCallouts());
-        }
-    }
-    private class CpuTimeProfileInfo extends ProfileInfo {
-        private CpuTimeProfileInfo() {
-            super('CpuTime', Limits.getCpuTime(), Limits.getLimitCpuTime());
-        }
-    }
-    private class DatabaseTimeProfileInfo extends ProfileInfo {
-        private DatabaseTimeProfileInfo() {
-            super('DatabaseTime', Limits.getDatabaseTime(), Limits.getLimitDatabaseTime());
-        }
-    }
-    private class DmlRowsProfileInfo extends ProfileInfo {
-        private DmlRowsProfileInfo() {
-            super('DmlRows', Limits.getDmlRows(), Limits.getLimitDmlRows());
-        }
-    }
-    private class DmlStatementsProfileInfo extends ProfileInfo {
-        private DmlStatementsProfileInfo() {
-            super('DmlStatements', Limits.getDmlStatements(), Limits.getLimitDmlStatements());
-        }
-    }
-    private class EmailInvocationsProfileInfo extends ProfileInfo {
-        private EmailInvocationsProfileInfo() {
-            super('EmailInvocations', Limits.getEmailInvocations(), Limits.getLimitEmailInvocations());
-        }
-    }
-    private class FindSimilarCallsProfileInfo extends ProfileInfo {
-        private FindSimilarCallsProfileInfo() {
-            super('FindSimilarCalls', Limits.getFindSimilarCalls(), Limits.getLimitFindSimilarCalls());
-        }
-    }
-    private class FutureCallsProfileInfo extends ProfileInfo {
-        private FutureCallsProfileInfo() {
-            super('FutureCalls', Limits.getFutureCalls(), Limits.getLimitFutureCalls());
-        }
-    }
-    private class HeapSizeProfileInfo extends ProfileInfo {
-        private HeapSizeProfileInfo() {
-            super('HeapSize', Limits.getHeapSize(), Limits.getLimitHeapSize());
-        }
-    }
-    private class MobilePushApexCallsProfileInfo extends ProfileInfo {
-        private MobilePushApexCallsProfileInfo() {
-            super('MobilePushApexCalls', Limits.getMobilePushApexCalls(), Limits.getLimitMobilePushApexCalls());
-        }
-    }
-    private class QueriesProfileInfo extends ProfileInfo {
-        private QueriesProfileInfo() {
-            super('Queries', Limits.getQueries(), Limits.getLimitQueries());
-        }
-    }
-    private class QueryLocatorRowsProfileInfo extends ProfileInfo {
-        private QueryLocatorRowsProfileInfo() {
-            super('QueryLocatorRows', Limits.getQueryLocatorRows(), Limits.getLimitQueryLocatorRows());
-        }
-    }
-    private class QueryRowsProfileInfo extends ProfileInfo {
-        private QueryRowsProfileInfo() {
-            super('QueryRows', Limits.getQueryRows(), Limits.getLimitQueryRows());
-        }
-    }
-    private class QueueableJobsProfileInfo extends ProfileInfo {
-        private QueueableJobsProfileInfo() {
-            super('QueueableJobs', Limits.getQueueableJobs(), Limits.getLimitQueueableJobs());
-        }
-    }
-    private class RunAsProfileInfo extends ProfileInfo {
-        private RunAsProfileInfo() {
-            super('RunAs', Limits.getRunAs(), Limits.getLimitRunAs());
-        }
-    }
-    private class SavepointRollbacksProfileInfo extends ProfileInfo {
-        private SavepointRollbacksProfileInfo() {
-            super('SavepointRollbacks', Limits.getSavepointRollbacks(), Limits.getLimitSavepointRollbacks());
-        }
-    }
-    private class SavepointsProfileInfo extends ProfileInfo {
-        private SavepointsProfileInfo() {
-            super('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints());
-        }
-    }
-    private class SoslQueriesProfileInfo extends ProfileInfo {
-        private SoslQueriesProfileInfo() {
-            super('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries());
         }
     }
 }

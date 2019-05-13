@@ -8,10 +8,10 @@ This repository contains a number of reusable components that can be used accros
 
 The simplest installation option would be to install the unlocked package using one of the following links
 
-1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DIMqAAO)
-2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DIMqAAO)
+1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DINjAAO)
+2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DINjAAO)
 
-Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t000003DIMqAAO`
+Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t000003DINjAAO`
 
 ## Components
 
