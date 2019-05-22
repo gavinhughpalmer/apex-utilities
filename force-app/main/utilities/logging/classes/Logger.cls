@@ -99,10 +99,7 @@ public without sharing class Logger {
         loggerAdapter.log(
             loggerAdapter.errorLevel(),
             getFullMessage(
-                String.format(
-                    '{0}\n{1}',
-                    new List<String>{exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()}
-                )
+                exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()
             )
         );
     }
@@ -111,22 +108,36 @@ public without sharing class Logger {
         loggerAdapter.log(
             loggerAdapter.errorLevel(),
             getFullMessage(
-                String.format(
-                    '{0}\n{1}',
-                    new List<String>{exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()}
-                )
+                exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()
             ), 
             recordId
         );
     }
 
-    private String getFullMessage(String message) {
+    private String getFullMessage(String message, String stackTraceString) {
         if (apexClass != null) {
             message = String.format(
                 MESSAGE_FORMAT, new List<String>{apexClass.getName(), message}
             );
         }
-        return message;
+        return String.format(
+            '{0}\nStack trace:\n{1}',
+            new List<String>{message, stackTraceString}
+        );
+    }
+
+    private String getFullMessage(String message) {
+        return getFullMessage(
+            message, getStackTraceString()
+        );
+    }
+
+    private String getStackTraceString() {
+        List<String> stack = (new DmlException()).getStackTraceString().split('\n');
+        while (stack[0].startsWith('Class.Logger.')) {
+            stack.remove(0);
+        }
+        return String.join(stack, '\n');
     }
 
     /**
