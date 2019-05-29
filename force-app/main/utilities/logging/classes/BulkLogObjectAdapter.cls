@@ -22,7 +22,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
     private static BulkLogObjectAdapter instance = new BulkLogObjectAdapter();
 
 	private String logType;
-	@testVisible private final List<Log_Event__e> logsToWrite = new List<Log_Event__e>();
+	@testVisible private final Map<String, List<Log_Event__e>> logsToWrite = new Map<String, List<Log_Event__e>>();
 
     public static BulkLogObjectAdapter getInstance(String logType) {
         instance.setLogType(logType);
@@ -46,24 +46,20 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 	}
 
 	public override void log(Object logLevel, String message) {
-		logsToWrite.add(
-			new Log_Event__e(
-				Type__c = logType,
-				Level__c = (String) logLevel,
-				Messages__c = message
-			)
-		);
+		log(logLevel, message, null);
 	}
 
 	public override void log(Object logLevel, String message, Id recordId) {
-		logsToWrite.add(
-			new Log_Event__e(
-				Type__c = logType,
-				Level__c = (String) logLevel,
-				Messages__c = message,
-				Record_Id__c = recordId
-			)
+		Log_Event__e logEvent = new Log_Event__e(
+			Type__c = logType,
+			Level__c = (String) logLevel,
+			Messages__c = message,
+			Record_Id__c = recordId
 		);
+		if (!logsToWrite.containsKey(logEvent.Level__c)) {
+			logsToWrite.put(logEvent.Level__c, new List<Log_Event__e>());
+		}
+		logsToWrite.get(logEvent.Level__c).add(logEvent);
 	}
 
 	public override Object errorLevel() {
@@ -83,9 +79,17 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 		logProfilingWarning();
 		if (!logsToWrite.isEmpty()) {
 			// if error occurs allow to surface to the user as there is nothing else we can do here
-			EventBus.publish(logsToWrite);
+			EventBus.publish(getAllLogsToWrite());
             logsToWrite.clear();
 		}
+	}
+
+	public List<Log_Event__e> getAllLogsToWrite() {
+		List<Log_Event__e> logsToReturn = new List<Log_Event__e>();
+		for (Logging_Level__mdt loggingLevel : [SELECT DeveloperName FROM Logging_Level__mdt]) {
+			logsToReturn.addAll(logsToWrite.get(loggingLevel.DeveloperName));
+		}
+		return logsToReturn;
 	}
 
 	private void logProfilingWarning() {

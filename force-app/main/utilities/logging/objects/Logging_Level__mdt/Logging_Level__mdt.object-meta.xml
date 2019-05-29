@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>The logging levels can be used to determine which levels of log records will be written into the custom logging object. The name of the metadata type should be set to one of the following (&#39;Error&#39;, &#39;Warning&#39;, &#39;Information&#39; or &#39;Debug&#39;), if a metadata type exists for one of these types the logs will be written into the logging object.</description>
+    <label>Logging Level</label>
+    <pluralLabel>Logging Levels</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>
