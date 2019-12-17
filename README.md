@@ -8,10 +8,10 @@ This repository contains a number of reusable components that can be used accros
 
 The simplest installation option would be to install the unlocked package using one of the following links
 
-1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DIgKAAW)
-2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t000003DIgKAAW)
+1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t0000034uhQAAQ)
+2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t0000034uhQAAQ)
 
-Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t000003DIgKAAW`
+Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t0000034uhQAAQ`
 
 ## Components
 
@@ -160,3 +160,4 @@ trigger OpportunityBeforeInsert on Opportunity (before insert) {
 
 - add versioning scripts, that replaces the install link
 - Add something that generates the readme based on the class headers
+- add build tasks to push of feature branches and creates the package before deploying to master

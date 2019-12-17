@@ -52,17 +52,17 @@ private class BulkLogObjectAdapterTest {
         BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
 
         System.assert(
-            loggerAdapter.logsToWrite.isEmpty(),
+            loggerAdapter.logsToWrite.get(logLevel).isEmpty(),
             'The logs should be empty before log is called'
         );
 
         loggerAdapter.log(logLevel, message);
 
         System.assertEquals(
-            1, loggerAdapter.logsToWrite.size(),
+            1, loggerAdapter.logsToWrite.get(logLevel).size(),
             'The logs should not be empty after log is called'
         );
-        Log_Event__e logToAssert = loggerAdapter.logsToWrite[0];
+        Log_Event__e logToAssert = loggerAdapter.logsToWrite.get(logLevel)[0];
         System.assertEquals(
             logType, logToAssert.Type__c,
             'The type should match the type passed into the adapters constructor'
@@ -87,17 +87,17 @@ private class BulkLogObjectAdapterTest {
         BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
 
         System.assert(
-            loggerAdapter.logsToWrite.isEmpty(),
+            loggerAdapter.logsToWrite.get(logLevel).isEmpty(),
             'The logs should be empty before log is called'
         );
 
         loggerAdapter.log(logLevel, message, testAccount.Id);
 
         System.assertEquals(
-            1, loggerAdapter.logsToWrite.size(),
+            1, loggerAdapter.logsToWrite.get(logLevel).size(),
             'The logs should not be empty after log is called'
         );
-        Log_Event__e logToAssert = loggerAdapter.logsToWrite[0];
+        Log_Event__e logToAssert = loggerAdapter.logsToWrite.get(logLevel)[0];
         System.assertEquals(
             logType, logToAssert.Type__c,
             'The type should match the type passed into the adapters constructor'
