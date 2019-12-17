@@ -8,10 +8,10 @@ This repository contains a number of reusable components that can be used accros
 
 The simplest installation option would be to install the unlocked package using one of the following links
 
-1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t0000034uhQAAQ)
-2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t0000034uhQAAQ)
+1. [Production](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t1t0000034uhVAAQ)
+2. [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1t0000034uhVAAQ)
 
-Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t0000034uhQAAQ`
+Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1t0000034uhVAAQ`
 
 ## Components
 
@@ -154,6 +154,14 @@ trigger OpportunityBeforeInsert on Opportunity (before insert) {
         Trigger.oldMap
     );
 }
+```
+- **SObjectRecordTypes**
+  - Description: This class can be used as an interface with interacting with an SObjects record types, this is essentially abstracting away some of the details that you can get to from the Schema classes.
+  - Usage:
+
+```java
+SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
+Id bigSaleRecordTypeId = opportunityRecordTypes.getRecordTypeId('Big_Sale')
 ```
 
 ## TODO

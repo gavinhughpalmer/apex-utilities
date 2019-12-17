@@ -1,7 +1,7 @@
 /**
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
-* @description This class is used to logout the profiling information of the current running transaction. 
+* @description This class is used to logout the profiling information of the current running transaction.
 *  This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
 *
 * 2019-02-02 : Gavin Palmer - Original
@@ -11,7 +11,7 @@ public without sharing class ApexProfiler {
     @testVisible private static final Decimal DEFAULT_WARNING_PERCENTAGE = 0.75;
     @testVisible private final Map<String, ProfileInfo> profilingInfos = new Map<String, ProfileInfo>();
     private static final Map<String, Decimal> WARNING_PERCENTAGES = new Map<String, Decimal>();
-    
+
     static {
         for (Apex_Profiling_Warning_Limit__mdt warningLimit : [
             SELECT DeveloperName, Warning_Level__c
@@ -54,7 +54,7 @@ public without sharing class ApexProfiler {
         addProfilingInfo(new ProfileInfo('SavepointRollbacks', Limits.getSavepointRollbacks(), Limits.getLimitSavepointRollbacks()));
         addProfilingInfo(new ProfileInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints()));
         addProfilingInfo(new ProfileInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries()));
-        addOrgLimits();
+        // addOrgLimits();
     }
 
     private void addOrgLimits() {

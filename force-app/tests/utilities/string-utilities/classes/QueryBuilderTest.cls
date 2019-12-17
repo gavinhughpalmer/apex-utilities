@@ -1,0 +1,23 @@
+/**
+ * @author Gavin Palmer <gavin.palmer@cloudshiftgroup.com>
+ * @date 2019-06-04
+ * @group CloudShiftGroup
+ *
+ * Date          author             Change Description
+ * -----------------------------------------------------------------------------------
+ * 04/06/2019    Gavin Palmer       Created Class
+ */
+@IsTest
+private class QueryBuilderTest {
+    @IsTest
+    private static void buildQueryTest() {
+        QueryBuilder accountQuery = new QueryBuilder('Account');
+        accountQuery.field('Id');
+
+        System.assertEquals(
+            'select id from account',
+            accountQuery.toString().toLowerCase(),
+            'The query has not been generated correctly'
+        );
+    }
+}
