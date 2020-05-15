@@ -26,7 +26,7 @@ public abstract inherited sharing class LoggedQueueable implements Queueable {
 
     protected abstract void execute();
 
-    public Id run() {
+    public Id enqueue() {
         return System.enqueueJob(this);
     }
 }

@@ -18,7 +18,7 @@ public inherited sharing class QueueableScheduler extends LoggedSchedulable {
     }
 
     public override void execute() {
-        runningQueueableId = queueableToRun.run();
+        runningQueueableId = queueableToRun.enqueue();
     }
 
     public Id getRunningQueueableId() {

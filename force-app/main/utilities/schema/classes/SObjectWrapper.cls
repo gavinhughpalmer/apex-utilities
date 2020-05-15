@@ -2,7 +2,7 @@
 * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
 * @version 1.0
 * @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
-* Usage: 
+* Usage:
 * Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
 * SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
 * String accountName = (String) wrappedContact.get('Account.Name');
@@ -25,7 +25,7 @@ public virtual class SObjectWrapper {
 
     public virtual Object get(String fieldApiName) {
         if (isRelatedField(fieldApiName)) {
-            return getParentField(fieldApiName);
+            return getParentField(wrappedSObject, fieldApiName);
         }
         return wrappedSObject.get(fieldApiName);
     }
@@ -38,11 +38,10 @@ public virtual class SObjectWrapper {
         return fieldApiName.contains('.');
     }
 
-    // TODO implement a recursive call to retrieve multiple parent fields
-    private Object getParentField(String fieldApiName) {
+    private static Object getParentField(SObject childSObject, String fieldApiName) {
         RelationshipField field = new RelationshipField(fieldApiName);
-        SObject parentSObject = wrappedSObject.getSobject(field.relationshipApiName);
-        return parentSObject == null ? null : parentSObject.get(field.relatedFieldName);
+        SObject parentSObject = childSObject.getSobject(field.relationshipApiName);
+        return isRelatedField(field.relatedFieldName) ? getParentField(parentSObject, field.relatedFieldName) : parentSObject.get(field.relatedFieldName);
     }
 
     public DescribeFieldResult describe(String fieldApiName) {
@@ -83,7 +82,7 @@ public virtual class SObjectWrapper {
 
         public RelationshipField(String fieldApiName) {
             validateParentField(fieldApiName);
-            final List<String> parentRelationshipAndField = fieldApiName.split('\\.');
+            final List<String> parentRelationshipAndField = fieldApiName.split('\\.', 2);
             relationshipApiName = parentRelationshipAndField[0];
             relatedFieldName = parentRelationshipAndField[1];
         }

@@ -39,7 +39,12 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
     }
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
-	private BulkLogObjectAdapter() {}
+	private BulkLogObjectAdapter() {
+		logsToWrite.put(ERROR, new List<Log_Event__e>());
+		logsToWrite.put(WARNING, new List<Log_Event__e>());
+		logsToWrite.put(INFO, new List<Log_Event__e>());
+		logsToWrite.put(DEBUG, new List<Log_Event__e>());
+	}
 
 	public void setLogType(String logType) {
 		this.logType = logType;

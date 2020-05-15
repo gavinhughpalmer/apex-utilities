@@ -30,7 +30,7 @@ public class DisplayTypeParser implements Parsable {
     public Object parse(String value) {
         return parser.parse(value);
     }
-    
+
     private abstract class Parser {
         public Object parse(String value) {
             Object parsedValue;
@@ -41,27 +41,27 @@ public class DisplayTypeParser implements Parsable {
         }
         protected abstract Object parseSafe(String value);
     }
-    private class BooleanParser extends Parser {   
+    private class BooleanParser extends Parser {
         protected override Object parseSafe(String value) {
             return Boolean.valueOf(value);
         }
     }
-    private class DecimalParser extends Parser {   
+    private class DecimalParser extends Parser {
         protected override Object parseSafe(String value) {
             return Decimal.valueOf(value);
         }
     }
-    private class DateParser extends Parser {   
+    private class DateParser extends Parser {
         protected override Object parseSafe(String value) {
             return Date.valueOf(value);
         }
     }
-    private class DatetimeParser extends Parser {   
+    private class DatetimeParser extends Parser {
         protected override Object parseSafe(String value) {
             return Datetime.valueOf(value);
         }
     }
-    private class IdParser extends Parser {   
+    private class IdParser extends Parser {
         protected override Object parseSafe(String value) {
             return Id.valueOf(value);
         }

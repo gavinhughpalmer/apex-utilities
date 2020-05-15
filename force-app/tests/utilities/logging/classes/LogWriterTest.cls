@@ -6,11 +6,11 @@
 **/
 @IsTest
 private class LogWriterTest {
-    
+
     @IsTest
     private static void testAction() {
         Log_Event__e logEvent = new Log_Event__e(
-            Level__c = 'test1',
+            Level__c = 'Error',
             Messages__c = 'test2',
             Record_Id__c = 'test3',
             Type__c = 'test4'
@@ -28,11 +28,11 @@ private class LogWriterTest {
         ];
 
         System.assertEquals(
-            1, createdLogs.size(), 
+            1, createdLogs.size(),
             'A single log should have been created during the conversion process'
         );
         System.assertEquals(
-            logEvent.Level__c, createdLogs[0].Level__c, 
+            logEvent.Level__c, createdLogs[0].Level__c,
             'The level field has not been converted correctly'
         );
         System.assertEquals(
@@ -47,5 +47,5 @@ private class LogWriterTest {
             logEvent.Type__c, createdLogs[0].Type__c,
             'The type field has not been converted correctly'
         );
-    } 
+    }
 }

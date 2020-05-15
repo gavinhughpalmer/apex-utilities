@@ -16,10 +16,16 @@ public virtual class QueryBuilder {
     protected final String objectName;
     private final Set<String> fieldsToQuery = new Set<String>();
     protected final SchemaFacade schema = SchemaFacade.getInstance();
+    protected final DescribeSObjectResult objectDescribe;
 
-    public QueryBuilder(String objectName) {
+    protected QueryBuilder(String objectName) {
         validateObjectName(objectName);
         this.objectName = objectName;
+        objectDescribe = schema.getDescribe(objectName);
+    }
+
+    public static QueryBuilder fromObject(String objectName) {
+        return new QueryBuilder(objectName);
     }
 
     private void validateObjectName(String objectName) {
@@ -28,8 +34,38 @@ public virtual class QueryBuilder {
         }
     }
 
-    public QueryBuilder field(String field) {
+    public QueryBuilder selectField(String field) {
         fieldsToQuery.add(field.toLowerCase());
+        return this;
+    }
+
+    public QueryBuilder selectFields(List<String> fields) {
+        for (String field : fields) {
+            selectField(field);
+        }
+        return this;
+    }
+
+    public QueryBuilder selectFieldSet(String fieldSetName) {
+        for (Schema.FieldSetMember member : objectDescribe.FieldSets.getMap().get(fieldSetName).getFields()) {
+            selectField(member.getFieldPath());
+        }
+        return this;
+    }
+
+    public QueryBuilder selectAllFields() {
+        for (String field : objectDescribe.fields.getMap().keySet()) {
+            selectField(field);
+        }
+        return this;
+    }
+
+    public QueryBuilder selectAllAccessibleFields() {
+        for (Schema.SObjectField field : objectDescribe.fields.getMap().values()) {
+            if (field.getDescribe().isAccessible()) {
+                selectField(field.getDescribe().getName());
+            }
+        }
         return this;
     }
 

@@ -21,16 +21,11 @@ private class LoggerTest {
         private final String messageToAssert;
         private final String levelToAssert;
         private final LogLevel levelCalled;
-        private Boolean containsMessage = false;
 
         public TestLoggerAdapter(String messageToAssert, String levelToAssert, LogLevel levelCalled) {
             this.messageToAssert = messageToAssert;
             this.levelToAssert = levelToAssert;
             this.levelCalled = levelCalled;
-        }
-
-        public void setContainsMessage(Boolean containsMessage) {
-            this.containsMessage = containsMessage;
         }
 
         public override void log(Object logLevel, String message) {
@@ -42,17 +37,10 @@ private class LoggerTest {
                 (String) logLevel,
                 'The log level should be the same as what was constructed in the adapter'
             );
-            if (containsMessage) {
-                System.assert(
-                    message.containsIgnoreCase(messageToAssert),
-                    'The provided error, ' + messageToAssert + ' should be contained within the exception message: ' + message
-                );
-            } else {
-                System.assertEquals(
-                    messageToAssert, message,
-                    'The message should be the same as the one passed in the constructor'
-                );
-            }
+            System.assert(
+                message.containsIgnoreCase(messageToAssert),
+                'The provided error, ' + messageToAssert + ' should be contained within the exception message: ' + message
+            );
         }
         public override Object errorLevel() {
             return levelCalled == LogLevel.ERROR ? levelToAssert : '';
@@ -87,13 +75,11 @@ private class LoggerTest {
         Account testAccount = (Account) accountFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         logger.debug(message, testAccount.Id);
 
         adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.DEBUG);
-        adapter.setContainsMessage(true);
         logger = new Logger(LoggerTest.class, adapter);
 
         logger.debug(message, testAccount.Id);
@@ -104,7 +90,6 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'debug';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
@@ -130,13 +115,11 @@ private class LoggerTest {
         Account testAccount = (Account) accountFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.INFO);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         logger.info(message, testAccount.Id);
 
         adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.INFO);
-        adapter.setContainsMessage(true);
         logger = new Logger(LoggerTest.class, adapter);
 
         logger.info(message, testAccount.Id);
@@ -161,13 +144,11 @@ private class LoggerTest {
         Account testAccount = (Account) accountFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.WARNING);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         logger.warn(message, testAccount.Id);
 
         adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.WARNING);
-        adapter.setContainsMessage(true);
         logger = new Logger(LoggerTest.class, adapter);
 
         logger.warn(message, testAccount.Id);
@@ -192,13 +173,11 @@ private class LoggerTest {
         Account testAccount = (Account) accountFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         logger.error(message, testAccount.Id);
 
         adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.ERROR);
-        adapter.setContainsMessage(true);
         logger = new Logger(LoggerTest.class, adapter);
 
         logger.error(message, testAccount.Id);
@@ -209,7 +188,6 @@ private class LoggerTest {
         final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(adapter);
 
         try {
@@ -227,7 +205,6 @@ private class LoggerTest {
         final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.ERROR);
-        adapter.setContainsMessage(true);
         Logger logger = new Logger(adapter);
 
         try {

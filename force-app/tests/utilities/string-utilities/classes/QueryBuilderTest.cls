@@ -11,8 +11,7 @@
 private class QueryBuilderTest {
     @IsTest
     private static void buildQueryTest() {
-        QueryBuilder accountQuery = new QueryBuilder('Account');
-        accountQuery.field('Id');
+        QueryBuilder accountQuery = QueryBuilder.fromObject('Account').selectField('Id');
 
         System.assertEquals(
             'select id from account',

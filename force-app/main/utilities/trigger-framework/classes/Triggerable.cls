@@ -13,6 +13,6 @@ public abstract class Triggerable {
     public abstract void register(SObjectTriggerWrapper wrappedSObject);
     @SuppressWarnings('PMD.EmptyStatementBlock')
     public virtual void performAction() {
-        // This allows us to have 
+        // This allows us to have not implement if not nessisary on extention classes, as without this there were a lot of validation like classes that would have an empty code block
     }
 }

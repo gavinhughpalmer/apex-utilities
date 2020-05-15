@@ -33,8 +33,23 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    private static void getTestRelatedObjectFieldRecursive() {
+
+        final String testUserLastName = 'Test Name';
+        User testUser = new User(LastName = testUserLastName);
+        Account testAccount = new Account(Owner = testUser);
+        Contact testContact = new Contact(Account = testAccount);
+
+        SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
+        System.assertEquals(
+            testUserLastName, wrappedTestContact.get('Account.Owner.LastName'),
+            'The name should be returned from the sobject wrapper when get is called with the relationship field'
+        );
+    }
+
+    @isTest
     private static void getRelatedObjectNameTestCustomObject() {
-        // TODO Write a test for an object that has a lookup to a standard object to get 100% coverage
+        // feel like a test should be written to test the lookup to a standard object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
     }
 
     @isTest

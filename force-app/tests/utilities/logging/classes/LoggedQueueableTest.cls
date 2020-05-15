@@ -12,24 +12,21 @@ private class LoggedQueueableTest {
 
     private class TestLog extends LoggedQueueable {
         protected override void execute() {
-            log.debug(LOG_MESSAGE);
+            log.error(LOG_MESSAGE);
         }
     }
-    
+
     @IsTest
     private static void runTestLogWritten() {
         LoggedQueueable testQueueable = new TestLog();
         Test.startTest();
-        testQueueable.run();
+        testQueueable.enqueue();
         Test.stopTest();
         List<Log__c> logs = [SELECT Messages__c FROM Log__c];
         System.assertEquals(
-            1, logs.size(), 
+            1, logs.size(),
             'A message should have been written when the queueable is ran'
         );
-        System.assertEquals(
-            LOG_MESSAGE, logs[0].Messages__c, 
-            'The correct message has not been written into the log'
-        );
+        Assert.contains(logs[0].Messages__c, LOG_MESSAGE);
     }
 }

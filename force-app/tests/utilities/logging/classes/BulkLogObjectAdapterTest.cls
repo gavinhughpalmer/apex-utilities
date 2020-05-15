@@ -47,7 +47,7 @@ private class BulkLogObjectAdapterTest {
     @IsTest
     private static void logTest() {
         final String logType = 'Test Log Type';
-        final String logLevel = 'Test Log Level';
+        final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
         BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
 
@@ -82,7 +82,7 @@ private class BulkLogObjectAdapterTest {
         AccountTestFactory accountFactory = new AccountTestFactory();
         Account testAccount = (Account) accountFactory.insertSObject();
         final String logType = 'Test Log Type';
-        final String logLevel = 'Test Log Level';
+        final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
         BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
 
