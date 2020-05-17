@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This class is used to logout the profiling information of the current running transaction.
 *  This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%

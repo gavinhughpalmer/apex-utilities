@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This class wraps the queueable interface with the logging framework so that developers do not 
 * have to worry about writing the logs after the Logger methods are called. 

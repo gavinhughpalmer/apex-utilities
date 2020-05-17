@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This class will be used to manage the configuration settings in the system.
 *  it is essentially wrapping the custom setting to remove code dependancy on the custom setting

@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This class will be used to validate the deletion of objects which are not covered by profiles
 *

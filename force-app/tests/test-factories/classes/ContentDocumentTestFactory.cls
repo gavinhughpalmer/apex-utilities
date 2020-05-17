@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 *
 * 2018-10-23 : Gavin Palmer - Original

@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This trigger handler will be called from each trigger with a list of triggerable actions to perform,
 * the class also implements the Triggerable interface so that logical groupings of triggerables can be made and reused

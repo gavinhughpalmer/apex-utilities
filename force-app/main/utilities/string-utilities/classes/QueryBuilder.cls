@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer <gavin.palmer@cloudshiftgroup.com>
+ * @author Gavin Palmer <gavinhughpalmer@gmail.com>
  * @date 2019-06-04
  * @group CloudShiftGroup
  * @description This class can be used to build up dynamic soql queries

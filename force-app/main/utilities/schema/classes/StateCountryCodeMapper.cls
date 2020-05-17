@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
  * @version 1.0
  * @description This class is used to get around a salesforce bug where the state/country field is not updated in a trigger, rather the state code is.
  * Other code in the org has been written to rely on the state/country field rather than the code

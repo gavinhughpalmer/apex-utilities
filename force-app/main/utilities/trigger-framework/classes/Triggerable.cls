@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This interface will be implemented by any action that is used in a trigger,
 * this allows each trigger to loop over the set of records once to complete all the actions in the system.

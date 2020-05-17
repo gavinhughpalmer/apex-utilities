@@ -1,5 +1,5 @@
 /**
-* @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+* @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 * @description This factory class will be used as a base for any SObject creation in test classes, 
 *    this pattern will define attributes that can be set in the test classes. 

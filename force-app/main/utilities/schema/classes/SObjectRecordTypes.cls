@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
  * @version 1.0
  * @description Utility class to help make interacting with an objects record types slightly easier eg cal call
  * SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
