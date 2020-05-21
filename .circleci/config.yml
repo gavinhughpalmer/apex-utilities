@@ -1,17 +1,18 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 jobs:
-  build:
-    branches:
-      only:
-        - /feature\/.*/
+  run-analysis:
     docker:
-      - image: salesforce/salesforcedx:7.50.0-full
+      - image: ghpalmer/staticanalysis
     steps:
+      - checkout
       - run:
           name: Run Static Analysis
           command: |
             ./build/static-analysis/run-analysis.sh
+  build:
+    docker:
+      - image: salesforce/salesforcedx:7.50.0-full
     steps:
       - checkout
       - run:
@@ -19,15 +20,25 @@ jobs:
           command: |
             ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
             ./build/sfdx/run-tests.sh
-  package:
-    branches:
-      only:
-        - master
-    docker:
-      - image: salesforce/salesforcedx:7.50.0-full
-    steps:
-      - run:
-          name: Create Package
-          command: |
-            ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
-            # Create unlocked package version
+      - store_test_results:
+          path: test-results
+  # package:
+  #   docker:
+  #     - image: salesforce/salesforcedx:7.50.0-full
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Create Package
+  #         command: |
+  #           ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
+  #           # Create unlocked package version
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - run-analysis
+      - build
+  # package:
+  #   jobs:
+  #     - package
