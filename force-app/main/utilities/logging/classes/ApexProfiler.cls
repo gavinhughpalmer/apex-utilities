@@ -54,7 +54,7 @@ public without sharing class ApexProfiler {
         addProfilingInfo(new ProfileInfo('SavepointRollbacks', Limits.getSavepointRollbacks(), Limits.getLimitSavepointRollbacks()));
         addProfilingInfo(new ProfileInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints()));
         addProfilingInfo(new ProfileInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries()));
-        // addOrgLimits();
+        addOrgLimits();
     }
 
     private void addOrgLimits() {
