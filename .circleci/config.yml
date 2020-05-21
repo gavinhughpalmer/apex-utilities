@@ -2,12 +2,12 @@
 version: 2.1
 jobs:
   build:
-    only:
-      - /feature\/.*/
+    branches:
+      only:
+        - /feature\/.*/
     docker:
       - image: salesforce/salesforcedx:7.50.0-full
     steps:
-      - checkout
       - run:
           name: Run Static Analysis
           command: |
@@ -20,12 +20,12 @@ jobs:
             ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
             ./build/sfdx/run-tests.sh
   package:
-    only:
-      - master
+    branches:
+      only:
+        - master
     docker:
       - image: salesforce/salesforcedx:7.50.0-full
     steps:
-      - checkout
       - run:
           name: Create Package
           command: |
