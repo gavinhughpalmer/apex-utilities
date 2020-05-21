@@ -48,6 +48,21 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    private static void getTestRelatedObjectNullValues() {
+        Contact testContact = new Contact();
+        // TODO
+        SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
+        try {
+            wrappedTestContact.get('Account.Owner.LastName');
+            System.assert(false, 'An error should have been thrown when an object is accessed that has not been initialised on the object');
+        } catch (SObjectWrapper.InvalidFieldException exceptionToHandle) {
+            Assert.contains(exceptionToHandle.getMessage(), SObjectWrapper.NON_INITIALISED_RELATIONSHIP);
+        } catch (Exception exceptionToHandle) {
+            System.assert(false, 'A more specific error should have been recieved, error recieved was: ' + exceptionToHandle.getMessage() + exceptionToHandle.getStackTraceString());
+        }
+    }
+
+    @isTest
     private static void getRelatedObjectNameTestCustomObject() {
         // feel like a test should be written to test the lookup to a standard object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
     }
@@ -68,6 +83,16 @@ private class SObjectWrapperTest {
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
         System.assertEquals(
             Account.Name.getDescribe(), wrappedTestContact.describe('Account.Name'),
+            'The describe method called on the sobject wrapper should return the describe result'
+        );
+    }
+
+    @isTest
+    private static void describeRelatedObjectFieldRecursive() {
+        Contact testContact = new Contact();
+        SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
+        System.assertEquals(
+            User.LastName.getDescribe(), wrappedTestContact.describe('Account.Owner.LastName'),
             'The describe method called on the sobject wrapper should return the describe result'
         );
     }

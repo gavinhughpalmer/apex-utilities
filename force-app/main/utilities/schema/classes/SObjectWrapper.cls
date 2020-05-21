@@ -11,7 +11,8 @@
 **/
 public virtual class SObjectWrapper {
 
-    @testVisible private static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
+    public static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
+    public static final String NON_INITIALISED_RELATIONSHIP = 'The relationship field that is attempting to be accessed has not been initialised.';
     public class InvalidFieldException extends Exception {}
 
     private final SObject wrappedSObject;
@@ -40,8 +41,17 @@ public virtual class SObjectWrapper {
 
     private static Object getParentField(SObject childSObject, String fieldApiName) {
         RelationshipField field = new RelationshipField(fieldApiName);
-        SObject parentSObject = childSObject.getSobject(field.relationshipApiName);
-        return isRelatedField(field.relatedFieldName) ? getParentField(parentSObject, field.relatedFieldName) : parentSObject.get(field.relatedFieldName);
+        SObject parentSObject;
+        try {
+            // this is a peculiar error that is thrown only on the second parent if is not initialised (first parent is fine)
+            parentSObject = childSObject.getSobject(field.relationshipApiName);
+        } catch (NullPointerException exceptionToHandle) {
+            throw new InvalidFieldException(NON_INITIALISED_RELATIONSHIP);
+        }
+        if (isRelatedField(field.relatedFieldName)) {
+            return getParentField(parentSObject, field.relatedFieldName);
+        }
+        return parentSObject.get(field.relatedFieldName);
     }
 
     public DescribeFieldResult describe(String fieldApiName) {
@@ -54,6 +64,9 @@ public virtual class SObjectWrapper {
     private DescribeFieldResult describeParentField(String fieldApiName) {
         RelationshipField relatedField = new RelationshipField(fieldApiName);
         String parentObjectName = getRelatedObjectName(relatedField.relationshipApiName);
+        if (isRelatedField(relatedField.relatedFieldName)) {
+            return describeParentField(relatedField.relatedFieldName);
+        }
         return schema.getFieldDescribe(parentObjectName, relatedField.relatedFieldName);
     }
 
