@@ -10,7 +10,7 @@
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "45.0",
+    "sourceApiVersion": "48.0",
     "packageAliases": {
         "apex-utilities": "0Ho1t000000blWXCAY",
         "apex-utilities@0.1.0-1": "04t1t000003DHKNAA4",
