@@ -18,6 +18,7 @@ jobs:
       - run:
           name: Build and Run Tests
           command: |
+            sfdx force:auth:logout -u $SFDC_USER
             ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
             ./build/sfdx/run-tests.sh
       - store_test_results:
