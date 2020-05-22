@@ -1,6 +1,7 @@
 /**
 * @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
+* feel like a test should be written to test the lookup to a custom object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
 *
 * 2019-03-23 : Gavin Palmer - Original
 **/
@@ -60,11 +61,6 @@ private class SObjectWrapperTest {
         } catch (Exception exceptionToHandle) {
             System.assert(false, 'A more specific error should have been recieved, error recieved was: ' + exceptionToHandle.getMessage() + exceptionToHandle.getStackTraceString());
         }
-    }
-
-    @isTest
-    private static void getRelatedObjectNameTestCustomObject() {
-        // feel like a test should be written to test the lookup to a standard object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
     }
 
     @isTest
