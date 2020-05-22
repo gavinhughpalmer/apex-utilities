@@ -6,6 +6,7 @@ set -e
 sfdx force:lightning:lint ./force-app/main --exit --verbose
 
 export SFDX_USE_PROGRESS_BAR=false
+export SFDX_IMPROVED_CODE_COVERAGE=true
 
 echo "Creating the Scratch Org..."
 sfdx force:org:create --definitionfile config/project-scratch-def.json --setalias TestRunner --durationdays 1
