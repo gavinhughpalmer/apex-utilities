@@ -6,3 +6,4 @@ setup.sh
 *.sublime-workspace
 test-results
 package.txt
+*.key
