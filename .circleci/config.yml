@@ -12,7 +12,7 @@ jobs:
             ./build/static-analysis/run-analysis.sh
   build:
     docker:
-      - image: salesforce/salesforcedx:7.50.0-full
+      - image: salesforce/salesforcedx:7.59.0-full
     steps:
       - checkout
       - run:
