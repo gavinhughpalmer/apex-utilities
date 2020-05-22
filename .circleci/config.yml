@@ -9,6 +9,7 @@ jobs:
       - run:
           name: Run Static Analysis
           command: |
+            ls -la
             ./build/static-analysis/run-analysis.sh
   build:
     docker:
