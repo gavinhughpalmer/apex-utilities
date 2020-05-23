@@ -39,6 +39,8 @@ jobs:
             sed -i "s/--package .*/--package ${packageId}\`/" README.md
             git add sfdx-project.json
             git add README.md
+            git config --global user.email "gavinhughpalmer@gmail.com"
+            git config --global user.name "Gavin Palmer"
             git commit -m "Updating unlocked package version"
             git push
 
