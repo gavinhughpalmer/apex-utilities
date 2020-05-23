@@ -24,7 +24,7 @@ jobs:
           path: test-results
   package:
     docker:
-      - image: salesforce/salesforcedx:7.50.0-full
+      - image: salesforce/salesforcedx:7.59.0-full
     steps:
       - checkout
       - run:
@@ -35,8 +35,8 @@ jobs:
             packageIdLine=$(grep apex-utilities@ sfdx-project.json | tail -1)
             idStartingPosition=$((${#packageIdLine}-19))
             packageId=${packageIdLine:$idStartingPosition:18}
-            sed -i "" "s/p0=.*/p0=${packageId})/" README.md
-            sed -i "" "s/--package .*/--package ${packageId}\`/" README.md
+            sed -i "s/p0=.*/p0=${packageId})/" README.md
+            sed -i "s/--package .*/--package ${packageId}\`/" README.md
             git add sfdx-project.json
             git add README.md
             git commit -m "Updating unlocked package version"
@@ -54,6 +54,8 @@ workflows:
               branches:
                 only:
                   - /feature\/.*/
+                ignore:
+                  - master
   package:
     jobs:
       - package:
