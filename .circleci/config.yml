@@ -27,6 +27,9 @@ jobs:
       - image: salesforce/salesforcedx:7.59.0-full
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "66:64:f1:63:22:69:9a:21:c6:9a:8f:fc:b7:81:68:f3"
       - run:
           name: Create Package
           command: |
@@ -41,14 +44,18 @@ jobs:
             git add README.md
             git config --global user.email "gavinhughpalmer@gmail.com"
             git config --global user.name "Gavin Palmer"
-            git commit -m "Updating unlocked package version"
+            git commit -m "[skip ci] Updating unlocked package version"
             git push
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - run-analysis
+      - run-analysis:
+            filters:
+              branches:
+                only:
+                  - /feature\/.*/
       - build:
             requires:
               - run-analysis
@@ -56,8 +63,6 @@ workflows:
               branches:
                 only:
                   - /feature\/.*/
-                ignore:
-                  - master
   package:
     jobs:
       - package:
