@@ -22,23 +22,42 @@ jobs:
             ./build/sfdx/run-tests.sh
       - store_test_results:
           path: test-results
-  # package:
-  #   docker:
-  #     - image: salesforce/salesforcedx:7.50.0-full
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Create Package
-  #         command: |
-  #           ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
-  #           # Create unlocked package version
+  package:
+    docker:
+      - image: salesforce/salesforcedx:7.50.0-full
+    steps:
+      - checkout
+      - run:
+          name: Create Package
+          command: |
+            ./build/sfdx/login.sh -l https://login.salesforce.com -c $SFDC_CLIENT_ID -u $SFDC_USER
+            sfdx force:package:version:create --path force-app --installationkeybypass --wait 10
+            packageIdLine=$(grep apex-utilities@ sfdx-project.json | tail -1)
+            idStartingPosition=$((${#packageIdLine}-19))
+            packageId=${packageIdLine:$idStartingPosition:18}
+            sed -i "" "s/p0=.*/p0=${packageId})/" README.md
+            sed -i "" "s/--package .*/--package ${packageId}\`/" README.md
+            git add sfdx-project.json
+            git add README.md
+            git commit -m "Updating unlocked package version"
+            git push
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       - run-analysis
-      - build
-  # package:
-  #   jobs:
-  #     - package
+      - build:
+            requires:
+              - run-analysis
+            filters:
+              branches:
+                only:
+                  - /feature\/.*/
+  package:
+    jobs:
+      - package:
+            filters:
+              branches:
+                only:
+                  - master
