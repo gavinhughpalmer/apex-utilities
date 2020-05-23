@@ -166,6 +166,4 @@ Id bigSaleRecordTypeId = opportunityRecordTypes.getRecordTypeId('Big_Sale')
 
 ## TODO
 
-- add versioning scripts, that replaces the install link
 - Add something that generates the readme based on the class headers
-- add build tasks to push of feature branches and creates the package before deploying to master

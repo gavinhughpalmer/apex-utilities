@@ -26,10 +26,10 @@ jobs:
     docker:
       - image: salesforce/salesforcedx:7.59.0-full
     steps:
-      - checkout
       - add_ssh_keys:
           fingerprints:
             - "66:64:f1:63:22:69:9a:21:c6:9a:8f:fc:b7:81:68:f3"
+      - checkout
       - run:
           name: Create Package
           command: |
