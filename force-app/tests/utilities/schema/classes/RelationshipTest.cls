@@ -32,6 +32,7 @@ private class RelationshipTest {
     }
 
     @IsTest
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void fromIdFieldInvalidCustomField() {
         try {
             Relationship accountLookup = Relationship.fromIdField('Account__p');

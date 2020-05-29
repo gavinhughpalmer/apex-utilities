@@ -49,6 +49,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void getTestRelatedObjectNullValues() {
         Contact testContact = new Contact();
         // TODO
@@ -94,11 +95,11 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void testRelationshipFieldInvalidRelationshipField() {
         try {
             new SObjectWrapper.RelationshipField('NotAField');
-            System.assert(
-                false,
+            Assert.fail(
                 'An error should have been thrown when an invalid relationship is passed into the RelationshipField constructor'
             );
         } catch (InvalidFieldException exceptionToHandle) {
@@ -107,8 +108,7 @@ private class SObjectWrapperTest {
                 'The error raised does not match the invalid parent relationship message'
             );
         } catch (Exception genericException) {
-            System.assert(
-                false,
+            Assert.fail(
                 'An unexpected exception has been thrown with the following message: ' + genericException.getMessage()
             );
         }
