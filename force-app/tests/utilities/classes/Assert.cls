@@ -50,4 +50,8 @@ public class Assert {
             'The string (' + substring + ') was not found in the string: ' + fullString
         );
     }
+
+    public static void fail(String message) {
+        System.assert(false, message);
+    }
 }

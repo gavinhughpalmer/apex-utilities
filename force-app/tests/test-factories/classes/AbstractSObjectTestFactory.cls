@@ -1,16 +1,16 @@
 /**
 * @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
-* @description This factory class will be used as a base for any SObject creation in test classes, 
-*    this pattern will define attributes that can be set in the test classes. 
+* @description This factory class will be used as a base for any SObject creation in test classes,
+*    this pattern will define attributes that can be set in the test classes.
 *    This allows any required fields / validations to be defined in what is returned in the getSObject method
-*    allowing developers to easily enforce required fields accross all test classes if they are ever added 
+*    allowing developers to easily enforce required fields accross all test classes if they are ever added
 *    in the UI
 *
 * 2018-10-23 : Gavin Palmer - Original
 **/
 public without sharing abstract class AbstractSObjectTestFactory {
-    
+
     protected final List<FactoryDependancy> dependancies = new List<FactoryDependancy>();
     public String uniqueValue = 'test';
 
@@ -65,21 +65,24 @@ public without sharing abstract class AbstractSObjectTestFactory {
     }
 
     public class FactoryDependancy {
-        public final AbstractSObjectTestFactory parentFactory;
-        public final String lookupField;
-        public FactoryDependancy(AbstractSObjectTestFactory parentFactory, String lookupField) {
+        private final AbstractSObjectTestFactory parentFactory;
+        private final Relationship parentRelationship;
+
+        public FactoryDependancy(AbstractSObjectTestFactory parentFactory, String parentIdField) {
             this.parentFactory = parentFactory;
-            this.lookupField = lookupField;
+            parentRelationship = Relationship.fromIdField(parentIdField);
         }
         public void createDependancyFor(SObject childSObject) {
             SObject parentSObject = parentFactory.insertWithDependancies();
-            childSObject.put(lookupField, parentSObject.Id);
+            childSObject.put(parentRelationship.idFieldName, parentSObject.Id);
+            childSObject.putSObject(parentRelationship.refrenceFieldName, parentSObject);
         }
         public void createDependanciesFor(List<SObject> childSObjects) {
             final Integer total = childSObjects.size();
             List<SObject> parentSObjects = parentFactory.insertMultipleWithDependancies(total);
             for (Integer i = 0; i < total; i++) {
-                childSObjects[i].put(lookupField, parentSObjects[i].Id);
+                childSObjects[i].put(parentRelationship.idFieldName, parentSObjects[i].Id);
+                childSObjects[i].putSObject(parentRelationship.refrenceFieldName, parentSObjects[i]);
             }
         }
     }

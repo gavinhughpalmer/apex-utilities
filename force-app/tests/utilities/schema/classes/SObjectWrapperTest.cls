@@ -49,17 +49,18 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void getTestRelatedObjectNullValues() {
         Contact testContact = new Contact();
         // TODO
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
         try {
             wrappedTestContact.get('Account.Owner.LastName');
-            System.assert(false, 'An error should have been thrown when an object is accessed that has not been initialised on the object');
-        } catch (SObjectWrapper.InvalidFieldException exceptionToHandle) {
+            Assert.fail('An error should have been thrown when an object is accessed that has not been initialised on the object');
+        } catch (InvalidFieldException exceptionToHandle) {
             Assert.contains(exceptionToHandle.getMessage(), SObjectWrapper.NON_INITIALISED_RELATIONSHIP);
         } catch (Exception exceptionToHandle) {
-            System.assert(false, 'A more specific error should have been recieved, error recieved was: ' + exceptionToHandle.getMessage() + exceptionToHandle.getStackTraceString());
+            Assert.fail('A more specific error should have been recieved, error recieved was: ' + exceptionToHandle.getMessage() + exceptionToHandle.getStackTraceString());
         }
     }
 
@@ -94,21 +95,20 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void testRelationshipFieldInvalidRelationshipField() {
         try {
             new SObjectWrapper.RelationshipField('NotAField');
-            System.assert(
-                false,
+            Assert.fail(
                 'An error should have been thrown when an invalid relationship is passed into the RelationshipField constructor'
             );
-        } catch (SObjectWrapper.InvalidFieldException exceptionToHandle) {
+        } catch (InvalidFieldException exceptionToHandle) {
             System.assertEquals(
                 SObjectWrapper.INVALID_PARENT_MESSAGE, exceptionToHandle.getMessage(),
                 'The error raised does not match the invalid parent relationship message'
             );
         } catch (Exception genericException) {
-            System.assert(
-                false,
+            Assert.fail(
                 'An unexpected exception has been thrown with the following message: ' + genericException.getMessage()
             );
         }
