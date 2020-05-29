@@ -63,14 +63,14 @@ private class SchemaFacadeTest {
         final String invalidObjectName = 'Invalid Object';
         try {
             SchemaFacade.getInstance().getDescribe(invalidObjectName);
-            System.assert(false, 'An exception should have been thrown');
+            Assert.fail('An exception should have been thrown');
         } catch (SchemaFacade.InvalidDescribeException invalidDescribeException) {
             System.assert(
                 invalidDescribeException.getMessage().containsIgnoreCase(invalidObjectName),
                 'The error message should contain the invalid object name: ' + invalidObjectName
             );
         } catch (Exception exceptionToCheck) {
-            System.assert(false, 'A more specific error should be thrown: ' + exceptionToCheck.getMessage());
+            Assert.fail('A more specific error should be thrown: ' + exceptionToCheck.getMessage());
         }
     }
 
@@ -79,14 +79,14 @@ private class SchemaFacadeTest {
         final String invalidFieldName = 'Invalid Field';
         try {
             SchemaFacade.getInstance().getFieldDescribe('Account', invalidFieldName);
-            System.assert(false, 'An exception should have been thrown');
+            Assert.fail('An exception should have been thrown');
         } catch (SchemaFacade.InvalidDescribeException invalidDescribeException) {
             System.assert(
                 invalidDescribeException.getMessage().containsIgnoreCase(invalidFieldName),
                 'The error message should contain the invalid field name: ' + invalidFieldName
             );
         } catch (Exception exceptionToCheck) {
-            System.assert(false, 'A more specific error should be thrown: ' + exceptionToCheck.getMessage());
+            Assert.fail('A more specific error should be thrown: ' + exceptionToCheck.getMessage());
         }
     }
 }

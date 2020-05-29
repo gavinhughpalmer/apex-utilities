@@ -13,7 +13,6 @@ public virtual class SObjectWrapper {
 
     public static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
     public static final String NON_INITIALISED_RELATIONSHIP = 'The relationship field that is attempting to be accessed has not been initialised.';
-    public class InvalidFieldException extends Exception {}
 
     private final SObject wrappedSObject;
     private final String objectApiName;
@@ -72,16 +71,9 @@ public virtual class SObjectWrapper {
 
     @testVisible
     private String getRelatedObjectName(String relationshipApiName) {
-        String relationshipFieldName = getRelationshipFieldName(relationshipApiName);
+        String relationshipFieldName = Relationship.fromRefrenceField(relationshipApiName).idFieldName;
         DescribeFieldResult relationshipField = schema.getFieldDescribe(objectApiName, relationshipFieldName);
         return relationshipField.getReferenceTo()[0].getDescribe().getName();
-    }
-
-    private static String getRelationshipFieldName(String relationshipApiName) {
-        if (relationshipApiName.toLowerCase().endsWith('__r')) {
-            return relationshipApiName.replaceAll('(?i)__r', '__c');
-        }
-        return relationshipApiName + 'Id';
     }
 
     private DescribeFieldResult describeField(String fieldApiName) {
