@@ -75,14 +75,14 @@ public without sharing abstract class AbstractSObjectTestFactory {
         public void createDependancyFor(SObject childSObject) {
             SObject parentSObject = parentFactory.insertWithDependancies();
             childSObject.put(parentRelationship.idFieldName, parentSObject.Id);
-            childSObject.putSObject(parentRelationship.refrenceFieldName, parentSObject);
+            childSObject.putSObject(parentRelationship.referenceFieldName, parentSObject);
         }
         public void createDependanciesFor(List<SObject> childSObjects) {
             final Integer total = childSObjects.size();
             List<SObject> parentSObjects = parentFactory.insertMultipleWithDependancies(total);
             for (Integer i = 0; i < total; i++) {
                 childSObjects[i].put(parentRelationship.idFieldName, parentSObjects[i].Id);
-                childSObjects[i].putSObject(parentRelationship.refrenceFieldName, parentSObjects[i]);
+                childSObjects[i].putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
             }
         }
     }

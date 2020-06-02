@@ -8,13 +8,13 @@
 * System.debug(accountLookup.idFieldName); // AccountId
 * // Or if you have the id field
 * accountLookup = Relationship.fromIdField('AccountId');
-* System.debug(accountLookup.refrenceFieldName); // Account
+* System.debug(accountLookup.referenceFieldName); // Account
 * // Similarly for custom objects
 * accountLookup = Relationship.fromRefrenceField('Account__r');
 * System.debug(accountLookup.idFieldName); // Account__c
 *
 * accountLookup = Relationship.fromIdField('Account__c');
-* System.debug(accountLookup.refrenceFieldName); // Account__r
+* System.debug(accountLookup.referenceFieldName); // Account__r
 *
 * 2020-05-29 : Gavin Palmer - Original
 **/
@@ -22,35 +22,35 @@ public with sharing class Relationship {
 
     public static final String INVALID_RELATIONSHIP_FIELD = 'The field passed in is not a relationship. Field Value: ';
 
-    public final String refrenceFieldName;
+    public final String referenceFieldName;
     public final String idFieldName;
 
-    private Relationship(String refrenceFieldName, String idFieldName) {
-        this.refrenceFieldName = refrenceFieldName;
+    private Relationship(String referenceFieldName, String idFieldName) {
+        this.referenceFieldName = referenceFieldName;
         this.idFieldName = idFieldName;
     }
 
-    public static Relationship fromRefrenceField(String refrenceFieldName) {
+    public static Relationship fromRefrenceField(String referenceFieldName) {
         String idFieldName;
-        if (refrenceFieldName.toLowerCase().endsWith('__r')) {
-            idFieldName = refrenceFieldName.replaceAll('(?i)__r', '__c');
+        if (referenceFieldName.toLowerCase().endsWith('__r')) {
+            idFieldName = referenceFieldName.replaceAll('(?i)__r', '__c');
         } else {
             // cannot really check for any errors here, just have to trust it is correct
-            idFieldName = refrenceFieldName + 'Id';
+            idFieldName = referenceFieldName + 'Id';
         }
-        return new Relationship(refrenceFieldName, idFieldName);
+        return new Relationship(referenceFieldName, idFieldName);
     }
 
     public static Relationship fromIdField(String idFieldName) {
-        String refrenceFieldName;
+        String referenceFieldName;
         if (idFieldName.toLowerCase().endsWith('__c')) {
-            refrenceFieldName = idFieldName.replaceAll('(?i)__c', '__r');
+            referenceFieldName = idFieldName.replaceAll('(?i)__c', '__r');
         } else if (idFieldName.toLowerCase().endsWith('id')) {
             // cannot really check for any errors here, just have to trust it is correct
-            refrenceFieldName = idFieldName.replaceAll('(?i)id', '');
+            referenceFieldName = idFieldName.replaceAll('(?i)id', '');
         } else {
             throw new InvalidFieldException(INVALID_RELATIONSHIP_FIELD + idFieldName);
         }
-        return new Relationship(refrenceFieldName, idFieldName);
+        return new Relationship(referenceFieldName, idFieldName);
     }
 }

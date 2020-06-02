@@ -16,7 +16,7 @@ private class RelationshipTest {
     @IsTest
     private static void fromIdFieldStandardField() {
         Relationship accountLookup = Relationship.fromIdField('AccountId');
-        System.assertEquals('Account', accountLookup.refrenceFieldName, 'The id field has not assigned the relationship field correctly');
+        System.assertEquals('Account', accountLookup.referenceFieldName, 'The id field has not assigned the relationship field correctly');
     }
 
     @IsTest
@@ -28,7 +28,7 @@ private class RelationshipTest {
     @IsTest
     private static void fromIdFieldCustomField() {
         Relationship accountLookup = Relationship.fromIdField('Account__c');
-        System.assertEquals('Account__r', accountLookup.refrenceFieldName, 'The id field has not assigned the relationship field correctly');
+        System.assertEquals('Account__r', accountLookup.referenceFieldName, 'The id field has not assigned the relationship field correctly');
     }
 
     @IsTest
