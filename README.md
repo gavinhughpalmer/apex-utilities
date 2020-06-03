@@ -167,3 +167,4 @@ Id bigSaleRecordTypeId = opportunityRecordTypes.getRecordTypeId('Big_Sale')
 ## TODO
 
 - Add something that generates the readme based on the class headers
+- remove test factory class dependancies from the package so that users of the class can write their own without them being overridden on package upgrades

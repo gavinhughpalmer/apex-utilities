@@ -52,7 +52,6 @@ private class SObjectWrapperTest {
     @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void getTestRelatedObjectNullValues() {
         Contact testContact = new Contact();
-        // TODO
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
         try {
             wrappedTestContact.get('Account.Owner.LastName');
