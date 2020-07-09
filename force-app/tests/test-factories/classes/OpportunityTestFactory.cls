@@ -16,6 +16,10 @@ public without sharing class OpportunityTestFactory extends AbstractSObjectTestF
     public Id ownerId = UserInfo.getUserId();
     public String salesTargetRefrence;
 
+    public OpportunityTestFactory() {
+        addDependancy('AccountId', new AccountTestFactory());
+    }
+
     public override SObject getSObject() {
         return new Opportunity(
             AccountId = accountId,
@@ -23,15 +27,6 @@ public without sharing class OpportunityTestFactory extends AbstractSObjectTestF
             CloseDate = closeDate,
             StageName = stage,
             OwnerId = ownerId
-        );
-    }
-
-    public override void initialiseDependancies() {
-        dependancies.add(
-            new FactoryDependancy(
-                new AccountTestFactory(),
-                'AccountId'
-            )
         );
     }
 }

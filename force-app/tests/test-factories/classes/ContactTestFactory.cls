@@ -10,19 +10,14 @@ public without sharing class ContactTestFactory extends AbstractSObjectTestFacto
     public String lastName = 'TestUser';
     public Id accountId;
 
+    public ContactTestFactory() {
+        addDependancy('AccountId', new AccountTestFactory());
+    }
+
     public override SObject getSObject() {
         return new Contact(
             AccountId = accountId,
             LastName = lastName
-        );
-    }
-
-    public override void initialiseDependancies() {
-        dependancies.add(
-            new FactoryDependancy(
-                new AccountTestFactory(),
-                'AccountId'
-            )
         );
     }
 }
