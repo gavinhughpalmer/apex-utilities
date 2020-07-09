@@ -11,14 +11,10 @@
 **/
 public without sharing abstract class AbstractSObjectTestFactory {
 
-    protected final List<FactoryDependancy> dependancies = new List<FactoryDependancy>();
+    private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
     public String uniqueValue = 'test';
 
     public abstract SObject getSObject();
-    @SuppressWarnings('PMD.EmptyStatementBlock')
-    public virtual void initialiseDependancies() {
-        // do nothing by default, so all subclasses do not have to implement
-    }
 
     public virtual SObject insertSObject() {
         SObject sObjectToInsert = getSObject();
@@ -28,7 +24,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
 
     // TODO will need to implement some form of caching for objects that have multiple lookups to the same objects
     public virtual SObject insertWithDependancies() {
-        initialiseDependancies();
         SObject sObjectToInsert = getSObject();
         for (FactoryDependancy dependancy : dependancies) {
             dependancy.createDependancyFor(sObjectToInsert);
@@ -38,9 +33,8 @@ public without sharing abstract class AbstractSObjectTestFactory {
     }
 
     public virtual List<SObject> insertMultipleWithDependancies(Integer numberToInsert) {
-        initialiseDependancies();
         List<SObject> sObjectsToInsert = getMultipleSObjects(numberToInsert);
-        for (FactoryDependancy dependancy : dependancies) {
+        for (FactoryDependancy dependancy : dependancies.values()) {
             dependancy.createDependanciesFor(sObjectsToInsert);
         }
         insert sObjectsToInsert;
@@ -64,11 +58,15 @@ public without sharing abstract class AbstractSObjectTestFactory {
         return sObjectsToInsert;
     }
 
-    public class FactoryDependancy {
-        private final AbstractSObjectTestFactory parentFactory;
-        private final Relationship parentRelationship;
+    public void addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
+        dependancies.put(parentIdField, new FactoryDependancy(parentIdField, parentFactory));
+    }
 
-        public FactoryDependancy(AbstractSObjectTestFactory parentFactory, String parentIdField) {
+    private class FactoryDependancy {
+        private final Relationship parentRelationship;
+        private final AbstractSObjectTestFactory parentFactory;
+
+        public FactoryDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
             this.parentFactory = parentFactory;
             parentRelationship = Relationship.fromIdField(parentIdField);
         }
