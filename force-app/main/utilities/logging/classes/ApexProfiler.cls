@@ -27,7 +27,7 @@ public without sharing class ApexProfiler {
     }
 
     public static void includeOrgLimits(Boolean isIncludingOrgLimits) {
-        this.isIncludingOrgLimits = isIncludingOrgLimits;
+        ApexProfiler.isIncludingOrgLimits = isIncludingOrgLimits;
     }
 
     public Boolean isBreachingWarning() {
@@ -59,7 +59,9 @@ public without sharing class ApexProfiler {
         addProfilingInfo(new ProfileInfo('SavepointRollbacks', Limits.getSavepointRollbacks(), Limits.getLimitSavepointRollbacks()));
         addProfilingInfo(new ProfileInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints()));
         addProfilingInfo(new ProfileInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries()));
-        addOrgLimits();
+        if (isIncludingOrgLimits) {
+            addOrgLimits();
+        }
     }
 
     private void addOrgLimits() {
