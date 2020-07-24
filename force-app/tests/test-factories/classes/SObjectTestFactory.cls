@@ -11,7 +11,7 @@
 public with sharing class SObjectTestFactory extends AbstractSObjectTestFactory {
     public override SObject getSObject() {
         return new Log__c(
-            Level__c = 'Info',
+            Level__c = 'Information',
             Messages__c = 'Not a real log',
             Record_Id__c = null,
             Type__c = 'Fake'
