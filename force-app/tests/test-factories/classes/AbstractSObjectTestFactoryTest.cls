@@ -30,7 +30,7 @@ private class AbstractSObjectTestFactoryTest {
     public class MockContactTestFactory extends AbstractSObjectTestFactory {
         public String lastName = 'TestUser';
         public MockContactTestFactory() {
-            addDependancy('AccountId', new AccountTestFactory());
+            addDependancy('AccountId', new MockAccountTestFactory());
         }
         public override SObject getSObject() {
             return new Contact(
@@ -38,15 +38,14 @@ private class AbstractSObjectTestFactoryTest {
             );
         }
     }
-
     private class MockInserter implements AbstractSObjectTestFactory.Insertable {
-        @SuppressWarnings('PMD.EmptyStatementBlock')
         public SObject insertSObject(SObject sObjectToInsert) {
-            // Do nothing
+            // do nothing...
+            return sObjectToInsert;
         }
-        @SuppressWarnings('PMD.EmptyStatementBlock')
         public List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert) {
-            // Do nothing
+            // do nothing...
+            return sObjectsToInsert;
         }
     }
 }
