@@ -12,27 +12,17 @@ public without sharing class ContentDocumentLinkTestFactory extends AbstractSObj
     public Id linkedEntityId;
     public Id contentDocumentId;
 
-    public override SObject getSObject() {
-        return new ContentDocumentLink(
-            Visibility = visibility,  
-            ShareType = shareType,
-            LinkedEntityId = linkedEntityId, 
-            ContentDocumentId = contentDocumentId
-        );
+    public ContentDocumentLinkTestFactory() {
+        addDependancy('LinkedEntityId', new AccountTestFactory());
+        addDependancy('ContentDocumentId', new ContentDocumentTestFactory());
     }
 
-    public override void initialiseDependancies() {
-        dependancies.add(
-            new FactoryDependancy(
-                new AccountTestFactory(),
-                'LinkedEntityId'
-            )
-        );
-        dependancies.add(
-            new FactoryDependancy(
-                new ContentDocumentTestFactory(),
-                'ContentDocumentId'
-            )
+    public override SObject getSObject() {
+        return new ContentDocumentLink(
+            Visibility = visibility,
+            ShareType = shareType,
+            LinkedEntityId = linkedEntityId,
+            ContentDocumentId = contentDocumentId
         );
     }
 }

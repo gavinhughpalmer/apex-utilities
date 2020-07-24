@@ -161,4 +161,52 @@ private class BulkLogObjectAdapterTest {
             'The message should match the message passed into the log call'
         );
     }
+
+    @IsTest
+    private static void writeMultipleLogsTest() {
+        System.assertEquals(
+            0, [SELECT COUNT() FROM Log__c],
+            'There should be no logs in the system before the test'
+        );
+        final String logType = 'Test Log Type';
+        final String logLevel = BulkLogObjectAdapter.ERROR;
+        final String message = 'Test Log Message';
+        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
+
+        loggerAdapter.log(logLevel, message);
+
+        Test.startTest();
+        try {
+            BulkLogObjectAdapter.writeLogs();
+            // Write the logs for a second time, this should not cause any problems
+            BulkLogObjectAdapter.writeLogs();
+        } catch (Exception exceptionToHandle) {
+            System.assert(
+                false,
+                'An error should not be thrown when writing logs, error provided: ' + exceptionToHandle.getMessage()
+            );
+        }
+        Test.stopTest();
+
+        List<Log__c> writtenLogs = [SELECT Type__c, Level__c, Messages__c FROM Log__c];
+
+        System.assertEquals(
+            1, writtenLogs.size(),
+            'There should be 1 log generated in the system'
+        );
+
+        Log__c logToAssert = writtenLogs[0];
+        System.assertEquals(
+            logType, logToAssert.Type__c,
+            'The type should match the type passed into the adapters constructor'
+        );
+        System.assertEquals(
+            logLevel, logToAssert.Level__c,
+            'The log level should match the level passed into the log call'
+        );
+        System.assertEquals(
+            message, logToAssert.Messages__c,
+            'The message should match the message passed into the log call'
+        );
+    }
 }

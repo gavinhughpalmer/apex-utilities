@@ -11,6 +11,7 @@ public without sharing class ApexProfiler {
     @testVisible private static final Decimal DEFAULT_WARNING_PERCENTAGE = 0.75;
     @testVisible private final Map<String, ProfileInfo> profilingInfos = new Map<String, ProfileInfo>();
     private static final Map<String, Decimal> WARNING_PERCENTAGES = new Map<String, Decimal>();
+    private static Boolean isIncludingOrgLimits = true;
 
     static {
         for (Apex_Profiling_Warning_Limit__mdt warningLimit : [
@@ -23,6 +24,10 @@ public without sharing class ApexProfiler {
 
     public ApexProfiler() {
         refreshProfiling();
+    }
+
+    public static void includeOrgLimits(Boolean isIncludingOrgLimits) {
+        ApexProfiler.isIncludingOrgLimits = isIncludingOrgLimits;
     }
 
     public Boolean isBreachingWarning() {
@@ -54,7 +59,9 @@ public without sharing class ApexProfiler {
         addProfilingInfo(new ProfileInfo('SavepointRollbacks', Limits.getSavepointRollbacks(), Limits.getLimitSavepointRollbacks()));
         addProfilingInfo(new ProfileInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints()));
         addProfilingInfo(new ProfileInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries()));
-        addOrgLimits();
+        if (isIncludingOrgLimits) {
+            addOrgLimits();
+        }
     }
 
     private void addOrgLimits() {

@@ -14,96 +14,98 @@
 **/
 public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 
-	@testVisible private static final String ERROR = 'Error';
-	@testVisible private static final String WARNING = 'Warning';
-	@testVisible private static final String INFO = 'Information';
-	@testVisible private static final String DEBUG = 'Debug';
+    @testVisible private static final String ERROR = 'Error';
+    @testVisible private static final String WARNING = 'Warning';
+    @testVisible private static final String INFO = 'Information';
+    @testVisible private static final String DEBUG = 'Debug';
 
     private static BulkLogObjectAdapter instance = new BulkLogObjectAdapter();
 
-	private String logType;
-	@testVisible private final Map<String, List<Log_Event__e>> logsToWrite = new Map<String, List<Log_Event__e>>();
+    private String logType;
+    @testVisible private final Map<String, List<Log_Event__e>> logsToWrite = new Map<String, List<Log_Event__e>>();
 
     public static BulkLogObjectAdapter getInstance(String logType) {
         instance.setLogType(logType);
         return instance;
     }
 
-	// This method is to be used if any calling entity straddles multiple transactions (ie async apex)
-	public static void setInstance(BulkLogObjectAdapter instanceToSet) {
-		instance = instanceToSet;
-	}
+    // This method is to be used if any calling entity straddles multiple transactions (ie async apex)
+    public static void setInstance(BulkLogObjectAdapter instanceToSet) {
+        instance = instanceToSet;
+    }
 
     public static void writeLogs() {
         instance.commitLogs();
     }
 
-    @SuppressWarnings('PMD.EmptyStatementBlock')
-	private BulkLogObjectAdapter() {
-		logsToWrite.put(ERROR, new List<Log_Event__e>());
-		logsToWrite.put(WARNING, new List<Log_Event__e>());
-		logsToWrite.put(INFO, new List<Log_Event__e>());
-		logsToWrite.put(DEBUG, new List<Log_Event__e>());
-	}
+    private BulkLogObjectAdapter() {
+        resetLogsToWrite();
+    }
 
-	public void setLogType(String logType) {
-		this.logType = logType;
-	}
+    private void resetLogsToWrite() {
+        logsToWrite.clear();
+        logsToWrite.put(ERROR, new List<Log_Event__e>());
+        logsToWrite.put(WARNING, new List<Log_Event__e>());
+        logsToWrite.put(INFO, new List<Log_Event__e>());
+        logsToWrite.put(DEBUG, new List<Log_Event__e>());
+    }
 
-	public override void log(Object logLevel, String message) {
-		log(logLevel, message, null);
-	}
+    public void setLogType(String logType) {
+        this.logType = logType;
+    }
 
-	public override void log(Object logLevel, String message, Id recordId) {
-		Log_Event__e logEvent = new Log_Event__e(
-			Type__c = logType,
-			Level__c = (String) logLevel,
-			Messages__c = message,
-			Record_Id__c = recordId
-		);
-		if (!logsToWrite.containsKey(logEvent.Level__c)) {
-			logsToWrite.put(logEvent.Level__c, new List<Log_Event__e>());
-		}
-		logsToWrite.get(logEvent.Level__c).add(logEvent);
-	}
+    public override void log(Object logLevel, String message) {
+        log(logLevel, message, null);
+    }
 
-	public override Object errorLevel() {
-		return ERROR;
-	}
-	public override Object warningLevel() {
-		return WARNING;
-	}
-	public override Object infoLevel() {
-		return INFO;
-	}
-	public override Object debugLevel() {
-		return DEBUG;
-	}
+    public override void log(Object logLevel, String message, Id recordId) {
+        Log_Event__e logEvent = new Log_Event__e(
+            Type__c = logType,
+            Level__c = (String) logLevel,
+            Messages__c = message,
+            Record_Id__c = recordId
+        );
+        logsToWrite.get(logEvent.Level__c).add(logEvent);
+    }
 
-	private void commitLogs() {
-		logProfilingWarning();
-		if (!logsToWrite.isEmpty()) {
-			// if error occurs allow to surface to the user as there is nothing else we can do here
-			EventBus.publish(getAllLogsToWrite());
-            logsToWrite.clear();
-		}
-	}
+    public override Object errorLevel() {
+        return ERROR;
+    }
+    public override Object warningLevel() {
+        return WARNING;
+    }
+    public override Object infoLevel() {
+        return INFO;
+    }
+    public override Object debugLevel() {
+        return DEBUG;
+    }
 
-	public List<Log_Event__e> getAllLogsToWrite() {
-		List<Log_Event__e> logsToReturn = new List<Log_Event__e>();
-		for (Logging_Level__mdt loggingLevel : [SELECT DeveloperName FROM Logging_Level__mdt]) {
-			logsToReturn.addAll(logsToWrite.get(loggingLevel.DeveloperName));
-		}
-		return logsToReturn;
-	}
+    private void commitLogs() {
+        logProfilingWarning();
+        if (!logsToWrite.isEmpty()) {
+            // if error occurs allow to surface to the user as there is nothing else we can do here
+            EventBus.publish(getAllLogsToWrite());
+            resetLogsToWrite();
+        }
+    }
 
-	private void logProfilingWarning() {
-		ApexProfiler profiler = new ApexProfiler();
-		if (profiler.isBreachingWarning()) {
-			log(
-				warningLevel(),
-				profiler.getProfilingReport()
-			);
-		}
-	}
+    public List<Log_Event__e> getAllLogsToWrite() {
+        List<Log_Event__e> logsToReturn = new List<Log_Event__e>();
+        for (Logging_Level__mdt loggingLevel : [SELECT DeveloperName FROM Logging_Level__mdt]) {
+            List<Log_Event__e> currentLogs = logsToWrite.get(loggingLevel.DeveloperName);
+            logsToReturn.addAll(currentLogs);
+        }
+        return logsToReturn;
+    }
+
+    private void logProfilingWarning() {
+        ApexProfiler profiler = new ApexProfiler();
+        if (profiler.isBreachingWarning()) {
+            log(
+                warningLevel(),
+                profiler.getProfilingReport()
+            );
+        }
+    }
 }
