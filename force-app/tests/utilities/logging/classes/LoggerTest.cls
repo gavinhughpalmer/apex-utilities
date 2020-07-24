@@ -71,18 +71,18 @@ private class LoggerTest {
     private static void debugTestWithRecordId() {
         final String message = 'A test Message';
         final String customLogLevel = 'debug';
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.insertSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        SObject testSObject = testFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
-        logger.debug(message, testAccount.Id);
+        logger.debug(message, testSObject.Id);
 
-        adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.DEBUG);
+        adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.DEBUG);
         logger = new Logger(LoggerTest.class, adapter);
 
-        logger.debug(message, testAccount.Id);
+        logger.debug(message, testSObject.Id);
     }
 
     @IsTest
@@ -111,18 +111,18 @@ private class LoggerTest {
     private static void infoTestWithRecordId() {
         final String message = 'A test Message';
         final String customLogLevel = 'info';
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.insertSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        SObject testSObject = testFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.INFO);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
-        logger.info(message, testAccount.Id);
+        logger.info(message, testSObject.Id);
 
-        adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.INFO);
+        adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.INFO);
         logger = new Logger(LoggerTest.class, adapter);
 
-        logger.info(message, testAccount.Id);
+        logger.info(message, testSObject.Id);
     }
 
     @IsTest
@@ -140,18 +140,18 @@ private class LoggerTest {
     private static void warnTestWithRecordId() {
         final String message = 'A test Message';
         final String customLogLevel = 'warn';
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.insertSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        SObject testSObject = testFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.WARNING);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
-        logger.warn(message, testAccount.Id);
+        logger.warn(message, testSObject.Id);
 
-        adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.WARNING);
+        adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.WARNING);
         logger = new Logger(LoggerTest.class, adapter);
 
-        logger.warn(message, testAccount.Id);
+        logger.warn(message, testSObject.Id);
     }
 
     @IsTest
@@ -169,18 +169,18 @@ private class LoggerTest {
     private static void errorTestWithRecordId() {
         final String message = 'A test Message';
         final String customLogLevel = 'error';
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.insertSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        SObject testSObject = testFactory.insertSObject();
 
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
         Logger logger = new Logger(LoggerTest.class, adapter);
 
-        logger.error(message, testAccount.Id);
+        logger.error(message, testSObject.Id);
 
-        adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.ERROR);
+        adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.ERROR);
         logger = new Logger(LoggerTest.class, adapter);
 
-        logger.error(message, testAccount.Id);
+        logger.error(message, testSObject.Id);
     }
 
     @IsTest
@@ -200,18 +200,18 @@ private class LoggerTest {
 
     @IsTest
     private static void errorTestWithExceptionWithRecordId() {
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.insertSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        SObject testSObject = testFactory.insertSObject();
         final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
-        TestLoggerAdapter adapter = new TestLoggerAdapter(testAccount.Id, customLogLevel, LogLevel.ERROR);
+        TestLoggerAdapter adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.ERROR);
         Logger logger = new Logger(adapter);
 
         try {
-            insert testAccount;
+            insert testSObject;
         } catch (DmlException exceptionToHandle) {
             // assertions occur inside the adapter
-            logger.error(exceptionToHandle, testAccount.Id);
+            logger.error(exceptionToHandle, testSObject.Id);
         }
     }
 

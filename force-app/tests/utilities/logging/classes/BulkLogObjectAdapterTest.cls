@@ -79,8 +79,8 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void logTestWithRecordId() {
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.insertSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        SObject testSObject = testFactory.insertSObject();
         final String logType = 'Test Log Type';
         final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
@@ -91,7 +91,7 @@ private class BulkLogObjectAdapterTest {
             'The logs should be empty before log is called'
         );
 
-        loggerAdapter.log(logLevel, message, testAccount.Id);
+        loggerAdapter.log(logLevel, message, testSObject.Id);
 
         System.assertEquals(
             1, loggerAdapter.logsToWrite.get(logLevel).size(),
@@ -111,7 +111,7 @@ private class BulkLogObjectAdapterTest {
             'The message should match the message passed into the log call'
         );
         System.assertEquals(
-            testAccount.Id, logToAssert.Record_Id__c,
+            testSObject.Id, logToAssert.Record_Id__c,
             'The record id should be appended to the log record'
         );
     }
