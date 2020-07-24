@@ -9,7 +9,7 @@
 * 2018-10-23 : Gavin Palmer - Original
 **/
 public with sharing class SObjectTestFactory extends AbstractSObjectTestFactory {
-    public SObject getSObject() {
+    public override SObject getSObject() {
         return Log__c(
             Level__c = 'Info',
             Messages__c = 'Not a real log',
