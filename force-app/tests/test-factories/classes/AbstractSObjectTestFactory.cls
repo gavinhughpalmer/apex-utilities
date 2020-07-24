@@ -95,10 +95,12 @@ public without sharing abstract class AbstractSObjectTestFactory {
     private class DmlInserter implements Insertable {
         public SObject insertSObject(SObject sObjectToInsert) {
             insert sObjectToInsert;
+            return sObjectToInsert;
         }
 
         public List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert) {
             insert sObjectsToInsert;
+            return sObjectsToInsert;
         }
     }
 }
