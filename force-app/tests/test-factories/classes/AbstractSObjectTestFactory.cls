@@ -5,21 +5,26 @@
 *    this pattern will define attributes that can be set in the test classes.
 *    This allows any required fields / validations to be defined in what is returned in the getSObject method
 *    allowing developers to easily enforce required fields accross all test classes if they are ever added
-*    in the UI
+*    in the UI. The method for inserting the records can be injected if specific ties around the insert need to be added for a
+*    specific use case, eg in the abstract SObject test factory test class
 *
 * 2018-10-23 : Gavin Palmer - Original
 **/
 public without sharing abstract class AbstractSObjectTestFactory {
 
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
+    private Insertable inserter = new DmlInserter();
     public String uniqueValue = 'test';
+
+    public void setInserter(Insertable inserter) {
+        this.inserter = inserter;
+    }
 
     public abstract SObject getSObject();
 
     public virtual SObject insertSObject() {
         SObject sObjectToInsert = getSObject();
-        insert sObjectToInsert;
-        return sObjectToInsert;
+        return inserter.insertSObject(sObjectToInsert);
     }
 
     // TODO will need to implement some form of caching for objects that have multiple lookups to the same objects
@@ -28,8 +33,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
         for (FactoryDependancy dependancy : dependancies.values()) {
             dependancy.createDependancyFor(sObjectToInsert);
         }
-        insert sObjectToInsert;
-        return sObjectToInsert;
+        return inserter.insertSObject(sObjectToInsert);
     }
 
     public virtual List<SObject> insertMultipleWithDependancies(Integer numberToInsert) {
@@ -37,8 +41,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
         for (FactoryDependancy dependancy : dependancies.values()) {
             dependancy.createDependanciesFor(sObjectsToInsert);
         }
-        insert sObjectsToInsert;
-        return sObjectsToInsert;
+        return inserter.insertMultipleSObject(sObjectsToInsert);
     }
 
     public virtual List<SObject> getMultipleSObjects(Integer numberToCreate) {
@@ -54,8 +57,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
 
     public virtual List<SObject> insertMultipleSObjects(Integer numberToInsert) {
         List<SObject> sObjectsToInsert = getMultipleSObjects(numberToInsert);
-        insert sObjectsToInsert;
-        return sObjectsToInsert;
+        return inserter.insertMultipleSObject(sObjectsToInsert);
     }
 
     public void addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
@@ -82,6 +84,23 @@ public without sharing abstract class AbstractSObjectTestFactory {
                 childSObjects[i].put(parentRelationship.idFieldName, parentSObjects[i].Id);
                 childSObjects[i].putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
             }
+        }
+    }
+
+    public interface Insertable {
+        SObject insertSObject(SObject sObjectToInsert);
+        List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert);
+    }
+
+    private class DmlInserter implements Insertable {
+        public SObject insertSObject(SObject sObjectToInsert) {
+            insert sObjectToInsert;
+            return sObjectToInsert;
+        }
+
+        public List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert) {
+            insert sObjectsToInsert;
+            return sObjectsToInsert;
         }
     }
 }

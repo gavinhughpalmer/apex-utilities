@@ -117,7 +117,7 @@ newAccount.put(field.getName(), parser.parse('100'));
 ```
 
 - **AbstractSObjectTestFactory**:
-  - Description: This is a factory class that can be used in test classes to generate sobject test data
+  - Description: This is a factory class that can be used in test classes to generate sobject test data, a few example test factories have been included in the example-app which can be added to an org an extended for the specific use case eg. any additional custom field, validation criteria, unique field requirements or dependancies.
   - Usage: see `AccountTestFactory` for details
 - **DatabaseUtils**:
   - Description: This class is a collection of classes that are used on the Database class
