@@ -11,14 +11,19 @@ public without sharing class ApexProfiler {
     @testVisible private static final Decimal DEFAULT_WARNING_PERCENTAGE = 0.75;
     @testVisible private final Map<String, ProfileInfo> profilingInfos = new Map<String, ProfileInfo>();
     private static final Map<String, Decimal> WARNING_PERCENTAGES = new Map<String, Decimal>();
+    private static final Set<String> IGNORE_LIMITS = new Set<String>();
     private static Boolean isIncludingOrgLimits = true;
 
     static {
         for (Apex_Profiling_Warning_Limit__mdt warningLimit : [
-            SELECT DeveloperName, Warning_Level__c
+            SELECT DeveloperName, Warning_Level__c, Ignore_Limit__c
             FROM Apex_Profiling_Warning_Limit__mdt
         ]) {
-            WARNING_PERCENTAGES.put(warningLimit.DeveloperName, warningLimit.Warning_Level__c);
+            if (warningLimit.Ignore_Limit__c) {
+                IGNORE_LIMITS.add(warningLimit.DeveloperName);
+            } else {
+                WARNING_PERCENTAGES.put(warningLimit.DeveloperName, warningLimit.Warning_Level__c);
+            }
         }
     }
 
@@ -73,7 +78,9 @@ public without sharing class ApexProfiler {
     }
 
     private void addProfilingInfo(ProfileInfo profilingInfo) {
-        profilingInfos.put(profilingInfo.limitName, profilingInfo);
+        if (!IGNORE_LIMITS.contains(profilingInfo.limitName)) {
+            profilingInfos.put(profilingInfo.limitName, profilingInfo);
+        }
     }
 
     public String getProfilingReport() {
@@ -112,3 +119,4 @@ public without sharing class ApexProfiler {
         }
     }
 }
+

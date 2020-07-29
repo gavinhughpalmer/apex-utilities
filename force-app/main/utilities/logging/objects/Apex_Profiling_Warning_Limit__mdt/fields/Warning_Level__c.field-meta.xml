@@ -6,7 +6,7 @@
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Warning Level</label>
     <precision>4</precision>
-    <required>true</required>
+    <required>false</required>
     <scale>2</scale>
     <type>Percent</type>
 </CustomField>
