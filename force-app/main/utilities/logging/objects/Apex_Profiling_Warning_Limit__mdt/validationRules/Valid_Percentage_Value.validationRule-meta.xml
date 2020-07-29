@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Valid_Percentage_Value</fullName>
     <active>true</active>
-    <description>This rule will validate that the percentage input is between 0 and 100 so we don&#39;t get any obscure errors when accessing the variable in apex</description>
+    <description>This rule will validate that the percentage input is between 0 and 100 so we don&apos;t get any obscure errors when accessing the variable in apex</description>
     <errorConditionFormula>AND(
  NOT($Setup.Configuration__c.Are_Validations_Off__c),
  OR(
