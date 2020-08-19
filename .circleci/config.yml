@@ -51,15 +51,15 @@ workflows:
       - run-analysis:
             filters:
               branches:
-                only:
-                  - /feature\/.*/
+                ignore:
+                  - master
       - build:
             requires:
               - run-analysis
             filters:
               branches:
-                only:
-                  - /feature\/.*/
+                ignore:
+                  - master
   package:
     jobs:
       - package:
