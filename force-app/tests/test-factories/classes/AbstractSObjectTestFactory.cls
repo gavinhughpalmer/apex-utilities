@@ -31,6 +31,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
     public virtual SObject insertWithDependancies() {
         SObject sObjectToInsert = getSObject();
         for (FactoryDependancy dependancy : dependancies.values()) {
+            dependancy.parentFactory.setInserter(inserter);
             dependancy.createDependancyFor(sObjectToInsert);
         }
         return inserter.insertSObject(sObjectToInsert);
@@ -39,6 +40,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
     public virtual List<SObject> insertMultipleWithDependancies(Integer numberToInsert) {
         List<SObject> sObjectsToInsert = getMultipleSObjects(numberToInsert);
         for (FactoryDependancy dependancy : dependancies.values()) {
+            dependancy.parentFactory.setInserter(inserter);
             dependancy.createDependanciesFor(sObjectsToInsert);
         }
         return inserter.insertMultipleSObject(sObjectsToInsert);
