@@ -163,7 +163,3 @@ trigger OpportunityBeforeInsert on Opportunity (before insert) {
 SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
 Id bigSaleRecordTypeId = opportunityRecordTypes.getRecordTypeId('Big_Sale')
 ```
-
-## TODO
-
-- Add something that generates the readme based on the class headers
