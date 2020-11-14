@@ -15,6 +15,8 @@ public without sharing abstract class AbstractSObjectTestFactory {
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
     private Insertable inserter = new DmlInserter();
     public String uniqueValue = 'test';
+    private SObject recordToCreate;
+    private List<SObject> recordsToCreate;
 
     public void setInserter(Insertable inserter) {
         this.inserter = inserter;
@@ -23,27 +25,27 @@ public without sharing abstract class AbstractSObjectTestFactory {
     public abstract SObject getSObject();
 
     public virtual SObject insertSObject() {
-        SObject sObjectToInsert = getSObject();
-        return inserter.insertSObject(sObjectToInsert);
+        recordToCreate = getSObject();
+        return inserter.insertSObject(recordToCreate);
     }
 
     // TODO will need to implement some form of caching for objects that have multiple lookups to the same objects
     public virtual SObject insertWithDependancies() {
-        SObject sObjectToInsert = getSObject();
+        recordToCreate = getSObject();
         for (FactoryDependancy dependancy : dependancies.values()) {
             dependancy.parentFactory.setInserter(inserter);
-            dependancy.createDependancyFor(sObjectToInsert);
+            dependancy.createDependancyFor(recordToCreate);
         }
-        return inserter.insertSObject(sObjectToInsert);
+        return inserter.insertSObject(recordToCreate);
     }
 
     public virtual List<SObject> insertMultipleWithDependancies(Integer numberToInsert) {
-        List<SObject> sObjectsToInsert = getMultipleSObjects(numberToInsert);
+        recordsToCreate = getMultipleSObjects(numberToInsert);
         for (FactoryDependancy dependancy : dependancies.values()) {
             dependancy.parentFactory.setInserter(inserter);
-            dependancy.createDependanciesFor(sObjectsToInsert);
+            dependancy.createDependanciesFor(recordsToCreate);
         }
-        return inserter.insertMultipleSObject(sObjectsToInsert);
+        return inserter.insertMultipleSObject(recordsToCreate);
     }
 
     public virtual List<SObject> getMultipleSObjects(Integer numberToCreate) {
@@ -58,8 +60,8 @@ public without sharing abstract class AbstractSObjectTestFactory {
     }
 
     public virtual List<SObject> insertMultipleSObjects(Integer numberToInsert) {
-        List<SObject> sObjectsToInsert = getMultipleSObjects(numberToInsert);
-        return inserter.insertMultipleSObject(sObjectsToInsert);
+        recordsToCreate = getMultipleSObjects(numberToInsert);
+        return inserter.insertMultipleSObject(recordsToCreate);
     }
 
     public void addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
