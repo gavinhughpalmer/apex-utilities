@@ -14,19 +14,32 @@
 **/
 public virtual inherited sharing class StringBuilder {
 
-    @testVisible private final List<String> buffer = new List<String>();
+    @testVisible private final List<String> buffer;
     @testVisible private String separator = '';
+    private Integer count = 0;
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
-    public StringBuilder() {}
+    public StringBuilder() {
+        buffer = new List<String>();
+    }
+
+    // public StringBuilder(Boolean uniqueBuffer) {
+    //     if (uniqueBuffer) {
+    //         buffer = new Set<String>();
+    //     } else {
+    //         this();
+    //     }
+    // }
 
     public StringBuilder(Object value) {
+        this();
         append(value);
     }
 
     public StringBuilder append(String value) {
         if (value != null) {
             buffer.add(value);
+            count += value.length();// This isn't correct if the buffer is unique
         }
         return this;
     }
@@ -36,15 +49,36 @@ public virtual inherited sharing class StringBuilder {
         return append(stringValue);
     }
 
+    public StringBuilder append(StringBuilder stringBuilder) {
+        if (stringBuilder == null) {
+            return append('null');
+        }
+        count += stringBuilder.count;
+        buffer.addAll(stringBuilder.buffer);
+        return this;
+    }
+
     public void setSeparator(String separator) {
         if (String.isNotEmpty(separator)) {
             this.separator = separator;
         }
     }
 
-    public Integer length() {
+    public Integer capacity() {
         return buffer.size();
     }
+
+    public Integer length() {
+        return count + (separator.length() * (capacity() - 1));
+    }
+
+    // delete
+    // replace
+    // subString
+    // insert
+    // indexOf
+    // lastIndexOf
+    // reverse
 
     public override String toString() {
         return String.join(buffer, separator);

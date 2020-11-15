@@ -16,7 +16,7 @@ private class StringBuilderTest {
 
         System.assertEquals(
             1,
-            builder.length(),
+            builder.capacity(),
             'There should be a single string in the builder'
         );
 
@@ -34,7 +34,7 @@ private class StringBuilderTest {
 
         System.assertEquals(
             1,
-            builder.length(),
+            builder.capacity(),
             'There should be a single string in the builder'
         );
 
@@ -53,7 +53,7 @@ private class StringBuilderTest {
 
         System.assertEquals(
             0,
-            builder.length(),
+            builder.capacity(),
             'The empty string should not be added to be built'
         );
     }
