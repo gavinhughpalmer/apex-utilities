@@ -80,11 +80,11 @@ public class CsvBuilder {
         }
 
         public ColumnBuilder append(RowBuilder rowToAdd) {
-            Boolean isAddedRowValid = numberOfColumns == null || rowToAdd.length() == numberOfColumns;
+            Boolean isAddedRowValid = numberOfColumns == null || rowToAdd.capacity() == numberOfColumns;
             if (!isAddedRowValid) {
                 throw new InvalidRowException('The number of columns provided does not match those already in the csv');
             }
-            numberOfColumns = rowToAdd.length();
+            numberOfColumns = rowToAdd.capacity();
             append(rowToAdd.toString());
             return this;
         }
