@@ -14,7 +14,7 @@
 **/
 public virtual inherited sharing class StringBuilder {
 
-    @testVisible private final Collection<String> buffer;
+    @testVisible private final List<String> buffer;
     @testVisible private String separator = '';
     private Integer count = 0;
 
@@ -23,13 +23,13 @@ public virtual inherited sharing class StringBuilder {
         buffer = new List<String>();
     }
 
-    public StringBuilder(Boolean uniqueBuffer) {
-        if (uniqueBuffer) {
-            buffer = new Set<String>();
-        } else {
-            this();
-        }
-    }
+    // public StringBuilder(Boolean uniqueBuffer) {
+    //     if (uniqueBuffer) {
+    //         buffer = new Set<String>();
+    //     } else {
+    //         this();
+    //     }
+    // }
 
     public StringBuilder(Object value) {
         this();
@@ -39,7 +39,7 @@ public virtual inherited sharing class StringBuilder {
     public StringBuilder append(String value) {
         if (value != null) {
             buffer.add(value);
-            count += value.length();
+            count += value.length();// This isn't correct if the buffer is unique
         }
         return this;
     }
