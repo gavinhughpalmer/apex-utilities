@@ -100,7 +100,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
     }
 
     private void logProfilingWarning() {
-        ApexProfiler profiler = new ApexProfiler();
+        Profiler profiler = new ApexProfiler();
         if (profiler.isBreachingWarning()) {
             log(
                 warningLevel(),
