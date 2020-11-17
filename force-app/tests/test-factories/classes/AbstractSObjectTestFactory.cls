@@ -9,6 +9,7 @@
 *    specific use case, eg in the abstract SObject test factory test class
 *
 * 2018-10-23 : Gavin Palmer - Original
+* 2020-11-17 : Khin Hou - Included the options to turn on/off duplication rules on inserts (allowDuplicatesOnSave methods)
 **/
 public without sharing abstract class AbstractSObjectTestFactory {
 
@@ -20,6 +21,10 @@ public without sharing abstract class AbstractSObjectTestFactory {
 
     public void setInserter(Insertable inserter) {
         this.inserter = inserter;
+    }
+
+    public void allowDuplicatesOnSave(Boolean areRulesOn) {
+        inserter.allowDuplicatesOnSave(areRulesOn);
     }
 
     public abstract SObject getSObject();
@@ -88,23 +93,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
                 childSObjects[i].put(parentRelationship.idFieldName, parentSObjects[i].Id);
                 childSObjects[i].putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
             }
-        }
-    }
-
-    public interface Insertable {
-        SObject insertSObject(SObject sObjectToInsert);
-        List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert);
-    }
-
-    private class DmlInserter implements Insertable {
-        public SObject insertSObject(SObject sObjectToInsert) {
-            insert sObjectToInsert;
-            return sObjectToInsert;
-        }
-
-        public List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert) {
-            insert sObjectsToInsert;
-            return sObjectsToInsert;
         }
     }
 }

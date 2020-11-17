@@ -11,6 +11,7 @@ private class AbstractSObjectTestFactoryTest {
     private static void insertWithDependanciesTest() {
         MockContactTestFactory contactFactory = new MockContactTestFactory();
         contactFactory.setInserter(new MockInserter());
+        contactFactory.allowDuplicatesOnSave(false);
         Contact testContact = (Contact) contactFactory.insertWithDependancies();
         System.assertNotEquals(
             null, testContact.Account.Name,
@@ -39,6 +40,11 @@ private class AbstractSObjectTestFactoryTest {
         }
     }
     private class MockInserter implements AbstractSObjectTestFactory.Insertable {
+        Boolean allowDuplicatesOnSave = false;
+        public Boolean allowDuplicatesOnSave(Boolean areRulesOn) {
+            allowDuplicatesOnSave = areRulesOn;
+            return allowDuplicatesOnSave;
+        }
         public SObject insertSObject(SObject sObjectToInsert) {
             // do nothing...
             return sObjectToInsert;
