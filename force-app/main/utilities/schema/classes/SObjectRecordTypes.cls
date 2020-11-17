@@ -10,16 +10,14 @@
  **/
 public inherited sharing class SObjectRecordTypes {
     private final Map<String, Schema.RecordTypeInfo> recordTypesByDeveloperName;
-    private final Map<Id, String> recordTypesById;
+    private final Map<Id, Schema.RecordTypeInfo> recordTypesById;
     private RecordTypeInfo defaultRecordTypeInfo;
 
     public SObjectRecordTypes(final String objectApiName) {
         final SchemaFacade schema = SchemaFacade.getInstance();
         final DescribeSObjectResult objectDescribe = schema.getDescribe(objectApiName);
         recordTypesByDeveloperName = objectDescribe.getRecordTypeInfosByDeveloperName();
-        if(!recordTypesByDeveloperName.isEmpty()) {
-            recordTypesById = constructMapOfRecordTypesById();
-        }
+        recordTypesById = objectDescribe.getRecordTypeInfosById();
     }
 
     public Id getDefaultId() {
@@ -42,18 +40,10 @@ public inherited sharing class SObjectRecordTypes {
         return recordTypeId;
     }
 
-    private Map<Id, String> constructMapOfRecordTypesById() {
-        Map<Id, String> mapOfRecordTypesById = new Map<Id, String>();
-        for(String developerName : recordTypesByDeveloperName.keyset()) {
-            mapOfRecordTypesById.put(recordTypesByDeveloperName.get(developerName).getRecordTypeId(), developerName);
-        }
-        return mapOfRecordTypesById;
-    }
-
     public String getRecordTypeDeveloperName(final Id recordTypeId) {
         String recordTypeDeveloperName;
         if (recordTypesById.containsKey(recordTypeId)) {
-            recordTypeDeveloperName = recordTypesById.get(recordTypeId);
+            recordTypeDeveloperName = recordTypesById.get(recordTypeId).getDeveloperName();
         }
         return recordTypeDeveloperName;
     }
