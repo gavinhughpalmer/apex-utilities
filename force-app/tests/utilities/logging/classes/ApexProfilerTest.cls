@@ -42,20 +42,20 @@ private class ApexProfilerTest {
     @SuppressWarnings('PMD.AvoidSoqlInLoops')
     private static void isBreachingWarningTestBreach() {
         Test.startTest();
-        ApexProfiler profiler = new ApexProfiler();
+        ApexProfiler apexProfiler = new ApexProfiler();
         Integer queriesToRun =
             Integer.valueOf(
                 Math.ceil(
-                    profiler.profilingInfos.get('Queries').limitTotal *
+                    apexProfiler.profilingInfos.get('Queries').limitTotal *
                     Profiler.DEFAULT_WARNING_PERCENTAGE
                 )
             ) + 1;
         for (Integer i = 0; i < queriesToRun; i++) {
             List<Account> testQuery = [SELECT Id FROM Account LIMIT 1];
         }
-        profiler.refreshProfiling();
+        apexProfiler.refreshProfiling();
         System.assert(
-            profiler.isBreachingWarning(),
+            apexProfiler.isBreachingWarning(),
             'The warning should be flagged when the queries have run'
         );
         Test.stopTest();
