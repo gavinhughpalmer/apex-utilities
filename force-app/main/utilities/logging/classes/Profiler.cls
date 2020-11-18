@@ -38,7 +38,7 @@ public abstract without sharing class Profiler {
     public abstract void refreshProfiling();
 
     protected void addProfilingInfo(String limitName, Integer recorded, Integer limitTotal) {
-        if (!IGNORE_LIMITS.contains(profilingInfo.limitName)) {
+        if (!IGNORE_LIMITS.contains(limitName)) {
             ProfileInfo profilingInfo = new ProfileInfo(limitName, recorded, limitTotal);
             isBreachingWarning = isBreachingWarning || profilingInfo.isBreachingWarning();
             profilingInfos.put(profilingInfo.limitName, profilingInfo);
