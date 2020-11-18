@@ -8,6 +8,8 @@
 **/
 public with sharing class TriggerDispatcher {
 
+    // TODO ability to disable certain classes or triggers from execution, could be metadata driven
+
     private static final Stack TRIGGER_STACK = new Stack();
     private static Boolean unknownExceptionLogged = false;
 
@@ -32,15 +34,18 @@ public with sharing class TriggerDispatcher {
 
     public void run() {
         if (triggersAreActive()) {
-            TRIGGER_STACK.push(currentTriggerAction);
             try {
+                TRIGGER_STACK.push(currentTriggerAction);
                 executeTriggerables();
+                TRIGGER_STACK.pop(); // pop in here so errors will get handled
+            } catch (Stack.UnderflowException underflowException) {
+                logUnknownException('Stack underflow');
+                throw underflowException;
             } catch (Exception exceptionToHandle) {
+                TRIGGER_STACK.pop(); // it wasn't popped
                 logUnknownException(exceptionToHandle.getMessage());
                 throw exceptionToHandle;
             } finally {
-                // Do we want to error handle this? Ie what gets popped off? and if an error occurs
-                TRIGGER_STACK.pop();
                 writeLogs();
             }
         }
@@ -61,11 +66,11 @@ public with sharing class TriggerDispatcher {
         return ConfigurationManager.getInstance().areTriggersOn();
     }
 
-    private void logUnknownException() {
+    private void logUnknownException(String exceptionMessage) {
         // Only write the logs the first time an unknown exception is thown, the exception will then get thrown all the way up the stack
         if (!unknownExceptionLogged) {
             log.error(
-                'Unhandled exception within trigger: ' + exceptionToHandle.getMessage() + '\n' +
+                'Unhandled exception within trigger: ' + exceptionMessage + '\n' +
                 'Trigger Stack: ' + TRIGGER_STACK.toString()
             );
             unknownExceptionLogged = true;
