@@ -12,13 +12,18 @@ public abstract without sharing class Profiler {
     private final Map<String, ProfileInfo> profilingInfos = new Map<String, ProfileInfo>();
     private Boolean isBreachingWarning = false;
     private static final Map<String, Decimal> WARNING_PERCENTAGES = new Map<String, Decimal>();
+    private static final Set<String> IGNORE_LIMITS = new Set<String>();
 
     static {
         for (Apex_Profiling_Warning_Limit__mdt warningLimit : [
-            SELECT DeveloperName, Warning_Level__c
+            SELECT DeveloperName, Ignore_Limit__c, Warning_Level__c
             FROM Apex_Profiling_Warning_Limit__mdt
         ]) {
-            WARNING_PERCENTAGES.put(warningLimit.DeveloperName, warningLimit.Warning_Level__c);
+            if (warningLimit.Ignore_Limit__c) {
+                IGNORE_LIMITS.add(warningLimit.DeveloperName);
+            } else {
+                WARNING_PERCENTAGES.put(warningLimit.DeveloperName, warningLimit.Warning_Level__c);
+            }
         }
     }
 
@@ -33,9 +38,11 @@ public abstract without sharing class Profiler {
     public abstract void refreshProfiling();
 
     protected void addProfilingInfo(String limitName, Integer recorded, Integer limitTotal) {
-        ProfileInfo profilingInfo = new ProfileInfo(limitName, recorded, limitTotal);
-        isBreachingWarning = isBreachingWarning || profilingInfo.isBreachingWarning();
-        profilingInfos.put(profilingInfo.limitName, profilingInfo);
+        if (!IGNORE_LIMITS.contains(profilingInfo.limitName)) {
+            ProfileInfo profilingInfo = new ProfileInfo(limitName, recorded, limitTotal);
+            isBreachingWarning = isBreachingWarning || profilingInfo.isBreachingWarning();
+            profilingInfos.put(profilingInfo.limitName, profilingInfo);
+        }
     }
 
     public String getProfilingReport() {
