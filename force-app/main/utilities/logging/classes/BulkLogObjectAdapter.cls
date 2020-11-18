@@ -100,8 +100,8 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 
     public List<Log_Event__e> getAllLogsToWrite() {
         List<Log_Event__e> logsToReturn = new List<Log_Event__e>();
-        for (Logging_Level__mdt loggingLevel : LOGGING_LEVELS) {
-            List<Log_Event__e> currentLogs = logsToWrite.get(loggingLevel.DeveloperName);
+        for (String loggingLevel : LOGGING_LEVELS) {
+            List<Log_Event__e> currentLogs = logsToWrite.get(loggingLevel);
             logsToReturn.addAll(currentLogs);
         }
         return logsToReturn;
