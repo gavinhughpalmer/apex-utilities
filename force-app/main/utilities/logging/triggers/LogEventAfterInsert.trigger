@@ -5,11 +5,9 @@
 * 2019-04-20 : Gavin Palmer - Original
 **/
 trigger LogEventAfterInsert on Log_Event__e (after insert) {
-    TriggerHandler.performAllActions(
+    TriggerDispatcher.run(
         new List<Triggerable>{
             new LogWriter()
-        },
-        Trigger.new,
-        Trigger.oldMap
+        }
     );
 }

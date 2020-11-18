@@ -7,6 +7,7 @@
 **/
 @IsTest
 private class TriggerHandlerTest {
+    // TODO Move over to dispatcher
 
     private class TestTriggerAction extends Triggerable {
         private final Boolean isAllowedRegister;
