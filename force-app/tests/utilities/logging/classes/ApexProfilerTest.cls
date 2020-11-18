@@ -10,7 +10,7 @@ private class ApexProfilerTest {
     @IsTest
     private static void refreshProfilingTest() {
         Test.startTest();
-        ApexProfiler profiler = getTestProfiler();
+        ApexProfiler profiler = new ApexProfiler();
         System.assertEquals(
             profiler.profilingInfos.get('Queries').recorded,
             0,
@@ -29,7 +29,7 @@ private class ApexProfilerTest {
     @IsTest
     private static void isBreachingWarningTestNoBreach() {
         Test.startTest();
-        ApexProfiler profiler = getTestProfiler();
+        ApexProfiler profiler = new ApexProfiler();
         // Set to not include org limits for this test as this is
         System.assert(
             !profiler.isBreachingWarning(),
@@ -42,12 +42,12 @@ private class ApexProfilerTest {
     @SuppressWarnings('PMD.AvoidSoqlInLoops')
     private static void isBreachingWarningTestBreach() {
         Test.startTest();
-        ApexProfiler profiler = getTestProfiler();
+        ApexProfiler profiler = new ApexProfiler();
         Integer queriesToRun =
             Integer.valueOf(
                 Math.ceil(
                     profiler.profilingInfos.get('Queries').limitTotal *
-                    ApexProfiler.DEFAULT_WARNING_PERCENTAGE
+                    Profiler.DEFAULT_WARNING_PERCENTAGE
                 )
             ) + 1;
         for (Integer i = 0; i < queriesToRun; i++) {
@@ -63,15 +63,10 @@ private class ApexProfilerTest {
 
     @IsTest
     private static void getProfilingReportTest() {
-        ApexProfiler profiler = getTestProfiler();
+        ApexProfiler profiler = new ApexProfiler();
         System.assert(
             String.isNotBlank(profiler.getProfilingReport()),
             'The profiling report should not be empty'
         );
-    }
-
-    private static ApexProfiler getTestProfiler() {
-        ApexProfiler.includeOrgLimits(false);
-        return new ApexProfiler();
     }
 }

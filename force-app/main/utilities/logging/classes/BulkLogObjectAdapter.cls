@@ -23,6 +23,14 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 
     private String logType;
     @testVisible private final Map<String, List<Log_Event__e>> logsToWrite = new Map<String, List<Log_Event__e>>();
+    @testVisible
+    private static final Set<String> LOGGING_LEVELS = new Set<String>();
+
+    static {
+        for (Logging_Level__mdt loggingLevel : [SELECT DeveloperName FROM Logging_Level__mdt]) {
+            LOGGING_LEVELS.add(loggingLevel.DeveloperName);
+        }
+    }
 
     public static BulkLogObjectAdapter getInstance(String logType) {
         instance.setLogType(logType);
@@ -92,7 +100,7 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
 
     public List<Log_Event__e> getAllLogsToWrite() {
         List<Log_Event__e> logsToReturn = new List<Log_Event__e>();
-        for (Logging_Level__mdt loggingLevel : [SELECT DeveloperName FROM Logging_Level__mdt]) {
+        for (Logging_Level__mdt loggingLevel : LOGGING_LEVELS) {
             List<Log_Event__e> currentLogs = logsToWrite.get(loggingLevel.DeveloperName);
             logsToReturn.addAll(currentLogs);
         }
