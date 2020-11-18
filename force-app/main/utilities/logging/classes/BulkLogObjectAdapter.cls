@@ -67,11 +67,14 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
     }
 
     public override void log(Object logLevel, String message, Id recordId) {
+        Request currentRequest = Request.getCurrent();
         Log_Event__e logEvent = new Log_Event__e(
             Type__c = logType,
             Level__c = (String) logLevel,
             Messages__c = message,
-            Record_Id__c = recordId
+            Record_Id__c = recordId,
+            Quiddity__c = currentRequest.getQuiddity(),
+            Transaction_Id__c = currentRequest.getRequestId()
         );
         logsToWrite.get(logEvent.Level__c).add(logEvent);
     }
