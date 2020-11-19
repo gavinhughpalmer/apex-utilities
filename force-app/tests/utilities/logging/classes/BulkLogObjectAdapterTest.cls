@@ -10,7 +10,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void errorLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
         System.assertEquals(
             BulkLogObjectAdapter.ERROR, loggerAdapter.errorLevel(),
             'The error level should return the error string'
@@ -19,7 +19,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void warningLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
         System.assertEquals(
             BulkLogObjectAdapter.WARNING, loggerAdapter.warningLevel(),
             'The warning level should return the warning string'
@@ -28,7 +28,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void infoLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
         System.assertEquals(
             BulkLogObjectAdapter.INFO, loggerAdapter.infoLevel(),
             'The info level should return the info string'
@@ -37,7 +37,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void debugLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
         System.assertEquals(
             BulkLogObjectAdapter.DEBUG, loggerAdapter.debugLevel(),
             'The debug level should return the debug string'
@@ -49,20 +49,21 @@ private class BulkLogObjectAdapterTest {
         final String logType = 'Test Log Type';
         final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
+        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        loggerAdapter.setType(logType);
 
         System.assert(
-            loggerAdapter.logsToWrite.get(logLevel).isEmpty(),
+            loggerAdapter.logsByLevels.get(logLevel).isEmpty(),
             'The logs should be empty before log is called'
         );
 
         loggerAdapter.log(logLevel, message);
 
         System.assertEquals(
-            1, loggerAdapter.logsToWrite.get(logLevel).size(),
+            1, loggerAdapter.logsByLevels.get(logLevel).size(),
             'The logs should not be empty after log is called'
         );
-        Log_Event__e logToAssert = loggerAdapter.logsToWrite.get(logLevel)[0];
+        Log_Event__e logToAssert = loggerAdapter.logsByLevels.get(logLevel)[0];
         System.assertEquals(
             logType, logToAssert.Type__c,
             'The type should match the type passed into the adapters constructor'
@@ -84,20 +85,20 @@ private class BulkLogObjectAdapterTest {
         final String logType = 'Test Log Type';
         final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
-
+        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        loggerAdapter.setType(logType);
         System.assert(
-            loggerAdapter.logsToWrite.get(logLevel).isEmpty(),
+            loggerAdapter.logsByLevels.get(logLevel).isEmpty(),
             'The logs should be empty before log is called'
         );
 
         loggerAdapter.log(logLevel, message, testSObject.Id);
 
         System.assertEquals(
-            1, loggerAdapter.logsToWrite.get(logLevel).size(),
+            1, loggerAdapter.logsByLevels.get(logLevel).size(),
             'The logs should not be empty after log is called'
         );
-        Log_Event__e logToAssert = loggerAdapter.logsToWrite.get(logLevel)[0];
+        Log_Event__e logToAssert = loggerAdapter.logsByLevels.get(logLevel)[0];
         System.assertEquals(
             logType, logToAssert.Type__c,
             'The type should match the type passed into the adapters constructor'
@@ -117,7 +118,7 @@ private class BulkLogObjectAdapterTest {
     }
 
     @IsTest
-    private static void writeLogsTest() {
+    private static void closeTest() {
         System.assertEquals(
             0, [SELECT COUNT() FROM Log__c],
             'There should be no logs in the system before the test'
@@ -125,13 +126,14 @@ private class BulkLogObjectAdapterTest {
         final String logType = 'Test Log Type';
         final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
+        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        loggerAdapter.setType(logType);
 
         loggerAdapter.log(logLevel, message);
 
         Test.startTest();
         try {
-            BulkLogObjectAdapter.writeLogs();
+            loggerAdapter.close();
         } catch (Exception exceptionToHandle) {
             System.assert(
                 false,
@@ -171,15 +173,16 @@ private class BulkLogObjectAdapterTest {
         final String logType = 'Test Log Type';
         final String logLevel = BulkLogObjectAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance(logType);
+        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        loggerAdapter.setType(logType);
 
         loggerAdapter.log(logLevel, message);
 
         Test.startTest();
         try {
-            BulkLogObjectAdapter.writeLogs();
+            loggerAdapter.close();
             // Write the logs for a second time, this should not cause any problems
-            BulkLogObjectAdapter.writeLogs();
+            loggerAdapter.close();
         } catch (Exception exceptionToHandle) {
             System.assert(
                 false,

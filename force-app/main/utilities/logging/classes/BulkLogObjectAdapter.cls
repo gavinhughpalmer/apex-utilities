@@ -6,23 +6,22 @@
 * The class has been adapted to use events so that it can still insert log objects when a transaction is rolled back, allowing it
 * to be more robust in trigger contexts
 * Usage:
-* Logger log = new Logger(BulkLogObjectAdapter.getInstance('Integration'));
+* Logger log = LoggerFactory.createLogger(MyClass.class);
 * log.warn('A warning message');
-* BulkLogObjectAdapter.writeLogs();
+* log.close();
 *
 * 2018-06-27 : Gavin Palmer - Original
 **/
-public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
+public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
 
     @testVisible private static final String ERROR = 'Error';
     @testVisible private static final String WARNING = 'Warning';
     @testVisible private static final String INFO = 'Information';
     @testVisible private static final String DEBUG = 'Debug';
 
-    private static BulkLogObjectAdapter instance = new BulkLogObjectAdapter();
+    private static final BulkLogObjectAdapter INSTANCE = new BulkLogObjectAdapter();
 
-    private String logType;
-    @testVisible private final Map<String, List<Log_Event__e>> logsToWrite = new Map<String, List<Log_Event__e>>();
+    @testVisible private final Map<String, List<Log_Event__e>> logsByLevels = new Map<String, List<Log_Event__e>>();
     @testVisible
     private static final Set<String> LOGGING_LEVELS = new Set<String>();
 
@@ -32,50 +31,35 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
         }
     }
 
-    public static BulkLogObjectAdapter getInstance(String logType) {
-        instance.setLogType(logType);
-        return instance;
-    }
-
-    // This method is to be used if any calling entity straddles multiple transactions (ie async apex)
-    public static void setInstance(BulkLogObjectAdapter instanceToSet) {
-        instance = instanceToSet;
-    }
-
-    public static void writeLogs() {
-        instance.commitLogs();
+    public static BulkLogObjectAdapter getInstance() {
+        return INSTANCE;
     }
 
     private BulkLogObjectAdapter() {
-        resetLogsToWrite();
+        flushLogs();
     }
-
-    private void resetLogsToWrite() {
-        logsToWrite.clear();
-        logsToWrite.put(ERROR, new List<Log_Event__e>());
-        logsToWrite.put(WARNING, new List<Log_Event__e>());
-        logsToWrite.put(INFO, new List<Log_Event__e>());
-        logsToWrite.put(DEBUG, new List<Log_Event__e>());
+    private void flushLogs() {
+        logsByLevels.clear();
+        logsByLevels.put(ERROR, new List<Log_Event__e>());
+        logsByLevels.put(WARNING, new List<Log_Event__e>());
+        logsByLevels.put(INFO, new List<Log_Event__e>());
+        logsByLevels.put(DEBUG, new List<Log_Event__e>());
     }
-
-    public void setLogType(String logType) {
-        this.logType = logType;
-    }
-
     public override void log(Object logLevel, String message) {
         log(logLevel, message, null);
     }
-
     public override void log(Object logLevel, String message, Id recordId) {
+        Request currentRequest = Request.getCurrent();
         Log_Event__e logEvent = new Log_Event__e(
             Type__c = logType,
             Level__c = (String) logLevel,
             Messages__c = message,
-            Record_Id__c = recordId
+            Record_Id__c = recordId,
+            Quiddity__c = currentRequest.getQuiddity().name(),
+            Transaction_Id__c = currentRequest.getRequestId()
         );
-        logsToWrite.get(logEvent.Level__c).add(logEvent);
+        logsByLevels.get(logEvent.Level__c).add(logEvent);
     }
-
     public override Object errorLevel() {
         return ERROR;
     }
@@ -88,32 +72,29 @@ public without sharing class BulkLogObjectAdapter extends Logger.LoggerAdapter {
     public override Object debugLevel() {
         return DEBUG;
     }
-
-    private void commitLogs() {
-        logProfilingWarning();
+    public override void close() {
+        runApexPofiling();
+        List<Log_Event__e> logsToWrite = getLogsToWrite();
         if (!logsToWrite.isEmpty()) {
             // if error occurs allow to surface to the user as there is nothing else we can do here
-            EventBus.publish(getAllLogsToWrite());
-            resetLogsToWrite();
+            EventBus.publish(logsToWrite);
+            flushLogs();
         }
     }
-
-    public List<Log_Event__e> getAllLogsToWrite() {
+    public List<Log_Event__e> getLogsToWrite() {
+        if (logsByLevels.isEmpty()) {
+            return new List<Log_Event__e>();
+        }
         List<Log_Event__e> logsToReturn = new List<Log_Event__e>();
-        for (String loggingLevel : LOGGING_LEVELS) {
-            List<Log_Event__e> currentLogs = logsToWrite.get(loggingLevel);
+        for (String loggingLevel :LOGGING_LEVELS) {
+            List<Log_Event__e> currentLogs = logsByLevels.get(loggingLevel);
             logsToReturn.addAll(currentLogs);
         }
         return logsToReturn;
     }
-
-    private void logProfilingWarning() {
+    private void runApexPofiling() {
         Profiler profiler = new ApexProfiler();
-        if (profiler.isBreachingWarning()) {
-            log(
-                warningLevel(),
-                profiler.getProfilingReport()
-            );
-        }
+        Object logLevel = profiler.isBreachingWarning() ? warningLevel() : infoLevel();
+        log(logLevel, profiler.getProfilingReport());
     }
 }

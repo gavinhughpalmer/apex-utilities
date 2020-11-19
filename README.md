@@ -19,29 +19,14 @@ Alternatively this can be done in the command line using `sfdx force:package:ins
   - Description: The assert class is a utility to help in test classes, any additional assert functions can be added in here as static methods, this class is annotated with @isTest as it is a mostly untestable due to the assert statement inside it.
   - Usage: `Assert.pageMessage('The page message you wish to assert')`
 - **Logger**:
-  - Description: This class is used to control logging in the system, it provides an adapter so logging can be easily swapped out whenever needed, within the class it has provided a wrapper for the debug logs to allow logs written to this and a logger for the page messages.
+  - Description: This class is used to control logging in the system, it provides an adapter so logging can be easily swapped out whenever needed, within the class it has provided a wrapper for the debug logs to allow logs written to this and a logger for the page messages. There is a factory class that has been implemented to allow for easier swapping of the adapter being used, below shows the usage. The default class is the BulkLogObjectAdapter, which writes into a log object (via platform events).
   - Usage:
 
 ```java
-Logger log = new Logger(new DebugLogAdapter());
-log.warn('A warning is here');
-try {
-    insert new Account();
-} catch (DmlException exceptionToHandle) {
-    log.error(exceptionToHandle);
-}
-```
-
-- **BulkLogObjectAdapter**:
-  - Description: This class allows logging against an sobject defined in the system. This is defined as a singleton so that logs can be inserted once during a transaction
-  - Usage:
-
-```java
-Logger log = new Logger(BulkLogObjectAdapter.getInstance('Integration'));
+Logger log = LoggerFactory.createLogger(MyClass.class);
 log.warn('A warning message');
-BulkLogObjectAdapter.writeLogs();
+log.close()
 ```
-
 - **ApexProfiler**:
   - Description: This class is used by the logging framework to log out the limits in apex when limits are approched
   - Usage: See `BulkLogObjectAdapter` for details

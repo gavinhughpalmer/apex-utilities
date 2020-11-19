@@ -17,7 +17,7 @@ public with sharing class TriggerDispatcher {
     private final List<SObject> newSObjects;
     private final Map<Id, SObject> oldMap;
     private final String currentTriggerAction;
-    private final Logger log = new Logger(BulkLogObjectAdapter.getInstance('Trigger Dispatcher'));
+    private final Logger log = LoggerFactory.createLogger(TriggerDispatcher.class);
 
     @SuppressWarnings('PMD.ExcessiveParameterList')
     private TriggerDispatcher(List<Triggerable> actions, List<SObject> newSObjects, Map<Id, SObject> oldMap, TriggerOperation operation) {
@@ -80,7 +80,7 @@ public with sharing class TriggerDispatcher {
     private void writeLogs() {
         // only write when we are at the bottom of the TRIGGER_STACK
         if (TRIGGER_STACK.isEmpty()) {
-            BulkLogObjectAdapter.writeLogs();
+            log.close();
         }
     }
 }

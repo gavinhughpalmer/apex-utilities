@@ -18,12 +18,12 @@ public without sharing class OrgLimitsProfilingReportRunner extends LoggedSchedu
     }
 
     public override void execute() {
-        BulkLogObjectAdapter.getInstance('Org Limits Profiling Report');
+        log.setType('Org Limits Profiling Report');
         if (profiler.isBreachingWarning()) {
             log.warn(profiler.getProfilingReport());
         } else {
             log.info(profiler.getProfilingReport());
         }
-        BulkLogObjectAdapter.writeLogs();
+        log.close();
     }
 }
