@@ -6,9 +6,9 @@
 * The class has been adapted to use events so that it can still insert log objects when a transaction is rolled back, allowing it
 * to be more robust in trigger contexts
 * Usage:
-* Logger log = new Logger(BulkLogObjectAdapter.getInstance('Integration'));
+* Logger log = LoggerFactory.createLogger(MyClass.class);
 * log.warn('A warning message');
-* BulkLogObjectAdapter.writeLogs();
+* log.close();
 *
 * 2018-06-27 : Gavin Palmer - Original
 **/
@@ -55,7 +55,7 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
             Level__c = (String) logLevel,
             Messages__c = message,
             Record_Id__c = recordId,
-            Quiddity__c = currentRequest.getQuiddity(),
+            Quiddity__c = currentRequest.getQuiddity().name(),
             Transaction_Id__c = currentRequest.getRequestId()
         );
         logsByLevels.get(logEvent.Level__c).add(logEvent);
@@ -72,7 +72,7 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
     public override Object debugLevel() {
         return DEBUG;
     }
-    public override void finish() {
+    public override void close() {
         runApexPofiling();
         List<Log_Event__e> logsToWrite = getLogsToWrite();
         if (!logsToWrite.isEmpty()) {
@@ -94,7 +94,7 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
     }
     private void runApexPofiling() {
         Profiler profiler = new ApexProfiler();
-        String logLevel = profiler.isBreachingWarning() ? warningLevel() : infoLevel();
+        Object logLevel = profiler.isBreachingWarning() ? warningLevel() : infoLevel();
         log(logLevel, profiler.getProfilingReport());
     }
 }

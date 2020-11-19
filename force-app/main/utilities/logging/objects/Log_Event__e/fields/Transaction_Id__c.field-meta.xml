@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Transaction_Id__c</fullName>
     <description>This will hold the id for the transaction this log was generated within</description>
-    <externalId>true</externalId>
+    <externalId>false</externalId>
     <label>Transaction Id</label>
     <length>50</length>
     <type>Text</type>

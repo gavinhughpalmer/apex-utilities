@@ -61,7 +61,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'debug';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.debug(message);
@@ -101,7 +101,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'info';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.INFO);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.info(message);
@@ -130,7 +130,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'warn';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.WARNING);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.warn(message);
@@ -159,7 +159,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.error(message);
@@ -188,7 +188,7 @@ private class LoggerTest {
         final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         try {
             insert new Account();
@@ -202,10 +202,9 @@ private class LoggerTest {
     private static void errorTestWithExceptionWithRecordId() {
         SObjectTestFactory testFactory = new SObjectTestFactory();
         SObject testSObject = testFactory.insertSObject();
-        final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.ERROR);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         try {
             insert testSObject;
@@ -215,64 +214,12 @@ private class LoggerTest {
         }
     }
 
-    @IsTest
-    private static void testPageMessageLogAdapterError() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.error(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
-    @IsTest
-    private static void testPageMessageLogAdapterWarn() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.warn(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
-    @IsTest
-    private static void testPageMessageLogAdapterDebug() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.debug(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
-    @IsTest
-    private static void testPageMessageLogAdapterInfo() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.info(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
     /*
     * Unfortunately we cannot assert against debug logs, so this will be purely for coverage
     */
     @IsTest
     private static void testDebugLogAdapter() {
-        Logger logger = new Logger(new Logger.DebugLogAdapter());
+        Logger logger = new Logger(LoggerTest.class, new LoggerAdapter.DebugLogAdapter());
         logger.warn('');
         logger.error('');
         logger.info('');

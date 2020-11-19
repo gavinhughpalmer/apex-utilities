@@ -6,9 +6,9 @@
 **/
 @IsTest
 private class QueueableSchedulerTest {
-    
+
     private class TestQueueable extends LoggedQueueable {
-        private final Logger log = new Logger(new Logger.DebugLogAdapter());
+        private final Logger log = new Logger(QueueableSchedulerTest.class, new LoggerAdapter.DebugLogAdapter());
         public override void execute() {
             log.debug('Do nothing');
         }
@@ -21,7 +21,7 @@ private class QueueableSchedulerTest {
         scheduler.execute();
         Id queableId = scheduler.getRunningQueueableId();
         System.assertNotEquals(
-            null, queableId, 
+            null, queableId,
             'The id should have been assigned when the queable is scheduled in the queueable'
         );
         Test.stopTest();

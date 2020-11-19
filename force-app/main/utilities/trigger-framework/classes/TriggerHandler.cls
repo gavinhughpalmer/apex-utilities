@@ -10,7 +10,6 @@
 public inherited sharing class TriggerHandler extends Triggerable {
 
     private final List<Triggerable> triggerActions;
-    private final Logger log = LoggerFactory.createLogger(TriggerHandler.class);
 
     public TriggerHandler(List<Triggerable> triggerActions) {
         this.triggerActions = triggerActions;
@@ -30,6 +29,7 @@ public inherited sharing class TriggerHandler extends Triggerable {
 
     public static void performAllActions(List<Triggerable> actions, List<SObject> newSObjects, Map<Id, SObject> oldMap) {
         if (ConfigurationManager.getInstance().areTriggersOn()) {
+            final Logger log = LoggerFactory.createLogger(TriggerHandler.class);
             Triggerable handler = new TriggerHandler(actions);
             // default the map to the old map for delete triggers
             newSObjects = newSObjects == null ? oldMap.values() : newSObjects;
