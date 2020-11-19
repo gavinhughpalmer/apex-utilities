@@ -1,12 +1,11 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description The LogWriter class converts log events into log sobjects so that they are perminantely committed into the database
-*
-* 2019-04-20 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description The LogWriter class converts log events into log sobjects so that they are perminantely committed into the database
+ *
+ * 2019-04-20 : Gavin Palmer - Original
+ **/
 public without sharing class LogWriter extends Triggerable {
-
     private final List<Log__c> logs = new List<Log__c>();
 
     public override void register(SObjectTriggerWrapper wrappedSObject) {

@@ -24,5 +24,6 @@ public class Stack {
         return String.join(items, '\n');
     }
 
-    public class UnderflowException extends Exception {}
+    public class UnderflowException extends Exception {
+    }
 }

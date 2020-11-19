@@ -15,24 +15,23 @@
  */
 
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description The logger provides an extendable logging interface, the actual logging option can be easily switched by the use of the LoggerAdapter inner class.
-* This class was adapted from https://github.com/blueprinthealth/sirono-common/blob/master/src/classes/Logger.cls
-* Usage:
-* Logger log = new Logger(new DebugLogAdapter());
-* log.warn('A warning is here');
-* try {
-*     insert new Account();
-* } catch (DmlException exceptionToHandle) {
-*     log.error(exceptionToHandle);
-* }
-*
-* 2018-06-27 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description The logger provides an extendable logging interface, the actual logging option can be easily switched by the use of the LoggerAdapter inner class.
+ * This class was adapted from https://github.com/blueprinthealth/sirono-common/blob/master/src/classes/Logger.cls
+ * Usage:
+ * Logger log = new Logger(new DebugLogAdapter());
+ * log.warn('A warning is here');
+ * try {
+ *     insert new Account();
+ * } catch (DmlException exceptionToHandle) {
+ *     log.error(exceptionToHandle);
+ * }
+ *
+ * 2018-06-27 : Gavin Palmer - Original
+ **/
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public without sharing class Logger {
-
     private static final String MESSAGE_FORMAT = 'An error has occured in the class {0} with the message: {1}';
 
     private final LoggerAdapter loggerAdapter;
@@ -99,10 +98,7 @@ public without sharing class Logger {
     }
 
     public void error(Exception exceptionToLog, Id recordId) {
-        error(
-            (new LogMessage(exceptionToLog)).toString(),
-            recordId
-        );
+        error((new LogMessage(exceptionToLog)).toString(), recordId);
     }
 
     public void close() {

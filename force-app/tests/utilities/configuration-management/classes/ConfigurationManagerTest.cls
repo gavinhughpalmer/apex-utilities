@@ -1,14 +1,13 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description Test class for ConfigurationManager
-*
-* 2018-06-27 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description Test class for ConfigurationManager
+ *
+ * 2018-06-27 : Gavin Palmer - Original
+ **/
 @IsTest
 private class ConfigurationManagerTest {
-
-	@IsTest
+    @IsTest
     private static void singletonTest() {
         ConfigurationManager initialInstance = ConfigurationManager.getInstance();
         ConfigurationManager secondaryInstance = ConfigurationManager.getInstance();
@@ -91,13 +90,15 @@ private class ConfigurationManagerTest {
     @IsTest
     private static void commitChangesTestWithoutExistingSetting() {
         System.assertEquals(
-            0, [SELECT COUNT() FROM Configuration__c],
+            0,
+            [SELECT COUNT() FROM Configuration__c],
             'There should be no Configuration__c records in the system before the save method is called'
         );
         ConfigurationManager configuration = ConfigurationManager.getInstance();
         configuration.commitChanges();
         System.assertEquals(
-            1, [SELECT COUNT() FROM Configuration__c],
+            1,
+            [SELECT COUNT() FROM Configuration__c],
             'There should be 1 Configuration__c records after the bypass method is called'
         );
     }

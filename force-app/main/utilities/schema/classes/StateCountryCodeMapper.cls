@@ -7,9 +7,12 @@
  * 2020-02-11 : Gavin Palmer - Original
  **/
 public with sharing class StateCountryCodeMapper extends Triggerable {
-
-    private final PicklistValueSet stateValueSet = new PicklistValueSet(Account.BillingStateCode.getDescribe());
-    private final PicklistValueSet countryValueSet = new PicklistValueSet(Account.BillingCountryCode.getDescribe());
+    private final PicklistValueSet stateValueSet = new PicklistValueSet(
+        Account.BillingStateCode.getDescribe()
+    );
+    private final PicklistValueSet countryValueSet = new PicklistValueSet(
+        Account.BillingCountryCode.getDescribe()
+    );
 
     public override void register(SObjectTriggerWrapper wrappedSObject) {
         Account accountRecord = (Account) wrappedSObject.getSObject();

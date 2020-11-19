@@ -33,7 +33,8 @@ private class ApexProfilerTest {
         // Set to not include org limits for this test as this is
         System.assert(
             !profiler.isBreachingWarning(),
-            'The warning should not be breached before any apex code is executed. Report:\n' + profiler.getProfilingReport()
+            'The warning should not be breached before any apex code is executed. Report:\n' +
+            profiler.getProfilingReport()
         );
         Test.stopTest();
     }

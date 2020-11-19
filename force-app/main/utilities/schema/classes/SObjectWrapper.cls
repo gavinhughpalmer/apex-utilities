@@ -1,16 +1,15 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
-* Usage:
-* Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
-* SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
-* String accountName = (String) wrappedContact.get('Account.Name');
-*
-* 2019-03-23 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
+ * Usage:
+ * Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
+ * SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
+ * String accountName = (String) wrappedContact.get('Account.Name');
+ *
+ * 2019-03-23 : Gavin Palmer - Original
+ **/
 public virtual class SObjectWrapper {
-
     public static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
     public static final String NON_INITIALISED_RELATIONSHIP = 'The relationship field that is attempting to be accessed has not been initialised.';
 
@@ -71,8 +70,12 @@ public virtual class SObjectWrapper {
 
     @testVisible
     private String getRelatedObjectName(String relationshipApiName) {
-        String relationshipFieldName = Relationship.fromRefrenceField(relationshipApiName).idFieldName;
-        DescribeFieldResult relationshipField = schema.getFieldDescribe(objectApiName, relationshipFieldName);
+        String relationshipFieldName = Relationship.fromRefrenceField(relationshipApiName)
+            .idFieldName;
+        DescribeFieldResult relationshipField = schema.getFieldDescribe(
+            objectApiName,
+            relationshipFieldName
+        );
         return relationshipField.getReferenceTo()[0].getDescribe().getName();
     }
 

@@ -1,13 +1,12 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description Test class for the string builder
-*
-* 2018-06-28 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description Test class for the string builder
+ *
+ * 2018-06-28 : Gavin Palmer - Original
+ **/
 @IsTest
 private class StringBuilderTest {
-
     @IsTest
     private static void appendTestValidString() {
         final String expectedOutput = 'Hello';
@@ -84,8 +83,8 @@ private class StringBuilderTest {
     }
 
     /*
-    * this will test the whole process of using the string builder
-    */
+     * this will test the whole process of using the string builder
+     */
     @IsTest
     private static void toStringTest() {
         final String expectedOutputStart = 'String';
@@ -98,7 +97,9 @@ private class StringBuilderTest {
         builder.setSeparator(separator);
 
         System.assertEquals(
-            expectedOutputStart + separator + expectedOutputEnd,
+            expectedOutputStart +
+            separator +
+            expectedOutputEnd,
             builder.toString(),
             'The string builder should concatenate all of the strings'
         );

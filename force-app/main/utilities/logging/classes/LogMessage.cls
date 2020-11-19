@@ -35,7 +35,7 @@ public class LogMessage {
     public override String toString() {
         return String.format(
             '{0}\nStack trace:\n{1}',
-            new List<String>{message, getStackTraceString()}
+            new List<String>{ message, getStackTraceString() }
         );
     }
 }

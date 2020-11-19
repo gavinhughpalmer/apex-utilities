@@ -3,7 +3,6 @@
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public abstract class LoggerAdapter {
-
     protected String logType;
     public virtual void setType(String type) {
         logType = type;
@@ -27,7 +26,6 @@ public abstract class LoggerAdapter {
      * Implementation of LoggerAdapter that directs all logging through the built-in Apex method <code>System.debug()</code>
      */
     public class DebugLogAdapter extends LoggerAdapter {
-
         public override void log(Object logLevel, String message) {
             System.debug((LoggingLevel) logLevel, message);
         }

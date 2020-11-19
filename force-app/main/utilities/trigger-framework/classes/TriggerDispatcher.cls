@@ -5,9 +5,8 @@
  *  As the single point of entry for all triggers this class will manage the disabling and enabling of triggers, as well as tracking the stack of triggers
  *
  * 2020-11-18 : Gavin Palmer - Original
-**/
+ **/
 public with sharing class TriggerDispatcher {
-
     // TODO ability to disable certain classes or triggers from execution, could be metadata driven
 
     private static final Stack TRIGGER_STACK = new Stack();
@@ -20,7 +19,12 @@ public with sharing class TriggerDispatcher {
     private final Logger log = LoggerFactory.createLogger(TriggerDispatcher.class);
 
     @SuppressWarnings('PMD.ExcessiveParameterList')
-    private TriggerDispatcher(List<Triggerable> actions, List<SObject> newSObjects, Map<Id, SObject> oldMap, TriggerOperation operation) {
+    private TriggerDispatcher(
+        List<Triggerable> actions,
+        List<SObject> newSObjects,
+        Map<Id, SObject> oldMap,
+        TriggerOperation operation
+    ) {
         this.handler = new TriggerHandler(actions);
         // default the map to the old map for delete triggers
         this.newSObjects = newSObjects == null ? oldMap.values() : newSObjects;
@@ -55,7 +59,10 @@ public with sharing class TriggerDispatcher {
         for (SObject newSObject : newSObjects) {
             // ensure we don't get any null pointer issues in inserts
             SObject oldSObject = oldMap != null ? oldMap.get(newSObject.Id) : null;
-            SObjectTriggerWrapper wrappedSObject = new SObjectTriggerWrapper(newSObject, oldSObject);
+            SObjectTriggerWrapper wrappedSObject = new SObjectTriggerWrapper(
+                newSObject,
+                oldSObject
+            );
             handler.register(wrappedSObject);
         }
         handler.performAction();
@@ -70,8 +77,11 @@ public with sharing class TriggerDispatcher {
         // Only write the logs the first time an unknown exception is thown, the exception will then get thrown all the way up the stack
         if (!unknownExceptionLogged) {
             log.error(
-                'Unhandled exception within trigger: ' + exceptionMessage + '\n' +
-                'Trigger Stack: ' + TRIGGER_STACK.toString()
+                'Unhandled exception within trigger: ' +
+                exceptionMessage +
+                '\n' +
+                'Trigger Stack: ' +
+                TRIGGER_STACK.toString()
             );
             unknownExceptionLogged = true;
         }

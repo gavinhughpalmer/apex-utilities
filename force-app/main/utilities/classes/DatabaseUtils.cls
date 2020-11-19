@@ -1,12 +1,11 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description This class is a utility for the Database class
-*
-* 2019-03-13 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description This class is a utility for the Database class
+ *
+ * 2019-03-13 : Gavin Palmer - Original
+ **/
 public inherited sharing class DatabaseUtils {
-
     public static String errorStringSeperator = '\n';
 
     public static String getErrorString(List<Database.Error> errors) {
