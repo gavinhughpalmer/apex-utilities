@@ -10,7 +10,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void errorLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
         System.assertEquals(
             BulkLogObjectAdapter.ERROR, loggerAdapter.errorLevel(),
             'The error level should return the error string'
@@ -19,7 +19,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void warningLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
         System.assertEquals(
             BulkLogObjectAdapter.WARNING, loggerAdapter.warningLevel(),
             'The warning level should return the warning string'
@@ -28,7 +28,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void infoLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
         System.assertEquals(
             BulkLogObjectAdapter.INFO, loggerAdapter.infoLevel(),
             'The info level should return the info string'
@@ -37,7 +37,7 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void debugLevelTest() {
-        Logger.LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
+        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance('A type');
         System.assertEquals(
             BulkLogObjectAdapter.DEBUG, loggerAdapter.debugLevel(),
             'The debug level should return the debug string'

@@ -17,7 +17,7 @@ private class LoggerTest {
     }
 
     // this logger adapter will be utilised in the test class to validate the logger methods
-    private class TestLoggerAdapter extends Logger.LoggerAdapter {
+    private class TestLoggerAdapter extends LoggerAdapter {
         private final String messageToAssert;
         private final String levelToAssert;
         private final LogLevel levelCalled;

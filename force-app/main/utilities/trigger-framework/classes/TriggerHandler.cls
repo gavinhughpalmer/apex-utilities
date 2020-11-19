@@ -10,6 +10,7 @@
 public inherited sharing class TriggerHandler extends Triggerable {
 
     private final List<Triggerable> triggerActions;
+    private final Logger log = LoggerFactory.createLogger(TriggerHandler.class);
 
     public TriggerHandler(List<Triggerable> triggerActions) {
         this.triggerActions = triggerActions;
@@ -39,7 +40,7 @@ public inherited sharing class TriggerHandler extends Triggerable {
                 handler.register(wrappedSObject);
             }
             handler.performAction();
-            BulkLogObjectAdapter.writeLogs();
+            log.close();
         }
     }
 }
