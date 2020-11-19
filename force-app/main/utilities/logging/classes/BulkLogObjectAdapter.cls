@@ -22,7 +22,7 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
     private static final BulkLogObjectAdapter INSTANCE = new BulkLogObjectAdapter();
 
     @testVisible private final Map<String, List<Log_Event__e>> logsByLevels = new Map<String, List<Log_Event__e>>();
-    @testVisible
+    @testVisible // TODO Should the logging levels be in the bulk object adapter or in the base? as this isn't just tied to the log oject
     private static final Set<String> LOGGING_LEVELS = new Set<String>();
 
     static {
@@ -73,7 +73,6 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
         return DEBUG;
     }
     public override void close() {
-        runApexPofiling();
         List<Log_Event__e> logsToWrite = getLogsToWrite();
         if (!logsToWrite.isEmpty()) {
             // if error occurs allow to surface to the user as there is nothing else we can do here
@@ -91,10 +90,5 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
             logsToReturn.addAll(currentLogs);
         }
         return logsToReturn;
-    }
-    private void runApexPofiling() {
-        Profiler profiler = new ApexProfiler();
-        Object logLevel = profiler.isBreachingWarning() ? warningLevel() : infoLevel();
-        log(logLevel, profiler.getProfilingReport());
     }
 }

@@ -36,10 +36,8 @@ public without sharing class Logger {
     private static final String MESSAGE_FORMAT = 'An error has occured in the class {0} with the message: {1}';
 
     private final LoggerAdapter loggerAdapter;
-    private final Type apexClass;
 
     public Logger(Type apexClass, LoggerAdapter loggerAdapter) {
-        this.apexClass = apexClass;
         this.loggerAdapter = loggerAdapter;
         this.loggerAdapter.setType(apexClass.getName());
     }
@@ -49,97 +47,76 @@ public without sharing class Logger {
     }
 
     public void debug(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.debugLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.debugLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void debug(String messageToLog, Id recordId) {
         loggerAdapter.log(
             loggerAdapter.debugLevel(),
-            getFullMessage(messageToLog),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void info(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.infoLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.infoLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void info(String messageToLog, Id recordId) {
         loggerAdapter.log(
             loggerAdapter.infoLevel(),
-            getFullMessage(messageToLog),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void warn(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.warningLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.warningLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void warn(String messageToLog, Id recordId) {
         loggerAdapter.log(
             loggerAdapter.warningLevel(),
-            getFullMessage(messageToLog),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void error(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.errorLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.errorLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void error(String messageToLog, Id recordId) {
         loggerAdapter.log(
             loggerAdapter.errorLevel(),
-            getFullMessage(messageToLog),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void error(Exception exceptionToLog) {
-        error(
-            getFullMessage(
-                exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()
-            )
-        );
+        error((new LogMessage(exceptionToLog)).toString());
     }
 
     public void error(Exception exceptionToLog, Id recordId) {
         error(
-            getFullMessage(
-                exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()
-            ),
+            (new LogMessage(exceptionToLog)).toString(),
             recordId
         );
     }
 
-    private String getFullMessage(String message, String stackTraceString) {
-        if (apexClass != null) {
-            message = String.format(
-                MESSAGE_FORMAT, new List<String>{apexClass.getName(), message}
-            );
-        }
-        return String.format(
-            '{0}\nStack trace:\n{1}',
-            new List<String>{message, stackTraceString}
-        );
-    }
-
-    private String getFullMessage(String message) {
-        return getFullMessage(
-            message, getStackTraceString()
-        );
-    }
-
-    private String getStackTraceString() {
-        List<String> stack = (new DmlException()).getStackTraceString().split('\n');
-        while (stack[0].startsWith('Class.Logger.') || stack[0].startsWith('Class.LoggerAdapter.')) {
-            stack.remove(0);
-        }
-        return String.join(stack, '\n');
-    }
-
     public void close() {
+        runApexPofiling();
         loggerAdapter.close();
+    }
+
+    private void runApexPofiling() {
+        Profiler profiler = new ApexProfiler();
+        String profilingReport = profiler.getProfilingReport();
+        if (profiler.isBreachingWarning()) {
+            warn(profilingReport);
+        } else {
+            info(profilingReport);
+        }
     }
 }

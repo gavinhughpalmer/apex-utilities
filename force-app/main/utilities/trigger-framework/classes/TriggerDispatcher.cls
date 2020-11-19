@@ -53,7 +53,7 @@ public with sharing class TriggerDispatcher {
 
     private void executeTriggerables() {
         for (SObject newSObject : newSObjects) {
-            // ensure we don't get any null pointer issues in insets
+            // ensure we don't get any null pointer issues in inserts
             SObject oldSObject = oldMap != null ? oldMap.get(newSObject.Id) : null;
             SObjectTriggerWrapper wrappedSObject = new SObjectTriggerWrapper(newSObject, oldSObject);
             handler.register(wrappedSObject);
