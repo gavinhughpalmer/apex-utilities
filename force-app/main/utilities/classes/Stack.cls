@@ -1,15 +1,22 @@
+/**
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description A simple stack implementation to allow FILO on data structures
+ *
+ * 2020-11-20 : Gavin Palmer - Original
+ **/
 public class Stack {
     private final List<Object> items = new List<Object>();
 
-    public void push(String item) {
+    public void push(Object item) {
         items.add(item);
     }
 
-    public void pop() {
+    public Object pop() {
         if (isEmpty()) {
             throw new UnderflowException();
         }
-        items.remove(items.size() - 1);
+        return items.remove(items.size() - 1);
     }
 
     public Integer size() {

@@ -4,7 +4,7 @@
  *
  * 2019-03-23 : Gavin Palmer - Original
  **/
-@isTest
+@isTest(isParallel=true)
 private class CsvBuilderTest {
     //TODO negative tests...
 

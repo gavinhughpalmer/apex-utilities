@@ -4,7 +4,7 @@
  *
  * 2019-04-20 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class LogWriterTest {
     @IsTest
     private static void testAction() {

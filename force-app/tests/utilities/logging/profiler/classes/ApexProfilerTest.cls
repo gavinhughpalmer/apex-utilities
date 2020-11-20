@@ -5,7 +5,7 @@
  *
  * 2019-02-02 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class ApexProfilerTest {
     @IsTest
     private static void refreshProfilingTest() {

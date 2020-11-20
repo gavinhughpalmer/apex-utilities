@@ -5,7 +5,7 @@
  *
  * 2018-06-28 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class StringBuilderTest {
     @IsTest
     private static void appendTestValidString() {

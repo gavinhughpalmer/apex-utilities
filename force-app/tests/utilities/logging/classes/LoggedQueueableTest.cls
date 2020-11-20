@@ -5,7 +5,7 @@
  *
  * 2019-02-06 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class LoggedQueueableTest {
     private static final String LOG_MESSAGE = 'My test message';
 

@@ -4,7 +4,7 @@
  *
  * 2018-06-27 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class BulkLogObjectAdapterTest {
     @IsTest
     private static void errorLevelTest() {

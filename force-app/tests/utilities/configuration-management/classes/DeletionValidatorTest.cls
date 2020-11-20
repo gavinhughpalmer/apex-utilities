@@ -5,7 +5,7 @@
  *
  * 2019-02-11 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
 private class DeletionValidatorTest {
     @IsTest

@@ -4,7 +4,7 @@
  *
  * 2020-05-29 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class RelationshipTest {
     @IsTest
     private static void fromRefrenceFieldStandardField() {

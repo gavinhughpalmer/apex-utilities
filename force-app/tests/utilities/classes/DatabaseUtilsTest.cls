@@ -4,7 +4,7 @@
  *
  * 2019-03-13 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class DatabaseUtilsTest {
     @IsTest
     private static void getErrorStringTest() {

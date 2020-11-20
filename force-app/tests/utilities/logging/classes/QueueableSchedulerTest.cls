@@ -4,7 +4,7 @@
  *
  * 2019-03-11 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class QueueableSchedulerTest {
     private class TestQueueable extends LoggedQueueable {
         private final Logger log = new Logger(

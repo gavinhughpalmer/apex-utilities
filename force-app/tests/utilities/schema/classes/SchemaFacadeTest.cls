@@ -5,7 +5,7 @@
  *
  * 2019-02-02 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class SchemaFacadeTest {
     @IsTest
     private static void isValidSObject() {

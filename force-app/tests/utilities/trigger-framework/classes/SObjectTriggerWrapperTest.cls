@@ -5,7 +5,7 @@
  *
  * 2018-10-29 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class SObjectTriggerWrapperTest {
     @IsTest
     private static void hasChangedFieldTestFieldChanged() {

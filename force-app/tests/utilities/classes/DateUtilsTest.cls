@@ -4,7 +4,7 @@
  *
  * 2019-03-11 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class DateUtilsTest {
     @isTest
     private static void getNow() {

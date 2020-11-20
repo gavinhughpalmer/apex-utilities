@@ -5,7 +5,7 @@
  *
  * 2019-03-23 : Gavin Palmer - Original
  **/
-@isTest
+@isTest(isParallel=true)
 private class SObjectWrapperTest {
     @isTest
     private static void getTestObjectField() {

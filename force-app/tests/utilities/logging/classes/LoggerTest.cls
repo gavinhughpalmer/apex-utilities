@@ -5,7 +5,7 @@
  *
  * 2018-06-27 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
 private class LoggerTest {
     private enum LogLevel {
