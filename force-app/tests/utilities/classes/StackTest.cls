@@ -39,7 +39,7 @@ private class StackTest {
         );
     }
 
-    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts,PMD.EmptyCatchBlock')
     @IsTest
     private static void popEmptyStackExcpetion() {
         Stack stack = new Stack();
@@ -47,7 +47,6 @@ private class StackTest {
             stack.pop();
             Assert.fail('An exception should have been thrown');
         } catch (Stack.UnderflowException expectedException) {
-            //NOPMD
             // just check it runs as there is no message added so nothing to assert on
         } catch (Exception unexpectedException) {
             Assert.fail(
