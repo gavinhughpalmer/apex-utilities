@@ -132,7 +132,7 @@ private class TriggerDispatcherTest {
         );
     }
 
-    @SuppressWarnings('PMD.EmptyCatchBlock')
+    @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts,PMD.EmptyCatchBlock')
     @isTest
     private static void stackExceptionTest() {
         TriggerDispatcher dispatcher = new TriggerDispatcher(
