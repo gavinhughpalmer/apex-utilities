@@ -6,7 +6,6 @@
  **/
 @isTest(isParallel=true)
 private class CsvBuilderTest {
-
     @isTest
     private static void appendFieldTest() {
         final String fieldName = 'Name';

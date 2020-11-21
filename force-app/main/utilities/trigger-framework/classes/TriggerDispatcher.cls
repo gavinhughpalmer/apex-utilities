@@ -7,7 +7,6 @@
  * 2020-11-18 : Gavin Palmer - Original
  **/
 public with sharing class TriggerDispatcher {
-
     private static final Stack TRIGGER_STACK = new Stack();
     private static Boolean unknownExceptionLogged = false;
     private static final Set<String> DISABLED_TRIGGERS = new Set<String>();
@@ -83,7 +82,8 @@ public with sharing class TriggerDispatcher {
     }
 
     private Boolean triggersAreActive() {
-        return ConfigurationManager.getInstance().areTriggersOn() && !DISABLED_TRIGGERS.contains(currentTriggerAction);
+        return ConfigurationManager.getInstance().areTriggersOn() &&
+            !DISABLED_TRIGGERS.contains(currentTriggerAction);
     }
 
     private void logUnknownException(String exceptionMessage) {
