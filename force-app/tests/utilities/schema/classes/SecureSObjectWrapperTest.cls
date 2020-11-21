@@ -1,33 +1,30 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-*
-* 2019-03-23 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ *
+ * 2019-03-23 : Gavin Palmer - Original
+ **/
 @isTest
 private class SecureSObjectWrapperTest {
-
     @isTest
     private static void getTestIsAccessible() {
-        Account testAccount = new Account(
-            Name = 'Test Account'
-        );
+        Account testAccount = new Account(Name = 'Test Account');
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
         System.assertEquals(
-            testAccount.Name, secureAccount.get('Name'),
+            testAccount.Name,
+            secureAccount.get('Name'),
             'The field should be returned for users that have access to it'
         );
     }
 
     @isTest
     private static void getTestIsNotAccessible() {
-        Account testAccount = new Account(
-            Name = 'Test Account'
-        );
+        Account testAccount = new Account(Name = 'Test Account');
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
         System.runAs(getTestUser()) {
             System.assertEquals(
-                null, secureAccount.get('Name'),
+                null,
+                secureAccount.get('Name'),
                 'The field should not be returned for users that have access to it'
             );
         }
@@ -40,7 +37,8 @@ private class SecureSObjectWrapperTest {
         final String testName = 'Gavin';
         secureAccount.put('Name', testName);
         System.assertEquals(
-            testName, testAccount.Name,
+            testName,
+            testAccount.Name,
             'The name should be set for the system admin as they have access'
         );
     }
@@ -53,14 +51,16 @@ private class SecureSObjectWrapperTest {
             secureAccount.put('Name', 'Gavin');
         }
         System.assertEquals(
-            null, testAccount.Name,
+            null,
+            testAccount.Name,
             'The field should not be set if the user does not have edit access'
         );
     }
 
     private static User getTestUser() {
         return new User(
-            ProfileId = [SELECT Id FROM Profile WHERE Name LIKE '%Chatter%' LIMIT 1].Id,
+            ProfileId = [SELECT Id FROM Profile WHERE Name LIKE '%Chatter%' LIMIT 1]
+            .Id,
             LastName = 'last',
             Email = 'puser000@amamama.com',
             Username = 'puser000@amamama.com' + System.currentTimeMillis(),

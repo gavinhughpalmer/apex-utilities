@@ -1,14 +1,13 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description Test class for the logger
-*
-* 2018-06-27 : Gavin Palmer - Original
-**/
-@IsTest
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description Test class for the logger
+ *
+ * 2018-06-27 : Gavin Palmer - Original
+ **/
+@IsTest(isParallel=true)
 @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
 private class LoggerTest {
-
     private enum LogLevel {
         ERROR,
         WARNING,
@@ -17,21 +16,23 @@ private class LoggerTest {
     }
 
     // this logger adapter will be utilised in the test class to validate the logger methods
-    private class TestLoggerAdapter extends Logger.LoggerAdapter {
+    private class TestLoggerAdapter extends LoggerAdapter {
         private final String messageToAssert;
         private final String levelToAssert;
         private final LogLevel levelCalled;
 
-        public TestLoggerAdapter(String messageToAssert, String levelToAssert, LogLevel levelCalled) {
+        public TestLoggerAdapter(
+            String messageToAssert,
+            String levelToAssert,
+            LogLevel levelCalled
+        ) {
             this.messageToAssert = messageToAssert;
             this.levelToAssert = levelToAssert;
             this.levelCalled = levelCalled;
         }
 
         public override void log(Object logLevel, String message) {
-            System.assert(
-                logLevel instanceof String, 'The log level should return a string'
-            );
+            System.assert(logLevel instanceof String, 'The log level should return a string');
             System.assertEquals(
                 levelToAssert,
                 (String) logLevel,
@@ -39,7 +40,10 @@ private class LoggerTest {
             );
             System.assert(
                 message.containsIgnoreCase(messageToAssert),
-                'The provided error, ' + messageToAssert + ' should be contained within the exception message: ' + message
+                'The provided error, ' +
+                messageToAssert +
+                ' should be contained within the exception message: ' +
+                message
             );
         }
         public override Object errorLevel() {
@@ -61,7 +65,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'debug';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.DEBUG);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.debug(message);
@@ -101,7 +105,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'info';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.INFO);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.info(message);
@@ -129,8 +133,12 @@ private class LoggerTest {
     private static void warnTest() {
         final String message = 'A test Message';
         final String customLogLevel = 'warn';
-        TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.WARNING);
-        Logger logger = new Logger(adapter);
+        TestLoggerAdapter adapter = new TestLoggerAdapter(
+            message,
+            customLogLevel,
+            LogLevel.WARNING
+        );
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.warn(message);
@@ -143,7 +151,11 @@ private class LoggerTest {
         SObjectTestFactory testFactory = new SObjectTestFactory();
         SObject testSObject = testFactory.insertSObject();
 
-        TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.WARNING);
+        TestLoggerAdapter adapter = new TestLoggerAdapter(
+            message,
+            customLogLevel,
+            LogLevel.WARNING
+        );
         Logger logger = new Logger(LoggerTest.class, adapter);
 
         logger.warn(message, testSObject.Id);
@@ -159,7 +171,7 @@ private class LoggerTest {
         final String message = 'A test Message';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         // assertions occur inside the adapter
         logger.error(message);
@@ -188,7 +200,7 @@ private class LoggerTest {
         final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
         TestLoggerAdapter adapter = new TestLoggerAdapter(message, customLogLevel, LogLevel.ERROR);
-        Logger logger = new Logger(adapter);
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         try {
             insert new Account();
@@ -202,10 +214,13 @@ private class LoggerTest {
     private static void errorTestWithExceptionWithRecordId() {
         SObjectTestFactory testFactory = new SObjectTestFactory();
         SObject testSObject = testFactory.insertSObject();
-        final String message = 'Required fields are missing';
         final String customLogLevel = 'error';
-        TestLoggerAdapter adapter = new TestLoggerAdapter(testSObject.Id, customLogLevel, LogLevel.ERROR);
-        Logger logger = new Logger(adapter);
+        TestLoggerAdapter adapter = new TestLoggerAdapter(
+            testSObject.Id,
+            customLogLevel,
+            LogLevel.ERROR
+        );
+        Logger logger = new Logger(LoggerTest.class, adapter);
 
         try {
             insert testSObject;
@@ -215,64 +230,12 @@ private class LoggerTest {
         }
     }
 
-    @IsTest
-    private static void testPageMessageLogAdapterError() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.error(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
-    @IsTest
-    private static void testPageMessageLogAdapterWarn() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.warn(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
-    @IsTest
-    private static void testPageMessageLogAdapterDebug() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.debug(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
-    @IsTest
-    private static void testPageMessageLogAdapterInfo() {
-        System.Test.clearApexPageMessages();
-
-        Logger logger = new Logger(new Logger.PageMessageLogAdapter());
-
-        final String messageToAssert = 'A test message';
-
-        logger.info(messageToAssert);
-
-        Assert.pageMessage(messageToAssert);
-    }
-
     /*
-    * Unfortunately we cannot assert against debug logs, so this will be purely for coverage
-    */
+     * Unfortunately we cannot assert against debug logs, so this will be purely for coverage
+     */
     @IsTest
     private static void testDebugLogAdapter() {
-        Logger logger = new Logger(new Logger.DebugLogAdapter());
+        Logger logger = new Logger(LoggerTest.class, new LoggerAdapter.DebugLogAdapter());
         logger.warn('');
         logger.error('');
         logger.info('');

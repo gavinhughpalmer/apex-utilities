@@ -9,9 +9,7 @@
 @SuppressWarnings('PMD.ApexUnitTestMethodShouldHaveIsTestAnnotation')
 @IsTest
 public class Assert {
-
     public static void pageMessage(final String expectedPageMessage) {
-
         hasPageMessages();
 
         Boolean containsMessage = false;
@@ -24,7 +22,10 @@ public class Assert {
         }
         System.assert(
             containsMessage,
-            'The message \'' + expectedPageMessage + '\' was not found in the page messages. Actual: ' + ApexPages.getMessages()
+            'The message \'' +
+            expectedPageMessage +
+            '\' was not found in the page messages. Actual: ' +
+            ApexPages.getMessages()
         );
     }
 
@@ -33,7 +34,10 @@ public class Assert {
     }
 
     public static void doesNotHavePageMessages() {
-        System.assert(!ApexPages.hasMessages(), 'There are messages visible on the page: ' + getPageMessagesString());
+        System.assert(
+            !ApexPages.hasMessages(),
+            'There are messages visible on the page: ' + getPageMessagesString()
+        );
     }
 
     private static String getPageMessagesString() {
@@ -48,7 +52,10 @@ public class Assert {
     public static void contains(String fullString, String substring) {
         System.assert(
             fullString.contains(substring),
-            'The string (' + substring + ') was not found in the string: ' + fullString
+            'The string (' +
+            substring +
+            ') was not found in the string: ' +
+            fullString
         );
     }
 

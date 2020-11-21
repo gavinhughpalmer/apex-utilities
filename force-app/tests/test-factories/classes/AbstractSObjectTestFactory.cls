@@ -1,17 +1,16 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description This factory class will be used as a base for any SObject creation in test classes,
-*    this pattern will define attributes that can be set in the test classes.
-*    This allows any required fields / validations to be defined in what is returned in the getSObject method
-*    allowing developers to easily enforce required fields accross all test classes if they are ever added
-*    in the UI. The method for inserting the records can be injected if specific ties around the insert need to be added for a
-*    specific use case, eg in the abstract SObject test factory test class
-*
-* 2018-10-23 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description This factory class will be used as a base for any SObject creation in test classes,
+ *    this pattern will define attributes that can be set in the test classes.
+ *    This allows any required fields / validations to be defined in what is returned in the getSObject method
+ *    allowing developers to easily enforce required fields accross all test classes if they are ever added
+ *    in the UI. The method for inserting the records can be injected if specific ties around the insert need to be added for a
+ *    specific use case, eg in the abstract SObject test factory test class
+ *
+ * 2018-10-23 : Gavin Palmer - Original
+ **/
 public without sharing abstract class AbstractSObjectTestFactory {
-
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
     private Insertable inserter = new DmlInserter();
     public String uniqueValue = 'test';
@@ -29,7 +28,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
         return inserter.insertSObject(recordToCreate);
     }
 
-    // TODO will need to implement some form of caching for objects that have multiple lookups to the same objects
     public virtual SObject insertWithDependancies() {
         recordToCreate = getSObject();
         for (FactoryDependancy dependancy : dependancies.values()) {
@@ -86,7 +84,8 @@ public without sharing abstract class AbstractSObjectTestFactory {
             List<SObject> parentSObjects = parentFactory.insertMultipleWithDependancies(total);
             for (Integer i = 0; i < total; i++) {
                 childSObjects[i].put(parentRelationship.idFieldName, parentSObjects[i].Id);
-                childSObjects[i].putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
+                childSObjects[i]
+                    .putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
             }
         }
     }

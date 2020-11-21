@@ -7,7 +7,7 @@
  * -----------------------------------------------------------------------------------
  * 04/06/2019    Gavin Palmer       Created Class
  */
-@IsTest
+@IsTest(isParallel=true)
 private class QueryBuilderTest {
     @IsTest
     private static void buildQueryTest() {

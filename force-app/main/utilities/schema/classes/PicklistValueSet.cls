@@ -6,7 +6,6 @@
  * 2020-02-11 : Gavin Palmer - Original
  **/
 public class PicklistValueSet {
-
     private final Map<String, String> apiNameByValues = new Map<String, String>();
     private final Map<String, String> valuesByApiNames = new Map<String, String>();
     private final DescribeFieldResult fieldDefinition;

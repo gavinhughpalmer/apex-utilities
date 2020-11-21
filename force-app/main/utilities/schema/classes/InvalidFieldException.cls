@@ -1,1 +1,2 @@
-public class InvalidFieldException extends Exception {}
+public class InvalidFieldException extends Exception {
+}

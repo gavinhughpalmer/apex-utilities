@@ -1,21 +1,22 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object,
-* string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together
-* Usage:
-* StringBuilder text = new StringBuilder();
-* for (Integer i = 0; i < 10; i++) {
-*     text.append(String.valueOf(i));
-* }
-* System.debug(text.toString());
-*
-* 2018-06-28 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object,
+ * string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together
+ * Usage:
+ * StringBuilder text = new StringBuilder();
+ * for (Integer i = 0; i < 10; i++) {
+ *     text.append(String.valueOf(i));
+ * }
+ * System.debug(text.toString());
+ *
+ * 2018-06-28 : Gavin Palmer - Original
+ **/
 public virtual inherited sharing class StringBuilder {
-
-    @testVisible private final List<String> buffer;
-    @testVisible private String separator = '';
+    @testVisible
+    private final List<String> buffer;
+    @testVisible
+    private String separator = '';
     private Integer count = 0;
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
@@ -39,7 +40,7 @@ public virtual inherited sharing class StringBuilder {
     public StringBuilder append(String value) {
         if (value != null) {
             buffer.add(value);
-            count += value.length();// This isn't correct if the buffer is unique
+            count += value.length(); // This isn't correct if the buffer is unique
         }
         return this;
     }

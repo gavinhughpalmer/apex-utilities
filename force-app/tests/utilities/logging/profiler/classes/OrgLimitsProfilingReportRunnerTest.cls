@@ -20,11 +20,15 @@ private class OrgLimitsProfilingReportRunnerTest {
         report.execute();
         Test.stopTest();
 
-        List<Log__c> logs = [SELECT Level__c FROM Log__c];
+        List<Log__c> logs = [
+            SELECT Level__c
+            FROM Log__c
+            WHERE Type__c = :OrgLimitsProfilingReportRunner.LOG_TYPE
+        ];
         System.assertEquals(
-            1,
+            2,
             logs.size(),
-            'A single log record should have been created containing the profiling report for the org'
+            'A single log record should have been created containing the profiling report for the org, and one for the transactional logs'
         );
         System.assert(
             possibleLogLevels.contains(logs[0].Level__c),

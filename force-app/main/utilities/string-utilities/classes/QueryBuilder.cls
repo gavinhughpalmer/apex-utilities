@@ -47,7 +47,11 @@ public virtual class QueryBuilder {
     }
 
     public QueryBuilder selectFieldSet(String fieldSetName) {
-        for (Schema.FieldSetMember member : objectDescribe.FieldSets.getMap().get(fieldSetName).getFields()) {
+        for (
+            Schema.FieldSetMember member : objectDescribe.FieldSets.getMap()
+                .get(fieldSetName)
+                .getFields()
+        ) {
             selectField(member.getFieldPath());
         }
         return this;
@@ -73,7 +77,7 @@ public virtual class QueryBuilder {
         validateFields();
         return String.format(
             SOQL_QUERY_STRUCTURE,
-            new List<String>{String.join(new List<String>(fieldsToQuery), ','), objectName}
+            new List<String>{ String.join(new List<String>(fieldsToQuery), ','), objectName }
         );
     }
 
