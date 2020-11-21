@@ -28,7 +28,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
         return inserter.insertSObject(recordToCreate);
     }
 
-    // TODO will need to implement some form of caching for objects that have multiple lookups to the same objects
     public virtual SObject insertWithDependancies() {
         recordToCreate = getSObject();
         for (FactoryDependancy dependancy : dependancies.values()) {

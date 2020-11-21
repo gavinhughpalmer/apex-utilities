@@ -26,6 +26,8 @@ public class CsvBuilder {
     }
 
     public CsvBuilder appendField(String headerName, String fieldValue) {
+        headerName = String.isBlank(headerName) ? 'null' : headerName;
+        fieldValue = String.isBlank(fieldValue) ? 'null' : fieldValue;
         Map<Integer, String> column = headerToValues.containsKey(headerName)
             ? headerToValues.get(headerName)
             : new Map<Integer, String>();

@@ -6,7 +6,6 @@
  **/
 @isTest(isParallel=true)
 private class CsvBuilderTest {
-    //TODO negative tests...
 
     @isTest
     private static void appendFieldTest() {
@@ -80,6 +79,38 @@ private class CsvBuilderTest {
             ',value22',
             csvContent,
             'The content of the CSV builder should have been converted into a csv document'
+        );
+    }
+
+    @isTest
+    private static void nullHeaderTest() {
+        CsvBuilder testCsv = new CsvBuilder();
+        testCsv.appendField(null, 'value11');
+
+        String csvContent = testCsv.toString();
+
+        System.assertEquals(
+            'null' +
+            CsvBuilder.UNIX_LINE_ENDING +
+            'value11',
+            csvContent,
+            'A null header value should result in the string null in the header'
+        );
+    }
+
+    @isTest
+    private static void nullValueTest() {
+        CsvBuilder testCsv = new CsvBuilder();
+        testCsv.appendField('Header', null);
+
+        String csvContent = testCsv.toString();
+
+        System.assertEquals(
+            'Header' +
+            CsvBuilder.UNIX_LINE_ENDING +
+            'null',
+            csvContent,
+            'A null field value should result in the string null in the field'
         );
     }
 }

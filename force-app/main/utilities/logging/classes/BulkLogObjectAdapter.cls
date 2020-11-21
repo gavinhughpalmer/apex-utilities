@@ -26,7 +26,7 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
 
     @testVisible
     private final List<Log_Event__e> logsToPublish = new List<Log_Event__e>();
-    @testVisible // TODO Should the logging levels be in the bulk object adapter or in the base? as this isn't just tied to the log oject
+    @testVisible
     private static final Set<String> LOGGING_LEVELS = new Set<String>();
 
     static {

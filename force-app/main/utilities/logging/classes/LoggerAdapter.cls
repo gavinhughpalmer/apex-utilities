@@ -7,7 +7,9 @@
  **/
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public abstract class LoggerAdapter {
+
     protected String logType;
+
     public virtual void setType(String type) {
         logType = type;
     }

@@ -7,10 +7,10 @@
  * 2020-11-18 : Gavin Palmer - Original
  **/
 public with sharing class TriggerDispatcher {
-    // TODO ability to disable certain classes or triggers from execution, could be metadata driven
 
     private static final Stack TRIGGER_STACK = new Stack();
     private static Boolean unknownExceptionLogged = false;
+    private static final Set<String> DISABLED_TRIGGERS = new Set<String>();
 
     private final Triggerable handler;
     private final List<SObject> newSObjects;
@@ -19,6 +19,7 @@ public with sharing class TriggerDispatcher {
     private final Logger log = LoggerFactory.createLogger(TriggerDispatcher.class);
 
     @SuppressWarnings('PMD.ExcessiveParameterList')
+    @TestVisible
     private TriggerDispatcher(
         List<Triggerable> actions,
         List<SObject> newSObjects,
@@ -29,11 +30,24 @@ public with sharing class TriggerDispatcher {
         // default the map to the old map for delete triggers
         this.newSObjects = newSObjects == null ? oldMap.values() : newSObjects;
         this.oldMap = oldMap;
-        this.currentTriggerAction = (operation + '-' + newSObjects.getSObjectType()).toUpperCase();
+        this.currentTriggerAction = getTriggerAction(newSObjects.getSObjectType(), operation);
     }
 
+    // Will be difficult to get coverage directly for this method instead we will use the constructor directly
     public static void run(List<Triggerable> actions) {
         (new TriggerDispatcher(actions, Trigger.new, Trigger.oldMap, Trigger.operationType)).run();
+    }
+
+    public static void disable(SObjectType objectType, TriggerOperation operation) {
+        DISABLED_TRIGGERS.add(getTriggerAction(objectType, operation));
+    }
+
+    public static void enable(SObjectType objectType, TriggerOperation operation) {
+        DISABLED_TRIGGERS.remove(getTriggerAction(objectType, operation));
+    }
+
+    private static String getTriggerAction(SObjectType objectType, TriggerOperation operation) {
+        return (operation + '-' + objectType).toUpperCase();
     }
 
     public void run() {
@@ -69,8 +83,7 @@ public with sharing class TriggerDispatcher {
     }
 
     private Boolean triggersAreActive() {
-        // TODO include option to disable certain object triggers (could be metadata driven)
-        return ConfigurationManager.getInstance().areTriggersOn();
+        return ConfigurationManager.getInstance().areTriggersOn() && !DISABLED_TRIGGERS.contains(currentTriggerAction);
     }
 
     private void logUnknownException(String exceptionMessage) {
