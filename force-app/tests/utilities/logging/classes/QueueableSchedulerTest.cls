@@ -1,14 +1,16 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-*
-* 2019-03-11 : Gavin Palmer - Original
-**/
-@IsTest
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ *
+ * 2019-03-11 : Gavin Palmer - Original
+ **/
+@IsTest(isParallel=true)
 private class QueueableSchedulerTest {
-    
     private class TestQueueable extends LoggedQueueable {
-        private final Logger log = new Logger(new Logger.DebugLogAdapter());
+        private final Logger log = new Logger(
+            QueueableSchedulerTest.class,
+            new LoggerAdapter.DebugLogAdapter()
+        );
         public override void execute() {
             log.debug('Do nothing');
         }
@@ -21,7 +23,8 @@ private class QueueableSchedulerTest {
         scheduler.execute();
         Id queableId = scheduler.getRunningQueueableId();
         System.assertNotEquals(
-            null, queableId, 
+            null,
+            queableId,
             'The id should have been assigned when the queable is scheduled in the queueable'
         );
         Test.stopTest();

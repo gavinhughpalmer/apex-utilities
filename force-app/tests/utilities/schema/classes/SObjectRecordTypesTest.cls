@@ -6,7 +6,7 @@
  * 2019-09-24 : Gavin Palmer - Original
  * 2020-09-22 : Khin Hou - adding new test method for getRecordTypeDeveloperName()
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class SObjectRecordTypesTest {
     @IsTest
     private static void constructorInvalidSObjectTest() {

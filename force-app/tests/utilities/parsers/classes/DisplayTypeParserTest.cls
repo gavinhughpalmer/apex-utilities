@@ -1,10 +1,10 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-*
-* 2019-03-23 : Gavin Palmer - Original
-**/
-@isTest
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ *
+ * 2019-03-23 : Gavin Palmer - Original
+ **/
+@isTest(isParallel=true)
 private class DisplayTypeParserTest {
     @isTest
     private static void parseTestStringValue() {
@@ -18,7 +18,8 @@ private class DisplayTypeParserTest {
         );
 
         System.assertEquals(
-            valueToParse, (String) parsedValue,
+            valueToParse,
+            (String) parsedValue,
             'The string value should not have changed when parsed'
         );
     }
@@ -33,10 +34,7 @@ private class DisplayTypeParserTest {
             'The field should have been parsed to a decimal'
         );
 
-        System.assertEquals(
-            3.3, (Decimal) parsedValue,
-            'The value shold have been parsed to 3.3'
-        );
+        System.assertEquals(3.3, (Decimal) parsedValue, 'The value shold have been parsed to 3.3');
     }
 
     @isTest
@@ -44,13 +42,11 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.DATE);
         Object parsedValue = parser.parse('1993-06-29');
 
-        System.assert(
-            parsedValue instanceof Date,
-            'The field should have been parsed to a date'
-        );
+        System.assert(parsedValue instanceof Date, 'The field should have been parsed to a date');
 
         System.assertEquals(
-            Date.newInstance(1993, 06, 29), (Date) parsedValue,
+            Date.newInstance(1993, 6, 29),
+            (Date) parsedValue,
             'The date should have been parsed'
         );
     }
@@ -66,7 +62,8 @@ private class DisplayTypeParserTest {
         );
 
         System.assertEquals(
-            Datetime.newInstance(1993, 06, 29, 10, 10, 10), (Datetime) parsedValue,
+            Datetime.newInstance(1993, 6, 29, 10, 10, 10),
+            (Datetime) parsedValue,
             'The datetime should have been parsed'
         );
     }
@@ -81,10 +78,7 @@ private class DisplayTypeParserTest {
             'The field should have been parsed to a boolean'
         );
 
-        System.assertEquals(
-            true, (Boolean) parsedValue,
-            'The boolean should have been parsed'
-        );
+        System.assertEquals(true, (Boolean) parsedValue, 'The boolean should have been parsed');
     }
 
     @isTest
@@ -92,13 +86,11 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.ID);
         Object parsedValue = parser.parse(UserInfo.getUserId());
 
-        System.assert(
-            parsedValue instanceof Id,
-            'The field should have been parsed to an id'
-        );
+        System.assert(parsedValue instanceof Id, 'The field should have been parsed to an id');
 
         System.assertEquals(
-            UserInfo.getUserId(), (Id) parsedValue,
+            UserInfo.getUserId(),
+            (Id) parsedValue,
             'The user Id should have been parsed'
         );
     }
@@ -108,10 +100,7 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.DATE);
         try {
             parser.parse('Invalid date');
-            System.assert(
-                false,
-                'An exception should be thrown for an invalid display type'
-            );
+            System.assert(false, 'An exception should be thrown for an invalid display type');
         } catch (Exception exceptionToCheck) {
             System.assert(
                 exceptionToCheck.getMessage().containsIgnoreCase('invalid date'),

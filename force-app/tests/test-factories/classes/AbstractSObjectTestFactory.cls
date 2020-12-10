@@ -12,7 +12,6 @@
 * 2020-11-17 : Khin Hou - Included the options to turn on/off duplication rules on inserts (allowDuplicatesOnSave methods)
 **/
 public without sharing abstract class AbstractSObjectTestFactory {
-
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
     private Insertable inserter = new DmlInserter();
     public String uniqueValue = 'test';
@@ -34,7 +33,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
         return inserter.insertSObject(recordToCreate);
     }
 
-    // TODO will need to implement some form of caching for objects that have multiple lookups to the same objects
     public virtual SObject insertWithDependancies() {
         recordToCreate = getSObject();
         for (FactoryDependancy dependancy : dependancies.values()) {
@@ -91,7 +89,8 @@ public without sharing abstract class AbstractSObjectTestFactory {
             List<SObject> parentSObjects = parentFactory.insertMultipleWithDependancies(total);
             for (Integer i = 0; i < total; i++) {
                 childSObjects[i].put(parentRelationship.idFieldName, parentSObjects[i].Id);
-                childSObjects[i].putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
+                childSObjects[i]
+                    .putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
             }
         }
     }

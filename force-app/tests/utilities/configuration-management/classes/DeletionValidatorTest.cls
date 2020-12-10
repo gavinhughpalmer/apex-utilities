@@ -1,14 +1,13 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description Test class for DeletionValidator
-*
-* 2019-02-11 : Gavin Palmer - Original
-**/
-@IsTest
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description Test class for DeletionValidator
+ *
+ * 2019-02-11 : Gavin Palmer - Original
+ **/
+@IsTest(isParallel=true)
 @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
 private class DeletionValidatorTest {
-    
     @IsTest
     private static void registerTestAllowedDelete() {
         ConfigurationManager.getInstance().turnDeletionOn();

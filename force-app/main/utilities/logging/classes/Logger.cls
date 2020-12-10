@@ -15,189 +15,104 @@
  */
 
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description The logger provides an extendable logging interface, the actual logging option can be easily switched by the use of the LoggerAdapter inner class. 
-* This class was adapted from https://github.com/blueprinthealth/sirono-common/blob/master/src/classes/Logger.cls
-* Usage:
-* Logger log = new Logger(new DebugLogAdapter());
-* log.warn('A warning is here');
-* try {
-*     insert new Account();
-* } catch (DmlException exceptionToHandle) {
-*     log.error(exceptionToHandle);
-* }
-*
-* 2018-06-27 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description The logger provides an extendable logging interface, the actual logging option can be easily switched by the use of the LoggerAdapter inner class.
+ * This class was adapted from https://github.com/blueprinthealth/sirono-common/blob/master/src/classes/Logger.cls
+ * Usage:
+ * Logger log = new Logger(new DebugLogAdapter());
+ * log.warn('A warning is here');
+ * try {
+ *     insert new Account();
+ * } catch (DmlException exceptionToHandle) {
+ *     log.error(exceptionToHandle);
+ * }
+ *
+ * 2018-06-27 : Gavin Palmer - Original
+ **/
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public without sharing class Logger {
-
     private static final String MESSAGE_FORMAT = 'An error has occured in the class {0} with the message: {1}';
 
     private final LoggerAdapter loggerAdapter;
-    private final Type apexClass;
 
     public Logger(Type apexClass, LoggerAdapter loggerAdapter) {
-        this.apexClass = apexClass;
         this.loggerAdapter = loggerAdapter;
+        this.loggerAdapter.setType(apexClass.getName());
     }
 
-    public Logger(LoggerAdapter loggerAdapter) {
-        this.loggerAdapter = loggerAdapter;
+    public void setType(String type) {
+        this.loggerAdapter.setType(type);
     }
 
     public void debug(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.debugLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.debugLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void debug(String messageToLog, Id recordId) {
         loggerAdapter.log(
-            loggerAdapter.debugLevel(), 
-            getFullMessage(messageToLog),
+            loggerAdapter.debugLevel(),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void info(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.infoLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.infoLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void info(String messageToLog, Id recordId) {
         loggerAdapter.log(
-            loggerAdapter.infoLevel(), 
-            getFullMessage(messageToLog),
+            loggerAdapter.infoLevel(),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void warn(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.warningLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.warningLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void warn(String messageToLog, Id recordId) {
         loggerAdapter.log(
-            loggerAdapter.warningLevel(), 
-            getFullMessage(messageToLog),
+            loggerAdapter.warningLevel(),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void error(String messageToLog) {
-        loggerAdapter.log(loggerAdapter.errorLevel(), getFullMessage(messageToLog));
+        loggerAdapter.log(loggerAdapter.errorLevel(), (new LogMessage(messageToLog)).toString());
     }
 
     public void error(String messageToLog, Id recordId) {
         loggerAdapter.log(
-            loggerAdapter.errorLevel(), 
-            getFullMessage(messageToLog),
+            loggerAdapter.errorLevel(),
+            (new LogMessage(messageToLog)).toString(),
             recordId
         );
     }
 
     public void error(Exception exceptionToLog) {
-        loggerAdapter.log(
-            loggerAdapter.errorLevel(),
-            getFullMessage(
-                exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()
-            )
-        );
+        error((new LogMessage(exceptionToLog)).toString());
     }
 
     public void error(Exception exceptionToLog, Id recordId) {
-        loggerAdapter.log(
-            loggerAdapter.errorLevel(),
-            getFullMessage(
-                exceptionToLog.getMessage(), exceptionToLog.getStackTraceString()
-            ), 
-            recordId
-        );
+        error((new LogMessage(exceptionToLog)).toString(), recordId);
     }
 
-    private String getFullMessage(String message, String stackTraceString) {
-        if (apexClass != null) {
-            message = String.format(
-                MESSAGE_FORMAT, new List<String>{apexClass.getName(), message}
-            );
-        }
-        return String.format(
-            '{0}\nStack trace:\n{1}',
-            new List<String>{message, stackTraceString}
-        );
+    public void close() {
+        runApexPofiling();
+        loggerAdapter.close();
     }
 
-    private String getFullMessage(String message) {
-        return getFullMessage(
-            message, getStackTraceString()
-        );
-    }
-
-    private String getStackTraceString() {
-        List<String> stack = (new DmlException()).getStackTraceString().split('\n');
-        while (stack[0].startsWith('Class.Logger.')) {
-            stack.remove(0);
-        }
-        return String.join(stack, '\n');
-    }
-
-    /**
-     * The logger adapter exposes the log method and the specific log levels to be implemented by whatever class implements it
-     */
-    public abstract class LoggerAdapter {
-        public abstract void log(Object logLevel, String message);
-        public virtual void log(Object logLevel, String message, Id recordId) {
-            message = 'Record Id: ' + recordId + ' message: ' + message;
-            log(logLevel, message);
-        }
-        public abstract Object errorLevel();
-        public abstract Object warningLevel();
-        public abstract Object infoLevel();
-        public abstract Object debugLevel();
-    }
-
-    /**
-     * Implementation of LoggerAdapter that directs all logging through the built-in Apex method <code>System.debug()</code>
-     */
-    public class DebugLogAdapter extends LoggerAdapter {
-
-        public override void log(Object logLevel, String message) {
-            System.debug((LoggingLevel) logLevel, message);
-        }
-
-        public override Object errorLevel() {
-            return LoggingLevel.ERROR;
-        }
-        public override Object warningLevel() {
-            return LoggingLevel.WARN;
-        }
-        public override Object infoLevel() {
-            return LoggingLevel.INFO;
-        }
-        public override Object debugLevel() {
-            return LoggingLevel.DEBUG;
-        }
-    }
-
-    /**
-     * Implementation of LoggerAdapter that directs all logging to the page
-     */
-    public class PageMessageLogAdapter extends LoggerAdapter {
-
-        public override void log(Object logLevel, String message) {
-            ApexPages.addMessage(new ApexPages.message((ApexPages.Severity) logLevel, message));
-        }
-
-        public override Object errorLevel() {
-            return ApexPages.Severity.ERROR;
-        }
-        public override Object warningLevel() {
-            return ApexPages.Severity.WARNING;
-        }
-        public override Object infoLevel() {
-            return ApexPages.Severity.INFO;
-        }
-        public override Object debugLevel() {
-            return ApexPages.Severity.INFO;
+    private void runApexPofiling() {
+        Profiler profiler = new ApexProfiler();
+        String profilingReport = profiler.getProfilingReport();
+        if (profiler.isBreachingWarning()) {
+            warn(profilingReport);
+        } else {
+            info(profilingReport);
         }
     }
 }

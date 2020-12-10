@@ -1,13 +1,12 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description This class will be used to manage the configuration settings in the system.
-*  it is essentially wrapping the custom setting to remove code dependancy on the custom setting
-*
-* 2018-06-27 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @version 1.0
+ * @description This class will be used to manage the configuration settings in the system.
+ *  it is essentially wrapping the custom setting to remove code dependancy on the custom setting
+ *
+ * 2018-06-27 : Gavin Palmer - Original
+ **/
 public without sharing class ConfigurationManager {
-
     private static final ConfigurationManager INSTANCE = new ConfigurationManager();
 
     public static ConfigurationManager getInstance() {
@@ -33,7 +32,8 @@ public without sharing class ConfigurationManager {
     private final Configuration__c configurationSetting = Configuration__c.getInstance();
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
-    private ConfigurationManager() {}
+    private ConfigurationManager() {
+    }
 
     public Boolean areTriggersOff() {
         return configurationSetting.Are_Triggers_Off__c;
