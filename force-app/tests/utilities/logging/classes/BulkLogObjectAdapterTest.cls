@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  *
- * 2018-06-27 : Gavin Palmer - Original
+ * @date 2018-06-27
  **/
 @IsTest(isParallel=true)
 private class BulkLogObjectAdapterTest {

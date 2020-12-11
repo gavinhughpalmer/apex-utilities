@@ -1,9 +1,8 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description Test class for the AbstractSObjectTestFactory, this was to ensure the dependancies were inserting correctly
  *
- * 2018-10-23 : Gavin Palmer - Original
+ * @date 2018-10-23
  **/
 @IsTest
 private class AbstractSObjectTestFactoryTest {

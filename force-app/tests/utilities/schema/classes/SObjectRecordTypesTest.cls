@@ -1,9 +1,8 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description Test class for the SObjectRecordTypes class
  *
- * 2019-09-24 : Gavin Palmer - Original
+ * @date 2019-09-24
  * 2020-09-22 : Khin Hou - adding new test method for getRecordTypeDeveloperName()
  **/
 @IsTest(isParallel=true)

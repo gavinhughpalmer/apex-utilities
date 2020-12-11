@@ -1,9 +1,8 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description This class is a utility for the Database class
  *
- * 2019-03-13 : Gavin Palmer - Original
+ * @date 2019-03-13
  **/
 public inherited sharing class DatabaseUtils {
     public static String errorStringSeperator = '\n';

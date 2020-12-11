@@ -1,9 +1,8 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * feel like a test should be written to test the lookup to a custom object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
  *
- * 2019-03-23 : Gavin Palmer - Original
+ * @date 2019-03-23
  **/
 @isTest(isParallel=true)
 private class SObjectWrapperTest {

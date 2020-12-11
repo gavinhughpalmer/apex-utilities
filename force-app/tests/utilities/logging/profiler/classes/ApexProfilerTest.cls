@@ -1,9 +1,8 @@
 /**
  * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
- * @version 1.0
  * @description Test class for the ApexProfiler
  *
- * 2019-02-02 : Gavin Palmer - Original
+ * @date 2019-02-02
  **/
 @SuppressWarnings('PMD.UnusedLocalVariable')
 @IsTest(isParallel=true)

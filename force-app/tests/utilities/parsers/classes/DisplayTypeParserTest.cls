@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  *
- * 2019-03-23 : Gavin Palmer - Original
+ * @date 2019-03-23
  **/
 @isTest(isParallel=true)
 private class DisplayTypeParserTest {

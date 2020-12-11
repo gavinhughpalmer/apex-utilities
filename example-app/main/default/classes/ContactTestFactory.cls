@@ -2,7 +2,7 @@
 * @author Gavin Palmer (gavinhughpalmer@gmail.com)
 * @version 1.0
 *
-* 2018-10-23 : Gavin Palmer - Original
+* @date 2018-10-23
 **/
 @IsTest
 public without sharing class ContactTestFactory extends AbstractSObjectTestFactory {

@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  *
- * 2019-04-20 : Gavin Palmer - Original
+ * @date 2019-04-20
  **/
 @IsTest(isParallel=true)
 private class LogWriterTest {

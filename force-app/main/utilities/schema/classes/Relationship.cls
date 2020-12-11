@@ -1,6 +1,5 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description This is a simple class to swap between the id and relationship refrence field when dynamically refrencing relationship fields
  * Usage:
  * // Can be used if you have the relationship field
@@ -16,7 +15,7 @@
  * accountLookup = Relationship.fromIdField('Account__c');
  * System.debug(accountLookup.referenceFieldName); // Account__r
  *
- * 2020-05-29 : Gavin Palmer - Original
+ * @date 2020-05-29
  **/
 public with sharing class Relationship {
     public static final String INVALID_RELATIONSHIP_FIELD = 'The field passed in is not a relationship. Field Value: ';

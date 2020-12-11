@@ -5,10 +5,7 @@
         "tasks": [
             { "type": "sfdx", "command": "force:org:create --definitionfile config/project-scratch-def.json --setalias ${0} --durationdays ${1} --setdefaultusername" },
             { "type": "sfdx", "command": "force:source:push --targetusername ${0} --forceoverwrite --wait 60" },
-            { "type": "parallel", "parallelTasks": [
-                { "type": "sfdx", "command": "force:user:permset:assign --permsetname Log_Viewer --targetusername ${0}" },
-                { "type": "sfdx", "command": "force:apex:execute --apexcodefile scripts/apex/PostDeployment.apex --targetusername ${0}" }
-            ]}
+            { "type": "sfdx", "command": "force:user:permset:assign --permsetname Log_Viewer --targetusername ${0}" }
         ],
         "propagateErrors": true
     },

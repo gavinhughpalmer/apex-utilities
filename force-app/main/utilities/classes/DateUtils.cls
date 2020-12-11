@@ -1,9 +1,8 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description This class will be used for reusable date functions
  *
- * 2019-03-11 : Gavin Palmer - Original
+ * @date 2019-03-11
  **/
 public without sharing class DateUtils {
     private static Datetime now;

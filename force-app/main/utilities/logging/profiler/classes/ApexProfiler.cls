@@ -1,10 +1,9 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description This class is used to logout the profiling information of the current running transaction.
  *  This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
  *
- * 2019-02-02 : Gavin Palmer - Original
+ * @date 2019-02-02
  **/
 public without sharing class ApexProfiler extends Profiler {
     public override void refreshProfiling() {

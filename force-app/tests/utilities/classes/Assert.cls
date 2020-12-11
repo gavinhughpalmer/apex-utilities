@@ -1,10 +1,9 @@
 /**
  * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
  * @description This class is intended to extend the usage of the standard System.assert methods in salesforce,
  * the class has been anotated with @IsTest because it is untestable due to the assert statement
  *
- * 2018-06-27 : Gavin Palmer - Original
+ * @date 2018-06-27
  **/
 @SuppressWarnings('PMD.ApexUnitTestMethodShouldHaveIsTestAnnotation')
 public class Assert {

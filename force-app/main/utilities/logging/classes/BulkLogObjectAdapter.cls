@@ -10,7 +10,7 @@
  * log.warn('A warning message');
  * log.close();
  *
- * 2018-06-27 : Gavin Palmer - Original
+ * @date 2018-06-27
  **/
 public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
     @testVisible
