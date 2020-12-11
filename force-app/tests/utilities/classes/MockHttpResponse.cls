@@ -10,7 +10,6 @@
  *
  * 2019-05-09 : Gavin Palmer - Original
  **/
-@IsTest
 public class MockHttpResponse implements HttpCalloutMock {
     private final List<Mock> mocks = new List<Mock>();
 

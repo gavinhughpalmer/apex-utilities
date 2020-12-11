@@ -9,9 +9,6 @@ public class CsvBuilder {
     public static final String WINDOWS_LINE_ENDING = '\r\n';
     public static final String UNIX_LINE_ENDING = '\n';
 
-    public class InvalidRowException extends Exception {
-    }
-
     @testVisible
     private final Map<String, Map<Integer, String>> headerToValues = new Map<String, Map<Integer, String>>();
     private Integer currentRow = 0;
@@ -95,5 +92,8 @@ public class CsvBuilder {
             append(rowToAdd.toString());
             return this;
         }
+    }
+
+    public class InvalidRowException extends Exception {
     }
 }

@@ -5,6 +5,7 @@
  *
  * 2019-02-02 : Gavin Palmer - Original
  **/
+@SuppressWarning('PMD.UnusedLocalVariable')
 @IsTest(isParallel=true)
 private class ApexProfilerTest {
     @IsTest
@@ -40,7 +41,7 @@ private class ApexProfilerTest {
     }
 
     @IsTest
-    @SuppressWarnings('PMD.AvoidSoqlInLoops')
+    @SuppressWarnings('PMD.OperationWithLimitsInLoop')
     private static void isBreachingWarningTestBreach() {
         Test.startTest();
         ApexProfiler apexProfiler = new ApexProfiler();

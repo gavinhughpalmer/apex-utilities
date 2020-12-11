@@ -9,8 +9,6 @@
  * 04/06/2019    Gavin Palmer       Created Class
  */
 public virtual class QueryBuilder {
-    public class QueryException extends Exception {
-    }
 
     private static final String SOQL_QUERY_STRUCTURE = 'SELECT {0} FROM {1}';
     protected final String objectName;
@@ -87,5 +85,8 @@ public virtual class QueryBuilder {
                 'No fields have been added into the query so it cannot be executed'
             );
         }
+    }
+
+    public class QueryException extends Exception {
     }
 }

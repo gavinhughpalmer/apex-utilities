@@ -11,19 +11,17 @@
  * 2019-02-02 : Gavin Palmer - Original
  **/
 public without sharing class SchemaFacade {
-    public class InvalidDescribeException extends Exception {
-    }
+
+    private Map<String, SObjectType> sObjectTypeByObjectNames = Schema.getGlobalDescribe();
+    private Map<String, DescribeSObjectResult> sObjectDescribeByObjectNames = new Map<String, DescribeSObjectResult>();
+    private Map<String, Map<String, SObjectField>> fieldTypesByNameAndObject = new Map<String, Map<String, SObjectField>>();
+    private Map<String, Map<String, DescribeFieldResult>> fieldDescribeByNameAndObject = new Map<String, Map<String, DescribeFieldResult>>();
 
     private static final SchemaFacade INSTANCE = new SchemaFacade();
 
     public static SchemaFacade getInstance() {
         return INSTANCE;
     }
-
-    private Map<String, SObjectType> sObjectTypeByObjectNames = Schema.getGlobalDescribe();
-    private Map<String, DescribeSObjectResult> sObjectDescribeByObjectNames = new Map<String, DescribeSObjectResult>();
-    private Map<String, Map<String, SObjectField>> fieldTypesByNameAndObject = new Map<String, Map<String, SObjectField>>();
-    private Map<String, Map<String, DescribeFieldResult>> fieldDescribeByNameAndObject = new Map<String, Map<String, DescribeFieldResult>>();
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
     private SchemaFacade() {
@@ -106,5 +104,8 @@ public without sharing class SchemaFacade {
                 objectApiName
             );
         }
+    }
+
+    public class InvalidDescribeException extends Exception {
     }
 }

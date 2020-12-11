@@ -7,7 +7,6 @@
  * 2018-06-27 : Gavin Palmer - Original
  **/
 @SuppressWarnings('PMD.ApexUnitTestMethodShouldHaveIsTestAnnotation')
-@IsTest
 public class Assert {
     public static void pageMessage(final String expectedPageMessage) {
         hasPageMessages();

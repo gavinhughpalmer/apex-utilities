@@ -50,7 +50,7 @@ private class RelationshipTest {
     @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void fromIdFieldInvalidCustomField() {
         try {
-            Relationship accountLookup = Relationship.fromIdField('Account__p');
+            Relationship.fromIdField('Account__p');
             Assert.fail(
                 'An excpetion should be thrown when an invalid field is passed into the relationship constructor'
             );

@@ -7,6 +7,9 @@
  * 2018-06-27 : Gavin Palmer - Original
  **/
 public without sharing class ConfigurationManager {
+
+    private final Configuration__c configurationSetting = Configuration__c.getInstance();
+
     private static final ConfigurationManager INSTANCE = new ConfigurationManager();
 
     public static ConfigurationManager getInstance() {
@@ -28,8 +31,6 @@ public without sharing class ConfigurationManager {
         INSTANCE.turnWorkflowsOff();
         INSTANCE.commitChanges();
     }
-
-    private final Configuration__c configurationSetting = Configuration__c.getInstance();
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
     private ConfigurationManager() {

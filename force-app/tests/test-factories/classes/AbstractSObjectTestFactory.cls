@@ -95,7 +95,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
         List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert);
     }
 
-    private class DmlInserter implements Insertable {
+    private without sharing class DmlInserter implements Insertable {
         public SObject insertSObject(SObject sObjectToInsert) {
             insert sObjectToInsert;
             return sObjectToInsert;
