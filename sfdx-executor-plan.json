@@ -1,0 +1,29 @@
+{
+    "createScratch": {
+        "label": "Create Scratch",
+        "description": "This command will create a scratch and push all the relevant metadata to it",
+        "tasks": [
+            { "type": "sfdx", "command": "force:org:create --definitionfile config/project-scratch-def.json --setalias ${0} --durationdays ${1} --setdefaultusername" },
+            { "type": "sfdx", "command": "force:source:push --targetusername ${0} --forceoverwrite --wait 60" },
+            { "type": "parallel", "parallelTasks": [
+                { "type": "sfdx", "command": "force:user:permset:assign --permsetname Log_Viewer --targetusername ${0}" },
+                { "type": "sfdx", "command": "force:apex:execute --apexcodefile scripts/apex/PostDeployment.apex --targetusername ${0}" }
+            ]}
+        ],
+        "propagateErrors": true
+    },
+    "buildAndRunTests": {
+        "label": "Build and Run Unit Tests",
+        "description": "This command will build a scratch org and then run unit tests, to be run in a CI environment",
+        "tasks": [
+            { "type": "sfdx", "command": "force:lightning:lint ./force-app/main --exit --verbose" },
+            { "type": "sfdx", "command": "executor:run --planfile sfdx-executor-plan.json --command createScratch --arguments TestRunner,1" },
+            { "type": "sfdx", "command": "force:apex:test:run --testlevel RunLocalTests --outputdir test-results --resultformat tap --targetusername TestRunner --codecoverage --wait 20" }
+        ],
+        "finally": {
+            "type": "sfdx",
+            "command": "force:org:delete --noprompt --targetusername TestRunner"
+        },
+        "propagateErrors": true
+    }
+}

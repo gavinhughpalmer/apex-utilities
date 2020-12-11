@@ -13,6 +13,9 @@ The simplest installation option would be to install the unlocked package using 
 
 Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1n000002WqqTAAS`
 
+## Contributing
+<!-- TODO how to contribute, how to create a scratch using the executor plugin... -->
+
 ## Components
 
 - **Assert**:
