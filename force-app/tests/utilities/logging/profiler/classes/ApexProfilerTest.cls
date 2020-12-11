@@ -5,7 +5,7 @@
  *
  * 2019-02-02 : Gavin Palmer - Original
  **/
-@SuppressWarning('PMD.UnusedLocalVariable')
+@SuppressWarnings('PMD.UnusedLocalVariable')
 @IsTest(isParallel=true)
 private class ApexProfilerTest {
     @IsTest
