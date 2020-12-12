@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class is a secure wrapper for the sobject that obeys field level security for the user accessing it
  *
  * @date 2019-03-23

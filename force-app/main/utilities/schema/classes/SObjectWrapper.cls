@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
  * Usage:
  * Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];

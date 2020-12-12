@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description Utility class to help make interacting with an objects record types slightly easier eg cal call
  * SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
  * Id defaultOpportunityRecordTypeId = opportunityRecordTypes.getDefaultId();

@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class is intended to extend the usage of the standard System.assert methods in salesforce,
  * the class has been anotated with @IsTest because it is untestable due to the assert statement
  *

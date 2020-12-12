@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class holds the logic for generating log messages,
  * meaning any specific details that should be added to each log can be appended in here
  *

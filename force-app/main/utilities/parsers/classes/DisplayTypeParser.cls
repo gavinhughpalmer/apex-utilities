@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This parser will take a string value and convert it to the display type that is passed into the constructor
  *
  * @date 2019-03-23

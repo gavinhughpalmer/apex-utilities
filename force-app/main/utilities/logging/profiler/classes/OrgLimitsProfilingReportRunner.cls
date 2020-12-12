@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class will run the full profiling (ie including the org limits), and write into the logs.
  *  To run you can execute:
  * OrgLimitsProfilingReportRunner report = new OrgLimitsProfilingReportRunner();

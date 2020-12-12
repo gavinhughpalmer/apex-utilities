@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This is a simple class to swap between the id and relationship refrence field when dynamically refrencing relationship fields
  * Usage:
  * // Can be used if you have the relationship field

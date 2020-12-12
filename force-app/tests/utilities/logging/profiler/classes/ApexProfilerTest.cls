@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
+ * @author Gavin Palmer
  * @description Test class for the ApexProfiler
  *
  * @date 2019-02-02

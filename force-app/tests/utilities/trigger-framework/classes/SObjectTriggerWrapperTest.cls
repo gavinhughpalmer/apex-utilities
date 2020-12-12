@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description Test class for SObjectTriggerWrapper
  *
  * @date 2018-10-29

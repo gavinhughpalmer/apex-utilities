@@ -1,15 +1,10 @@
 /**
  * @author Gavin Palmer <gavinhughpalmer@gmail.com>
-* @date 2019-06-04
- * @group CloudShiftGroup
+ * @date 2019-06-04
  * @description This class can be used to build up dynamic soql queries
  *
- * Date          author             Change Description
- * -----------------------------------------------------------------------------------
- * 04/06/2019    Gavin Palmer       Created Class
  */
 public virtual class QueryBuilder {
-
     private static final String SOQL_QUERY_STRUCTURE = 'SELECT {0} FROM {1}';
     protected final String objectName;
     private final Set<String> fieldsToQuery = new Set<String>();

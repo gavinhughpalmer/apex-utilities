@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This wraps the standard Schedulable interfaece and allows the logs to be written without developers needing to write the logs specifically
  *
  * @date 2019-03-11

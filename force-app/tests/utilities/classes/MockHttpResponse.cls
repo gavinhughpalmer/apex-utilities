@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class can be used to build custom HTTP responses to be used in test classes
  * Usage:
  * Test.setMock(

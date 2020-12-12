@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * feel like a test should be written to test the lookup to a custom object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
  *
  * @date 2019-03-23

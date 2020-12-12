@@ -15,7 +15,7 @@
  */
 
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description The logger provides an extendable logging interface, the actual logging option can be easily switched by the use of the LoggerAdapter inner class.
  * This class was adapted from https://github.com/blueprinthealth/sirono-common/blob/master/src/classes/Logger.cls
  * Usage:

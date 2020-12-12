@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class will hold the picklist values of an object so that the values can be more easily retrieved
  *
  * @date 2020-02-11

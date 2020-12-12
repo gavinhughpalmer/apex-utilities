@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description Parsable interface will be implemented by classes that are intended to parse a string to an object value
  *
  * @date 2019-03-23

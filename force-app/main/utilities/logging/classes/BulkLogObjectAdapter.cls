@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @version 2.0
  * @description The bulk log object adapter can be used to insert logs as a custom object into the database,
  * as a singleton the write logs can be called at the end of a trigger to insert the full logs into the system only once per object

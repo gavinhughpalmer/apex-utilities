@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description The logger adapter exposes the log method and the specific log levels to be implemented by whatever class implements it
  *
  * @date 2018-06-27

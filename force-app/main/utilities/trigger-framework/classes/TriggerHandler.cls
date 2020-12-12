@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class is a grouping of Triggerable actions so that they can be executed as one
  *
  * @date 2018-06-28

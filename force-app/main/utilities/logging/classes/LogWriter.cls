@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description The LogWriter class converts log events into log sobjects so that they are perminantely committed into the database
  *
  * @date 2019-04-20

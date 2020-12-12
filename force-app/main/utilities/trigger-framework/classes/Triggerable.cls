@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This interface will be implemented by any action that is used in a trigger,
  * this allows each trigger to loop over the set of records once to complete all the actions in the system.
  * intention is that any initial setup actions can be performed in the constructor (ie set up some required data),

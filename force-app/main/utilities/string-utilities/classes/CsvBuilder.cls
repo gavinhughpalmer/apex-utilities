@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description The CsvBuilder is used to build csv files from some input
  *
  * @date 2018-06-28

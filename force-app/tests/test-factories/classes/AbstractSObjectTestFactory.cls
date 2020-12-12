@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This factory class will be used as a base for any SObject creation in test classes,
  *    this pattern will define attributes that can be set in the test classes.
  *    This allows any required fields / validations to be defined in what is returned in the getSObject method

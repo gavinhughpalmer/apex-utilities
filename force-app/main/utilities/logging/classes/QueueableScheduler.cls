@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class will schedule a queuebale class to run by injecting the queuebale into the class
  * Usage:
  * QueueableScheduler scheduler = new QueueableScheduler(new MyQueueable());

@@ -1,5 +1,5 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
+ * @author Gavin Palmer
  * @description This class is used by the trigger framework to give a few utility methods to the SObjects
  *
  * @date 2018-10-29
