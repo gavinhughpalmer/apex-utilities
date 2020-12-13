@@ -14,7 +14,7 @@ The simplest installation option would be to install the unlocked package using 
 Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1n000002WqqTAAS`
 
 ## Contributing
-<!-- TODO how to contribute, how to create a scratch using the executor plugin... -->
+<!-- TODO how to contribute, how to create a scratch using the executor plugin... https://help.github.com/articles/setting-guidelines-for-repository-contributors/ -->
 
 ## Documentation
 <!-- copy these details down to the class headers, and include method and properties headers -->

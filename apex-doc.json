@@ -1,4 +1,5 @@
 {
+    "root": "/docs",
     "defaultGrouName": "apex-utilities",
     "sourceLanguage": "java",
     "content": {
