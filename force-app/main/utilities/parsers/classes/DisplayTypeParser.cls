@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-03-23
+ * @group Parsers
  * @description This parser will take a string value and convert it to the display type that is passed into the constructor
  *
- * @date 2019-03-23
  **/
 public class DisplayTypeParser implements Parsable {
     private static final Map<DisplayType, Parser> PARSERS = new Map<DisplayType, Parser>{

@@ -1,7 +1,7 @@
 /**
  * @author Gavin Palmer
- *
  * @date 2020-11-20
+ *
  **/
 @IsTest(isParallel=true)
 private class TriggerHandlerTest {

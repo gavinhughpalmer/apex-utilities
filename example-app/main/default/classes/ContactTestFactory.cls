@@ -1,6 +1,5 @@
 /**
 * @author Gavin Palmer
-* @version 1.0
 *
 * @date 2018-10-23
 **/

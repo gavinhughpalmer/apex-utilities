@@ -1,11 +1,11 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-09-24
+ * @group Schema
  * @description Utility class to help make interacting with an objects record types slightly easier eg cal call
  * SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
  * Id defaultOpportunityRecordTypeId = opportunityRecordTypes.getDefaultId();
  *
- * @date 2019-09-24
- * 2020-09-22 : Khin Hou - adding option to get a record type developer name from an Id
  **/
 public inherited sharing class SObjectRecordTypes {
     private final Map<String, Schema.RecordTypeInfo> recordTypesByDeveloperName;

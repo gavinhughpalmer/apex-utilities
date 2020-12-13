@@ -1,9 +1,10 @@
 /**
  * @author Gavin Palmer
+ * @date 2020-11-18
+ * @group Trigger Framework
  * @description This trigger dispatcher will be called from each trigger with a list of triggerable actions to perform.
  *  As the single point of entry for all triggers this class will manage the disabling and enabling of triggers, as well as tracking the stack of triggers
  *
- * @date 2020-11-18
  **/
 public with sharing class TriggerDispatcher {
     private static final Stack TRIGGER_STACK = new Stack();

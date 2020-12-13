@@ -1,7 +1,7 @@
 /**
  * @author Gavin Palmer
- *
  * @date 2020-05-29
+ *
  **/
 @IsTest(isParallel=true)
 private class RelationshipTest {

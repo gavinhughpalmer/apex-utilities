@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer
- * @description Test class for DeletionValidator
- *
  * @date 2019-02-11
+ *
  **/
 @IsTest(isParallel=true)
 @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')

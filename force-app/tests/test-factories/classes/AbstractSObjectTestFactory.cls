@@ -1,5 +1,7 @@
 /**
  * @author Gavin Palmer
+ * @date 2018-10-23
+ * @group Test Factory Framework
  * @description This factory class will be used as a base for any SObject creation in test classes,
  *    this pattern will define attributes that can be set in the test classes.
  *    This allows any required fields / validations to be defined in what is returned in the getSObject method
@@ -7,7 +9,6 @@
  *    in the UI. The method for inserting the records can be injected if specific ties around the insert need to be added for a
  *    specific use case, eg in the abstract SObject test factory test class
  *
- * @date 2018-10-23
  **/
 public without sharing abstract class AbstractSObjectTestFactory {
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();

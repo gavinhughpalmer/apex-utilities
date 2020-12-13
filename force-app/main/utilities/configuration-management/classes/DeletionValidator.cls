@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-02-11
+ * @group Configuration Management
  * @description This class will be used to validate the deletion of objects which are not covered by profiles
  *
- * @date 2019-02-11
  **/
 public without sharing class DeletionValidator extends Triggerable {
     @testVisible

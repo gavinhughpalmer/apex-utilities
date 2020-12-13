@@ -1,9 +1,10 @@
 /**
  * @author Gavin Palmer
+ * @date 2020-02-11
+ * @group Schema
  * @description This class is used to get around a salesforce bug where the state/country field is not updated in a trigger, rather the state code is.
  * Other code in the org has been written to rely on the state/country field rather than the code
  *
- * @date 2020-02-11
  **/
 public with sharing class StateCountryCodeMapper extends Triggerable {
     private final PicklistValueSet stateValueSet = new PicklistValueSet(

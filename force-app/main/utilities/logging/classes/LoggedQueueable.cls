@@ -1,9 +1,10 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-02-06
+ * @group Logging
  * @description This class wraps the queueable interface with the logging framework so that developers do not
  * have to worry about writing the logs after the Logger methods are called.
  *
- * @date 2019-02-06
  **/
 public abstract inherited sharing class LoggedQueueable implements Queueable {
     protected QueueableContext context;

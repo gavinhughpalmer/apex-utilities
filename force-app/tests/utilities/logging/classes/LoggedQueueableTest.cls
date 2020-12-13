@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer
- * @description Test class for the LoggedQueueable class
- *
  * @date 2019-02-06
+ *
  **/
 @IsTest(isParallel=true)
 private class LoggedQueueableTest {

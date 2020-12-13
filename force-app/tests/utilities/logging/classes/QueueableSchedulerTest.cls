@@ -1,7 +1,7 @@
 /**
  * @author Gavin Palmer
- *
  * @date 2019-03-11
+ *
  **/
 @IsTest(isParallel=true)
 private class QueueableSchedulerTest {

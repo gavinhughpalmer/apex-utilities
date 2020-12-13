@@ -1,7 +1,7 @@
 /**
  * @author Gavin Palmer
- *
  * @date 2019-04-20
+ *
  **/
 @IsTest(isParallel=true)
 private class LogWriterTest {

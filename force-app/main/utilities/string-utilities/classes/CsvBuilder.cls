@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2018-06-28
+ * @group String Utilities
  * @description The CsvBuilder is used to build csv files from some input
  *
- * @date 2018-06-28
  **/
 public class CsvBuilder {
     public static final String WINDOWS_LINE_ENDING = '\r\n';

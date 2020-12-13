@@ -1,5 +1,7 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-05-09
+ * @group Test Utilities
  * @description This class can be used to build custom HTTP responses to be used in test classes
  * Usage:
  * Test.setMock(
@@ -7,7 +9,6 @@
  *     MockHttpResponse.builder().statusCode(200).body('{"field":"value"}').cookie('aCookie')
  * );
  *
- * @date 2019-05-09
  **/
 public class MockHttpResponse implements HttpCalloutMock {
     private final List<Mock> mocks = new List<Mock>();

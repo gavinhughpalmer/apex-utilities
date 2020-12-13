@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer
- * @description Test class for ConfigurationManager
- *
  * @date 2018-06-27
+ *
  **/
 @IsTest(isParallel=true)
 private class ConfigurationManagerTest {

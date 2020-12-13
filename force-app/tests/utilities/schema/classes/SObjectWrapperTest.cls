@@ -1,11 +1,11 @@
 /**
  * @author Gavin Palmer
- * feel like a test should be written to test the lookup to a custom object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
- *
  * @date 2019-03-23
+ *
  **/
 @isTest(isParallel=true)
 private class SObjectWrapperTest {
+    // * feel like a test should be written to test the lookup to a custom object to get 100% coverage but then a test custom object needs to be deployed with the package so have avoided
     @isTest
     private static void getTestObjectField() {
         final String testAccountName = 'Test Account';

@@ -1,7 +1,7 @@
 /**
  * @author Gavin Palmer
- *
  * @date 2019-03-23
+ *
  **/
 @isTest
 private class SecureSObjectWrapperTest {

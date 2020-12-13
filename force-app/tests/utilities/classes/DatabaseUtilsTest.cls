@@ -1,7 +1,7 @@
 /**
  * @author Gavin Palmer
- *
  * @date 2019-03-13
+ *
  **/
 @IsTest(isParallel=true)
 private class DatabaseUtilsTest {

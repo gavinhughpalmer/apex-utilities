@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-03-23
+ * @group Schema
  * @description This class is a secure wrapper for the sobject that obeys field level security for the user accessing it
  *
- * @date 2019-03-23
  **/
 public class SecureSObjectWrapper extends SObjectWrapper {
     public SecureSObjectWrapper(SObject sObjectToWrap) {

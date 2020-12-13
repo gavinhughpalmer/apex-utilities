@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2020-10-08
+ * @group Logging
  * @description This class runs the profiling for org limits
  *
- * @date 2020-10-08
  **/
 public without sharing class OrgLimitsProfiler extends Profiler {
     public override void refreshProfiling() {

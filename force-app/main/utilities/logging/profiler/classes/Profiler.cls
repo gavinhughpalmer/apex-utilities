@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2020-10-08
+ * @group Logging
  * @description This is a generic profiling class, where the 2 current externtions are for the Apex transaction limits and the overall org limits
  *
- * @date 2020-10-08
  **/
 public abstract without sharing class Profiler {
     @testVisible

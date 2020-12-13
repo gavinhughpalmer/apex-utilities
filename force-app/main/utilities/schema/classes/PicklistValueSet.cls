@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2020-02-11
+ * @group Schema
  * @description This class will hold the picklist values of an object so that the values can be more easily retrieved
  *
- * @date 2020-02-11
  **/
 public class PicklistValueSet {
     private final Map<String, String> apiNameByValues = new Map<String, String>();

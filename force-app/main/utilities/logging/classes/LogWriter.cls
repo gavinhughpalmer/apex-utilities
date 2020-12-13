@@ -1,8 +1,9 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-04-20
+ * @group Logging
  * @description The LogWriter class converts log events into log sobjects so that they are perminantely committed into the database
  *
- * @date 2019-04-20
  **/
 public without sharing class LogWriter extends Triggerable {
     private final List<Log__c> logs = new List<Log__c>();

@@ -1,8 +1,7 @@
 /**
  * @author Gavin Palmer
- * @description Test class for the logger
- *
  * @date 2018-06-27
+ *
  **/
 @IsTest(isParallel=true)
 @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')

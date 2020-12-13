@@ -1,9 +1,10 @@
 /**
  * @author Gavin Palmer
+ * @date 2018-06-27
+ * @group Configuration Management
  * @description This class will be used to manage the configuration settings in the system.
  *  it is essentially wrapping the custom setting to remove code dependancy on the custom setting
  *
- * @date 2018-06-27
  **/
 public without sharing class ConfigurationManager {
     private final Configuration__c configurationSetting = Configuration__c.getInstance();

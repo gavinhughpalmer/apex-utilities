@@ -1,12 +1,13 @@
 /**
  * @author Gavin Palmer
+ * @date 2019-03-23
+ * @group Schema
  * @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
  * Usage:
  * Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
  * SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
  * String accountName = (String) wrappedContact.get('Account.Name');
  *
- * @date 2019-03-23
  **/
 public virtual class SObjectWrapper {
     public static final String INVALID_PARENT_MESSAGE = 'The provided field is not a valid relationship field';
