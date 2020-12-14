@@ -71,6 +71,10 @@ workflows:
       - build:
             requires:
               - run-analysis
+            filters:
+              branches:
+                ignore:
+                  - master
   package:
     jobs:
       - run-analysis
