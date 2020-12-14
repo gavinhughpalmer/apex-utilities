@@ -39,7 +39,7 @@ private class ApexProfilerTest {
     }
 
     @IsTest
-    @SuppressWarnings('PMD.OperationWithLimitsInLoop')
+    @SuppressWarnings('PMD.OperationWithLimitsInLoop,UnusedLocalVariable')
     private static void isBreachingWarningTestBreach() {
         Test.startTest();
         ApexProfiler apexProfiler = new ApexProfiler();

@@ -13,8 +13,8 @@ public with sharing class DmlInserterTest {
         Integer dmlLimitBefore = Limits.getDMLStatements();
         DmlInserter dmlInserter = new DmlInserter();
 
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.getSObject();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        Account testAccount = (Account) testFactory.getSObject();
         SObject objectToInsert = dmlInserter.insertSObject(testAccount);
         Integer dmlLimitAfter = Limits.getDMLStatements();
 
@@ -38,8 +38,8 @@ public with sharing class DmlInserterTest {
         Integer dmlLimitBefore = Limits.getDMLStatements();
         DmlInserter dmlInserter = new DmlInserter();
 
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        List<Account> testSObjects = accountFactory.getMultipleSObjects(BULK_AMOUNT);
+        SObjectTestFactory testFactory = new SObjectTestFactory();
+        List<Account> testSObjects = testFactory.getMultipleSObjects(BULK_AMOUNT);
         List<SObject> objectsToInsert = dmlInserter.insertMultipleSObject(testSObjects);
 
         Integer dmlLimitAfter = Limits.getDMLStatements();

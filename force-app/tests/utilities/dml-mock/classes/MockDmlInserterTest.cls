@@ -14,9 +14,9 @@ public with sharing class MockDmlInserterTest {
         Integer dmlLimitBefore = Limits.getDMLStatements();
         MockDmlInserter mockDmlInserter = new MockDmlInserter();
 
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        Account testAccount = (Account) accountFactory.getSObject();
-        SObject objectToInsert = mockDmlInserter.insertSObject(testAccount);
+        MockDmlInserterTest testFactory = new MockDmlInserterTest();
+        SObjet testSObject = testFactory.getSObject();
+        SObject objectToInsert = mockDmlInserter.insertSObject(testSObject);
         Integer dmlLimitAfter = Limits.getDMLStatements();
 
         System.assert(
@@ -36,8 +36,8 @@ public with sharing class MockDmlInserterTest {
         Integer dmlLimitBefore = Limits.getDMLStatements();
         MockDmlInserter mockDmlInserter = new MockDmlInserter();
 
-        AccountTestFactory accountFactory = new AccountTestFactory();
-        List<Account> testSObjects = accountFactory.getMultipleSObjects(BULK_AMOUNT);
+        MockDmlInserterTest testFactory = new MockDmlInserterTest();
+        List<SObject> testSObjects = testFactory.getMultipleSObjects(BULK_AMOUNT);
         List<SObject> objectsToInsert = mockDmlInserter.insertMultipleSObject(testSObjects);
 
         Integer dmlLimitAfter = Limits.getDMLStatements();

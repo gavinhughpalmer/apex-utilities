@@ -10,7 +10,7 @@ public with sharing class IdGeneratorMock {
     private String idPrefix;
     private Integer idIterator = 0;
     @SuppressWarnings('PMD.AvoidHardcodingId')
-    private final String ID_CONSTANT = '000000000000000';
+    private static final String ID_CONSTANT = '000000000000000';
 
     public IdGeneratorMock(Schema.SObjectType sObjectType) {
         idPrefix = getPrefixOfId(sObjectType);

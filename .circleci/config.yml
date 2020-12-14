@@ -67,21 +67,15 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - run-analysis:
-            filters:
-              branches:
-                ignore:
-                  - master
+      - run-analysis
       - build:
             requires:
               - run-analysis
-            filters:
-              branches:
-                ignore:
-                  - master
   package:
     jobs:
       - package:
+            requires:
+              - build
             filters:
               branches:
                 only:
