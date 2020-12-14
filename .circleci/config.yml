@@ -33,6 +33,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install npm
+          command: npm install
+      - run:
           name: Reformat Code
           command: npm run format
       - run:
