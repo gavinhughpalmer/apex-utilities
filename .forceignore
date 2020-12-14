@@ -13,3 +13,11 @@ package.xml
 
 # Should only use permission sets within the package so this can be ignored
 **/profiles/*
+
+**/objectTranslations/*
+AppSwitcher.appMenu
+**/OrgPreference.settings-meta.xml
+**/Activities.settings-meta.xml
+AppSwitcher.appMenu
+**/ContractStatus.standardValueSet-meta.xml
+force-app/main/default/profiles/Trial Customer Portal User.profile-meta.xml

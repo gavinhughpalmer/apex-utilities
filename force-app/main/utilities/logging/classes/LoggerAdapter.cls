@@ -1,9 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-06-27
+ * @group Logging
  * @description The logger adapter exposes the log method and the specific log levels to be implemented by whatever class implements it
  *
- * 2018-06-27 : Gavin Palmer - Original
  **/
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public abstract class LoggerAdapter {

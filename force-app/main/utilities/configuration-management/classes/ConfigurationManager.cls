@@ -1,12 +1,14 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-06-27
+ * @group Configuration Management
  * @description This class will be used to manage the configuration settings in the system.
  *  it is essentially wrapping the custom setting to remove code dependancy on the custom setting
  *
- * 2018-06-27 : Gavin Palmer - Original
  **/
 public without sharing class ConfigurationManager {
+    private final Configuration__c configurationSetting = Configuration__c.getInstance();
+
     private static final ConfigurationManager INSTANCE = new ConfigurationManager();
 
     public static ConfigurationManager getInstance() {
@@ -28,8 +30,6 @@ public without sharing class ConfigurationManager {
         INSTANCE.turnWorkflowsOff();
         INSTANCE.commitChanges();
     }
-
-    private final Configuration__c configurationSetting = Configuration__c.getInstance();
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
     private ConfigurationManager() {

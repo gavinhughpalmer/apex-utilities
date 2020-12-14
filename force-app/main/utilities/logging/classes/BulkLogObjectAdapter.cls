@@ -1,6 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 2.0
+ * @author Gavin Palmer
+ * @date 2018-06-27
+ * @group Logging
  * @description The bulk log object adapter can be used to insert logs as a custom object into the database,
  * as a singleton the write logs can be called at the end of a trigger to insert the full logs into the system only once per object
  * The class has been adapted to use events so that it can still insert log objects when a transaction is rolled back, allowing it
@@ -10,7 +11,6 @@
  * log.warn('A warning message');
  * log.close();
  *
- * 2018-06-27 : Gavin Palmer - Original
  **/
 public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
     @testVisible

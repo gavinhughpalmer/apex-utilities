@@ -1,8 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2020-05-29
  *
- * 2020-05-29 : Gavin Palmer - Original
  **/
 @IsTest(isParallel=true)
 private class RelationshipTest {
@@ -50,7 +49,7 @@ private class RelationshipTest {
     @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
     private static void fromIdFieldInvalidCustomField() {
         try {
-            Relationship accountLookup = Relationship.fromIdField('Account__p');
+            Relationship.fromIdField('Account__p');
             Assert.fail(
                 'An excpetion should be thrown when an invalid field is passed into the relationship constructor'
             );

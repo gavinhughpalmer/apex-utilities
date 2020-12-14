@@ -13,7 +13,13 @@ The simplest installation option would be to install the unlocked package using 
 
 Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1n000002WqqTAAS`
 
-## Components
+## Contributing
+<!-- TODO how to contribute, how to create a scratch using the executor plugin... https://help.github.com/articles/setting-guidelines-for-repository-contributors/ -->
+
+## Documentation
+<!-- copy these details down to the class headers, and include method and properties headers -->
+
+For documentation please see [docs](/docs/index.md)
 
 - **Assert**:
   - Description: The assert class is a utility to help in test classes, any additional assert functions can be added in here as static methods, this class is annotated with @isTest as it is a mostly untestable due to the assert statement inside it.
@@ -104,9 +110,6 @@ newAccount.put(field.getName(), parser.parse('100'));
 - **AbstractSObjectTestFactory**:
   - Description: This is a factory class that can be used in test classes to generate sobject test data, a few example test factories have been included in the example-app which can be added to an org an extended for the specific use case eg. any additional custom field, validation criteria, unique field requirements or dependancies.
   - Usage: see `AccountTestFactory` for details
-- **DatabaseUtils**:
-  - Description: This class is a collection of classes that are used on the Database class
-  - Usage: See `DatabaseUtils` for details
 - **ConfigurationManager**:
   - Description: This uses a custom setting underneath that will allow callers to programatically disable triggers, workflows, process builders and validation rules through code. This requires all new configurations to include a catch as the first line so that they can all be turned off. If you are using some form of a trigger framework the catch can be added in there so that this doesn't need to be remembered by all developers when adding new triggers. The class is mostly useful for turning off automation while setting up test data in test classes so that you can fully test your classes
   - Usage:

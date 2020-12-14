@@ -1,16 +1,13 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-06-28
+ * @group String Utilities
  * @description The CsvBuilder is used to build csv files from some input
  *
- * 2018-06-28 : Gavin Palmer - Original
  **/
 public class CsvBuilder {
     public static final String WINDOWS_LINE_ENDING = '\r\n';
     public static final String UNIX_LINE_ENDING = '\n';
-
-    public class InvalidRowException extends Exception {
-    }
 
     @testVisible
     private final Map<String, Map<Integer, String>> headerToValues = new Map<String, Map<Integer, String>>();
@@ -95,5 +92,8 @@ public class CsvBuilder {
             append(rowToAdd.toString());
             return this;
         }
+    }
+
+    public class InvalidRowException extends Exception {
     }
 }

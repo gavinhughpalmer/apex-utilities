@@ -1,8 +1,7 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
+* @author Gavin Palmer
 *
-* 2019-02-02 : Gavin Palmer - Original
+* @date 2019-02-02
 **/
 @IsTest
 public without sharing class UserTestFactory extends AbstractSObjectTestFactory {
@@ -42,7 +41,7 @@ public without sharing class UserTestFactory extends AbstractSObjectTestFactory 
     private Id getProfileId() {
         if (!PROFILE_IDS_CACHE.containsKey(profileName)) {
             PROFILE_IDS_CACHE.put(profileName, [
-                SELECT Id 
+                SELECT Id
                 FROM Profile
                 WHERE Name = :profileName
                 LIMIT 1

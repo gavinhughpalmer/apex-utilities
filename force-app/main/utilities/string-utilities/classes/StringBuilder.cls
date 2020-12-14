@@ -1,6 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-06-28
+ * @group String Utilities
  * @description In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object,
  * string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together
  * Usage:
@@ -10,7 +11,6 @@
  * }
  * System.debug(text.toString());
  *
- * 2018-06-28 : Gavin Palmer - Original
  **/
 public virtual inherited sharing class StringBuilder {
     @testVisible

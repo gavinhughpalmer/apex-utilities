@@ -1,8 +1,7 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
+* @author Gavin Palmer
 *
-* 2019-03-06 : Gavin Palmer - Original
+* @date 2019-03-06
 **/
 @IsTest
 public without sharing class OpportunityTestFactory extends AbstractSObjectTestFactory {

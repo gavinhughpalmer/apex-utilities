@@ -1,10 +1,10 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2019-02-02
+ * @group Logging
  * @description This class is used to logout the profiling information of the current running transaction.
  *  This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
  *
- * 2019-02-02 : Gavin Palmer - Original
  **/
 public without sharing class ApexProfiler extends Profiler {
     public override void refreshProfiling() {
@@ -59,5 +59,10 @@ public without sharing class ApexProfiler extends Profiler {
         );
         addProfilingInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints());
         addProfilingInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries());
+        addProfilingInfo(
+            'PublishImmediateDML',
+            Limits.getPublishImmediateDML(),
+            Limits.getLimitPublishImmediateDML()
+        );
     }
 }

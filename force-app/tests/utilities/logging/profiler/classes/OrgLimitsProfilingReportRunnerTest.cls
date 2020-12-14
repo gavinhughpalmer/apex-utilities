@@ -1,8 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2020-10-06
  *
- * 2020-10-06 : Gavin Palmer - Original
  **/
 @IsTest(isParallel=true)
 private class OrgLimitsProfilingReportRunnerTest {

@@ -1,8 +1,7 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
+* @author Gavin Palmer
 *
-* 2019-02-02 : Gavin Palmer - Original
+* @date 2019-02-02
 **/
 @IsTest
 public without sharing class LeadTestFactory extends AbstractSObjectTestFactory {

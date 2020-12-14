@@ -1,10 +1,9 @@
 /**
- * @author Gavin Palmer (gavin.palmer@cloudshiftgroup.com)
- * @version 1.0
- * @description Test class for the ApexProfiler
+ * @author Gavin Palmer
+ * @date 2019-02-02
  *
- * 2019-02-02 : Gavin Palmer - Original
  **/
+@SuppressWarnings('PMD.UnusedLocalVariable')
 @IsTest(isParallel=true)
 private class ApexProfilerTest {
     @IsTest
@@ -40,7 +39,7 @@ private class ApexProfilerTest {
     }
 
     @IsTest
-    @SuppressWarnings('PMD.AvoidSoqlInLoops')
+    @SuppressWarnings('PMD.OperationWithLimitsInLoop')
     private static void isBreachingWarningTestBreach() {
         Test.startTest();
         ApexProfiler apexProfiler = new ApexProfiler();

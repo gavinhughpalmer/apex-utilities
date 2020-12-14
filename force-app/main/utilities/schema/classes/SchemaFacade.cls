@@ -1,6 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2019-02-02
+ * @group Schema
  * @description This is a facade for the schema describe functions to make accessing the schema much easier within apex. It is implemented as a sigleton so that it can perform some form of cacheing, this probably isn't nessisary as I think salesforce implements cacheing on the schema methods anyway, but this is just to be safe
  * SchemaFacade schema = SchemaFacade.getInstance();
  * DescribeSObjectResult accountDescribe = schema.getDescribe('Account');
@@ -8,22 +9,19 @@
  *
  * DescribeFieldResult fieldDescribe = schema.getFieldDescribe('Account', 'Name');
  * System.debug(fieldDescribe.getName());
- * 2019-02-02 : Gavin Palmer - Original
+ *
  **/
 public without sharing class SchemaFacade {
-    public class InvalidDescribeException extends Exception {
-    }
+    private Map<String, SObjectType> sObjectTypeByObjectNames = Schema.getGlobalDescribe();
+    private Map<String, DescribeSObjectResult> sObjectDescribeByObjectNames = new Map<String, DescribeSObjectResult>();
+    private Map<String, Map<String, SObjectField>> fieldTypesByNameAndObject = new Map<String, Map<String, SObjectField>>();
+    private Map<String, Map<String, DescribeFieldResult>> fieldDescribeByNameAndObject = new Map<String, Map<String, DescribeFieldResult>>();
 
     private static final SchemaFacade INSTANCE = new SchemaFacade();
 
     public static SchemaFacade getInstance() {
         return INSTANCE;
     }
-
-    private Map<String, SObjectType> sObjectTypeByObjectNames = Schema.getGlobalDescribe();
-    private Map<String, DescribeSObjectResult> sObjectDescribeByObjectNames = new Map<String, DescribeSObjectResult>();
-    private Map<String, Map<String, SObjectField>> fieldTypesByNameAndObject = new Map<String, Map<String, SObjectField>>();
-    private Map<String, Map<String, DescribeFieldResult>> fieldDescribeByNameAndObject = new Map<String, Map<String, DescribeFieldResult>>();
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
     private SchemaFacade() {
@@ -106,5 +104,8 @@ public without sharing class SchemaFacade {
                 objectApiName
             );
         }
+    }
+
+    public class InvalidDescribeException extends Exception {
     }
 }

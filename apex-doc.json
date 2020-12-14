@@ -1,0 +1,10 @@
+{
+    "root": "/docs",
+    "defaultGrouName": "apex-utilities",
+    "sourceLanguage": "java",
+    "content": {
+        "startingHeadingLevel": 1,
+        "includeAuthor": true,
+        "includeDate": true
+    }
+}
