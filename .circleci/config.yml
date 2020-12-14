@@ -3,17 +3,17 @@ version: 2.1
 jobs:
   run-analysis:
     docker:
-      - image: pexlify/pmd
+      - image: pexlify/pmd:latest
     steps:
       - checkout
-      - run:
+      - run: &static-analysis
           name: Run Static Analysis
           command: |
             pmd -d ./force-app/ -R ./apex-ruleset.xml -f text -l apex -cache ~/pmd-cache
             cpd --minimum-tokens 100 --files ./force-app/ --language apex
   build:
     docker:
-      - image: ghpalmer/sfdx-executor
+      - image: ghpalmer/sfdx-executor:latest
     steps:
       - checkout
       - run:
@@ -30,6 +30,13 @@ jobs:
       - image: salesforce/salesforcedx:7.82.1-0-full
     steps:
       - checkout
+      - run: *static-analysis
+      - run:
+          name: Reformat Code
+          command: npm run format
+      - run:
+          name: Generate Documentation
+          command: npm run docs
       - run:
           name: Create Package
           command: |
