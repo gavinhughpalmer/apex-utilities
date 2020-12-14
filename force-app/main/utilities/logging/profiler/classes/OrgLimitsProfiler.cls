@@ -1,9 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2020-10-08
+ * @group Logging
  * @description This class runs the profiling for org limits
  *
- * 2020-10-08 : Gavin Palmer - Original
  **/
 public without sharing class OrgLimitsProfiler extends Profiler {
     public override void refreshProfiling() {

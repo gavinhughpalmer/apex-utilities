@@ -1,9 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
- * @description Test class for the SchemaFacade
+ * @author Gavin Palmer
+ * @date 2019-02-02
  *
- * 2019-02-02 : Gavin Palmer - Original
  **/
 @IsTest(isParallel=true)
 private class SchemaFacadeTest {

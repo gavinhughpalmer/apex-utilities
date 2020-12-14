@@ -1,9 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-10-23
+ * @group Test Factory Framework
  * @description Test class for the AbstractSObjectTestFactory, this was to ensure the dependancies were inserting correctly
  *
- * 2018-10-23 : Gavin Palmer - Original
  **/
 @IsTest
 private class AbstractSObjectTestFactoryTest {

@@ -1,8 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2019-03-13
  *
- * 2019-03-13 : Gavin Palmer - Original
  **/
 @IsTest(isParallel=true)
 private class DatabaseUtilsTest {

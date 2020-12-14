@@ -1,9 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
- * @description Test class for the string builder
+ * @author Gavin Palmer
+ * @date 2018-06-28
  *
- * 2018-06-28 : Gavin Palmer - Original
  **/
 @IsTest(isParallel=true)
 private class StringBuilderTest {

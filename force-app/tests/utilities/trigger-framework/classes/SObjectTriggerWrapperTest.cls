@@ -1,9 +1,7 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
- * @description Test class for SObjectTriggerWrapper
+ * @author Gavin Palmer
+ * @date 2018-10-29
  *
- * 2018-10-29 : Gavin Palmer - Original
  **/
 @IsTest(isParallel=true)
 private class SObjectTriggerWrapperTest {

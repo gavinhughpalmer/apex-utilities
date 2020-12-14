@@ -1,13 +1,12 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-06-27
+ * @group Test Utilities
  * @description This class is intended to extend the usage of the standard System.assert methods in salesforce,
  * the class has been anotated with @IsTest because it is untestable due to the assert statement
  *
- * 2018-06-27 : Gavin Palmer - Original
  **/
 @SuppressWarnings('PMD.ApexUnitTestMethodShouldHaveIsTestAnnotation')
-@IsTest
 public class Assert {
     public static void pageMessage(final String expectedPageMessage) {
         hasPageMessages();

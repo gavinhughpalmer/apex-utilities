@@ -1,9 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-10-29
+ * @group Trigger Framework
  * @description This class is used by the trigger framework to give a few utility methods to the SObjects
  *
- * 2018-10-29 : Gavin Palmer - Original
  **/
 public inherited sharing class SObjectTriggerWrapper {
     private final SObject newSObject;
