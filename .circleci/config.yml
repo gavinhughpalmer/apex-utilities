@@ -32,7 +32,6 @@ jobs:
       - image: salesforce/salesforcedx:7.82.1-0-full
     steps:
       - checkout
-      - run: *static-analysis
       - run:
           name: Reformat Code
           command: npm run format
