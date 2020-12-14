@@ -1,9 +1,9 @@
 /**
- * @author Khin Hou (khinfoung.hou@gmail.com)
- * @version 1.0
- * @description Test class for the DmlInserterTest
+ * @author Gavin Palmer
+ * @date 2018-11-05
+ * @group Test Factory Framework
+ * @description This class will allow inserts to be executed with additional headers
  *
- * 2020-12-10 : Khin Hou - Original
  **/
 @IsTest
 public with sharing class DmlInserterTest {

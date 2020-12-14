@@ -1,11 +1,11 @@
 /**
- * @author Khin Hou (khinfoung.hou@gmail.com)
- * @version 1.0
+ * @author Khin Hou
+ * @date 2020-11-05
+ * @group DML Mock
  * @description Test class for the IdGeneratorMock
  *
- * 2020-11-05 : Khin Hou - Original
  **/
-@IsTest(isParallel=true)
+@IsTest
 public with sharing class IdGeneratorMockTest {
 
     @IsTest

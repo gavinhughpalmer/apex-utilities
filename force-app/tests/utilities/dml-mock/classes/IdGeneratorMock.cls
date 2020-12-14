@@ -1,9 +1,8 @@
 /**
- * @author Khin Hou (khinfoung.hou@gmail.com)
- * @version 1.0
+ * @author Khin Hou
+ * @date 2020-11-05
+ * @group DML Mock
  * @description Class to generated Ids for test mocking
- *
- * 2020-11-05 : Khin Hou - created original class
  *
  **/
 public with sharing class IdGeneratorMock {

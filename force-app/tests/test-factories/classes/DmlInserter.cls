@@ -1,11 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
- * @description This class implements Insertable and allows test factories to be inserted with
- *              additional headers
+ * @author Gavin Palmer
+ * @date 2018-10-23
+ * @group Test Factory Framework
+ * @description This class will allow inserts to be executed with additional headers
  *
- * 2020-11-05 : Gavin Palmer - Original
- * 2020-11-17 : Khin Hou - Included the options to turn on/off duplication rules on inserts (allowDuplicatesOnSave methods)
  **/
 public with sharing class DmlInserter implements Insertable {
     @testVisible

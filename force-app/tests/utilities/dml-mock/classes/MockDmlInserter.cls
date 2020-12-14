@@ -1,9 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2020-11-05
+ * @group DML Mock
  * @description This class will mock the inserts into the database by generating an id and returning the original record
  *
- * 2020-11-05 : Gavin Palmer - Original
  **/
 public with sharing class MockDmlInserter implements Insertable {
 

@@ -1,10 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
+ * @author Gavin Palmer
+ * @date 2018-10-23
+ * @group Test Factory Framework
  * @description Insertable interface class
  *
- * 2020-11-05 : Gavin Palmer - Original
- * 2020-11-17 : Khin Hou - Included the options to turn on/off duplication rules on inserts (allowDuplicatesOnSave methods)
  **/
 public interface Insertable {
     SObject insertSObject(SObject sObjectToInsert);

@@ -1,9 +1,9 @@
 /**
- * @author Khin Hou (khinfoung.hou@gmail.com)
- * @version 1.0
+ * @author Khin Hou
+ * @date 2020-12-10
+ * @group DML Mock
  * @description Test class for the MockDmlInserter
  *
- * 2020-12-10 : Khin Hou - Original
  **/
 @IsTest
 public with sharing class MockDmlInserterTest {
