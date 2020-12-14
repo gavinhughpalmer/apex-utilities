@@ -7,7 +7,7 @@
  **/
 @IsTest
 public with sharing class DmlInserterTest {
-    private static final Integer BULK_AMOUNT = (Integer) Env.get('Test_Amount');
+    private static final Integer BULK_AMOUNT = 200;
     @IsTest
     private static void insertSObjectTest() {
         Integer dmlLimitBefore = Limits.getDMLStatements();

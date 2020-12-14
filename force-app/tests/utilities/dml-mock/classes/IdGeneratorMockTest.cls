@@ -21,9 +21,9 @@ public with sharing class IdGeneratorMockTest {
 
     @IsTest
     private static void getPrefixOfIdOfCustomObject() {
-        Contract_Line_Item__c testCLI = new Contract_Line_Item__c();
-        IdGeneratorMock idMock = new IdGeneratorMock(testCLI.getSObjectType());
-        String prefix = idMock.getPrefixOfId(testCLI.getSObjectType());
+        Log__c testCustomObject = new Log__c();
+        IdGeneratorMock idMock = new IdGeneratorMock(testCustomObject.getSObjectType());
+        String prefix = idMock.getPrefixOfId(testCustomObject.getSObjectType());
         System.assertEquals(
             String.isBlank(prefix),
             false,

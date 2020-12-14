@@ -7,7 +7,7 @@
  **/
 @IsTest
 public with sharing class MockDmlInserterTest {
-    private static final Integer BULK_AMOUNT = (Integer) Env.get('Test_Amount');
+    private static final Integer BULK_AMOUNT = 200;
 
     @IsTest
     private static void insertSObjectTest() {
@@ -15,7 +15,7 @@ public with sharing class MockDmlInserterTest {
         MockDmlInserter mockDmlInserter = new MockDmlInserter();
 
         MockDmlInserterTest testFactory = new MockDmlInserterTest();
-        SObjet testSObject = testFactory.getSObject();
+        SObject testSObject = testFactory.getSObject();
         SObject objectToInsert = mockDmlInserter.insertSObject(testSObject);
         Integer dmlLimitAfter = Limits.getDMLStatements();
 

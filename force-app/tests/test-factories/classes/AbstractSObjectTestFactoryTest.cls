@@ -58,7 +58,7 @@ private class AbstractSObjectTestFactoryTest {
             return new Contact(LastName = lastName);
         }
     }
-    private class MockInserter implements AbstractSObjectTestFactory.Insertable {
+    private class MockInserter implements Insertable {
         Boolean allowDuplicatesOnSave = false;
         public Boolean allowDuplicatesOnSave(Boolean areRulesOn) {
             allowDuplicatesOnSave = areRulesOn;
