@@ -59,5 +59,6 @@ public without sharing class ApexProfiler extends Profiler {
         );
         addProfilingInfo('Savepoints', Limits.getSavepoints(), Limits.getLimitSavepoints());
         addProfilingInfo('SoslQueries', Limits.getSoslQueries(), Limits.getLimitSoslQueries());
+        addProfilingInfo('PublishImmediateDML', Limits.getPublishImmediateDML(), Limits.getLimitPublishImmediateDML());
     }
 }

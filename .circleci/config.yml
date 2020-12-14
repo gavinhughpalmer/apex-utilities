@@ -36,7 +36,7 @@ jobs:
             mkdir /keys
             echo $SFDC_SERVER_KEY | base64 -d > /keys/server.key
             sfdx force:auth:jwt:grant --clientid $SFDC_CLIENT_ID --jwtkeyfile /keys/server.key --username $SFDC_USER --setdefaultdevhubusername
-            sfdx force:package:version:create --path force-app --installationkeybypass --wait 10
+            sfdx force:package:version:create --path force-app --installationkeybypass --wait 10 --codecoverage
             packageIdLine=$(grep apex-utilities@ sfdx-project.json | tail -1)
             idStartingPosition=$((${#packageIdLine}-19))
             packageId=${packageIdLine:$idStartingPosition:18}
