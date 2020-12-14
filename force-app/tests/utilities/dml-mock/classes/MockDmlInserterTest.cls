@@ -14,7 +14,7 @@ public with sharing class MockDmlInserterTest {
         Integer dmlLimitBefore = Limits.getDMLStatements();
         MockDmlInserter mockDmlInserter = new MockDmlInserter();
 
-        MockDmlInserterTest testFactory = new MockDmlInserterTest();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
         SObject testSObject = testFactory.getSObject();
         SObject objectToInsert = mockDmlInserter.insertSObject(testSObject);
         Integer dmlLimitAfter = Limits.getDMLStatements();
@@ -36,7 +36,7 @@ public with sharing class MockDmlInserterTest {
         Integer dmlLimitBefore = Limits.getDMLStatements();
         MockDmlInserter mockDmlInserter = new MockDmlInserter();
 
-        MockDmlInserterTest testFactory = new MockDmlInserterTest();
+        SObjectTestFactory testFactory = new SObjectTestFactory();
         List<SObject> testSObjects = testFactory.getMultipleSObjects(BULK_AMOUNT);
         List<SObject> objectsToInsert = mockDmlInserter.insertMultipleSObject(testSObjects);
 
