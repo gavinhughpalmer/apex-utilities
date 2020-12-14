@@ -73,6 +73,10 @@ workflows:
               - run-analysis
   package:
     jobs:
+      - run-analysis
+      - build:
+            requires:
+              - run-analysis
       - package:
             requires:
               - build
