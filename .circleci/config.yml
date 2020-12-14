@@ -16,13 +16,15 @@ jobs:
       - image: ghpalmer/sfdx-executor:latest
     steps:
       - checkout
-      - run:
-          name: Build and Run Tests
+      - run: &login-devhub
+          name: Login Devhub
           command: |
             mkdir /keys
             echo $SFDC_SERVER_KEY | base64 -d > /keys/server.key
             sfdx force:auth:jwt:grant --clientid $SFDC_CLIENT_ID --jwtkeyfile /keys/server.key --username $SFDC_USER --setdefaultdevhubusername
-            sfdx executor:run --planfile sfdx-executor-plan.json --command buildAndRunTests
+      - run:
+          name: Build and Run Tests
+          command: sfdx executor:run --planfile sfdx-executor-plan.json --command buildAndRunTests
       - store_test_results:
           path: test-results
   package:
@@ -37,20 +39,23 @@ jobs:
       - run:
           name: Generate Documentation
           command: npm run docs
+      - run: *login-devhub
       - run:
-          name: Create Package
+          name: Create Package Version
           command: |
-            mkdir /keys
-            echo $SFDC_SERVER_KEY | base64 -d > /keys/server.key
-            sfdx force:auth:jwt:grant --clientid $SFDC_CLIENT_ID --jwtkeyfile /keys/server.key --username $SFDC_USER --setdefaultdevhubusername
             sfdx force:package:version:create --path force-app --installationkeybypass --wait 10 --codecoverage
             packageIdLine=$(grep apex-utilities@ sfdx-project.json | tail -1)
             idStartingPosition=$((${#packageIdLine}-19))
             packageId=${packageIdLine:$idStartingPosition:18}
             sed -i "s/p0=.*/p0=${packageId})/" README.md
             sed -i "s/--package .*/--package ${packageId}\`/" README.md
+      - run:
+          name: Commit Changes
+          command: |
             git add sfdx-project.json
             git add README.md
+            git add docs
+            git add force-app
             git config --global user.email "gavinhughpalmer@gmail.com"
             git config --global user.name "Gavin Palmer"
             git commit -m "[skip ci] Updating unlocked package version"
