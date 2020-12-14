@@ -21,6 +21,10 @@ public without sharing abstract class AbstractSObjectTestFactory {
         this.inserter = inserter;
     }
 
+    public void allowDuplicatesOnSave(Boolean areRulesOn) {
+        inserter.allowDuplicatesOnSave(areRulesOn);
+    }
+
     public abstract SObject getSObject();
 
     public virtual SObject insertSObject() {
@@ -87,23 +91,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
                 childSObjects[i]
                     .putSObject(parentRelationship.referenceFieldName, parentSObjects[i]);
             }
-        }
-    }
-
-    public interface Insertable {
-        SObject insertSObject(SObject sObjectToInsert);
-        List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert);
-    }
-
-    private without sharing class DmlInserter implements Insertable {
-        public SObject insertSObject(SObject sObjectToInsert) {
-            insert sObjectToInsert;
-            return sObjectToInsert;
-        }
-
-        public List<SObject> insertMultipleSObject(List<SObject> sObjectsToInsert) {
-            insert sObjectsToInsert;
-            return sObjectsToInsert;
         }
     }
 }
