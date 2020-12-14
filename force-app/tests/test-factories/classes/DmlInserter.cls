@@ -8,6 +8,7 @@
  * 2020-11-17 : Khin Hou - Included the options to turn on/off duplication rules on inserts (allowDuplicatesOnSave methods)
  **/
 public with sharing class DmlInserter implements Insertable {
+    @testVisible
     private Boolean allowDuplicatesOnSave = false;
 
     public Boolean allowDuplicatesOnSave(Boolean areRulesOn) {

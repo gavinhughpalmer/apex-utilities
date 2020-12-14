@@ -3,7 +3,7 @@
  * @version 1.0
  * @description Test class for the IdGeneratorMock
  *
- * 2018-11-05 : Khin Hou - Original
+ * 2020-11-05 : Khin Hou - Original
  **/
 @IsTest(isParallel=true)
 public with sharing class IdGeneratorMockTest {
