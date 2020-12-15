@@ -11,6 +11,27 @@ This factory class will be used as a base for any SObject creation in test class
 
 
 
+### [DmlInserter](/docs/Test-Factory-Framework/DmlInserter.md)
+
+
+This class will allow inserts to be executed with additional headers
+
+
+
+### [DmlInserterTest](/docs/Test-Factory-Framework/DmlInserterTest.md)
+
+
+This class will allow inserts to be executed with additional headers
+
+
+
+### [Insertable](/docs/Test-Factory-Framework/Insertable.md)
+
+
+Insertable interface class
+
+
+
 ### [MockAccountTestFactory](/docs/Test-Factory-Framework/MockAccountTestFactory.md)
 
 
@@ -203,6 +224,35 @@ This parser will take a string value and convert it to the display type that is 
 
 
 Parsable interface will be implemented by classes that are intended to parse a string to an object value
+
+
+## DML Mock
+
+### [IdGeneratorMock](/docs/DML-Mock/IdGeneratorMock.md)
+
+
+Class to generated Ids for test mocking
+
+
+
+### [IdGeneratorMockTest](/docs/DML-Mock/IdGeneratorMockTest.md)
+
+
+Test class for the IdGeneratorMock
+
+
+
+### [MockDmlInserter](/docs/DML-Mock/MockDmlInserter.md)
+
+
+This class will mock the inserts into the database by generating an id and returning the original record
+
+
+
+### [MockDmlInserterTest](/docs/DML-Mock/MockDmlInserterTest.md)
+
+
+Test class for the MockDmlInserter
 
 
 ## Schema

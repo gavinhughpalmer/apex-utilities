@@ -7,16 +7,11 @@
  **/
 @IsTest
 public with sharing class IdGeneratorMockTest {
-
     @IsTest
     private static void getPrefixOfIdOfStandardObject() {
         IdGeneratorMock idMock = new IdGeneratorMock(Account.getSobjectType());
         String prefix = idMock.getPrefixOfId(Account.getSobjectType());
-        System.assertEquals(
-            String.isBlank(prefix),
-            false,
-            'Prefix should not be blank'
-        );
+        System.assertEquals(String.isBlank(prefix), false, 'Prefix should not be blank');
     }
 
     @IsTest
@@ -24,11 +19,7 @@ public with sharing class IdGeneratorMockTest {
         Log__c testCustomObject = new Log__c();
         IdGeneratorMock idMock = new IdGeneratorMock(testCustomObject.getSObjectType());
         String prefix = idMock.getPrefixOfId(testCustomObject.getSObjectType());
-        System.assertEquals(
-            String.isBlank(prefix),
-            false,
-            'Prefix should not be blank'
-        );
+        System.assertEquals(String.isBlank(prefix), false, 'Prefix should not be blank');
     }
 
     @IsTest
@@ -46,10 +37,6 @@ public with sharing class IdGeneratorMockTest {
         IdGeneratorMock idMock = new IdGeneratorMock(Account.getSobjectType());
         String firstId = idMock.getNextAvailableId();
         String secondId = idMock.getNextAvailableId();
-        System.assertNotEquals(
-            firstId,
-            secondId,
-            'The two ids should not be the same'
-        );
+        System.assertNotEquals(firstId, secondId, 'The two ids should not be the same');
     }
 }

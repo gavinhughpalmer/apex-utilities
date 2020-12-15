@@ -6,7 +6,6 @@
  *
  **/
 public with sharing class MockDmlInserter implements Insertable {
-
     private final Map<Schema.SObjectType, IdGeneratorMock> idGenerators = new Map<Schema.SObjectType, IdGeneratorMock>();
 
     public SObject insertSObject(SObject sObjectToInsert) {
