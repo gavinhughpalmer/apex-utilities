@@ -13,13 +13,11 @@ The simplest installation option would be to install the unlocked package using 
 
 Alternatively this can be done in the command line using `sfdx force:package:install --package 04t1n000002Wqv4AAC`
 
-## Contributing
-<!-- TODO how to contribute, how to create a scratch using the executor plugin... https://help.github.com/articles/setting-guidelines-for-repository-contributors/ -->
-
 ## Documentation
 <!-- copy these details down to the class headers, and include method and properties headers -->
 
 For documentation please see [docs](/docs/index.md)
+<!-- perhaps some high level info on each component included here... -->
 
 - **Assert**:
   - Description: The assert class is a utility to help in test classes, any additional assert functions can be added in here as static methods, this class is annotated with @isTest as it is a mostly untestable due to the assert statement inside it.
@@ -151,3 +149,16 @@ trigger OpportunityBeforeInsert on Opportunity (before insert) {
 SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
 Id bigSaleRecordTypeId = opportunityRecordTypes.getRecordTypeId('Big_Sale')
 ```
+
+## Contributing
+To contribute to the apex-utilities package you will first need to setup a scratch, the CI and scratch or creation process app utilises the [sfdx-executor](https://github.com/gavinhughpalmer/sfdx-executor) SFDX plugin, which allows cross platform reusable scripts for SFDX commands, follow the link for installation instructions.
+
+To use the command to create a scratch org, you will first need to ensure a DevHub is authorized in the directory you are working in (and set as the defualt), then you can execute the command:
+
+```sh-session
+sfdx executor:run --planfile sfdx-executor-plan.json --command createScratch --arguments my-scratch,5
+```
+
+Where the last 2 arguments are the name you wish to assign to the scratch and the duration the scratch org should live.
+
+Any changes that are placed into a pull request are assumed to have been fully tested, also as PMD and prettier are used in the the repo. These should be ran and passing locally before the PR is created (prettier is less important as it will run on a push to master but it will just make it that much easier to review the PR if it has already been formatted). The repo also used ApexDocs to generate documentation, this is run on a push to master so you don't need to execute yourself, but please ensure any new functionality is documented in the class/method headers.
