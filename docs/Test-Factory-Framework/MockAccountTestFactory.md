@@ -16,6 +16,7 @@ Test class for the AbstractSObjectTestFactory, this was to ensure the dependanci
 
 ---
 ## Methods
+### `allowDuplicatesOnSave(Boolean areRulesOn)` → `Boolean`
 ### `getSObject()` → `SObject`
 ### `insertMultipleSObject(List<SObject> sObjectsToInsert)` → `List<SObject>`
 ### `insertSObject(SObject sObjectToInsert)` → `SObject`

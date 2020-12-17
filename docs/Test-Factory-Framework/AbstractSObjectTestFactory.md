@@ -18,23 +18,14 @@ This factory class will be used as a base for any SObject creation in test class
 ## Methods
 ### `FactoryDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory)` → `public`
 ### `addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory)` → `void`
+### `allowDuplicatesOnSave(Boolean areRulesOn)` → `void`
 ### `createDependanciesFor(List<SObject> childSObjects)` → `void`
 ### `createDependancyFor(SObject childSObject)` → `void`
 ### `getMultipleSObjects(Integer numberToCreate)` → `List<SObject>`
 ### `getSObject()` → `SObject`
-### `insertMultipleSObject(List<SObject> sObjectsToInsert)` → `List<SObject>`
 ### `insertMultipleSObjects(Integer numberToInsert)` → `List<SObject>`
 ### `insertMultipleWithDependancies(Integer numberToInsert)` → `List<SObject>`
 ### `insertSObject()` → `SObject`
-### `insertSObject(SObject sObjectToInsert)` → `SObject`
 ### `insertWithDependancies()` → `SObject`
 ### `setInserter(Insertable inserter)` → `void`
----
-## Inner Classes
-
-### AbstractSObjectTestFactory.Insertable interface
----
-#### Methods
-##### `insertMultipleSObject(List<SObject> sObjectsToInsert)` → `List<SObject>`
-##### `insertSObject(SObject sObjectToInsert)` → `SObject`
 ---

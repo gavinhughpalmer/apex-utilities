@@ -25,7 +25,9 @@ private class AbstractSObjectTestFactoryTest {
         MockContactTestFactory contactFactory = new MockContactTestFactory();
         contactFactory.setInserter(new MockInserter());
         contactFactory.allowDuplicatesOnSave(true);
-        List<Contact> testContacts = (List<Contact>) contactFactory.insertMultipleWithDependancies(50);
+        List<Contact> testContacts = (List<Contact>) contactFactory.insertMultipleWithDependancies(
+            50
+        );
 
         System.assertNotEquals(
             true,
@@ -33,7 +35,7 @@ private class AbstractSObjectTestFactoryTest {
             'Multiple contacts should have been created'
         );
 
-        for(Contact contact : testContacts) {
+        for (Contact contact : testContacts) {
             System.assertNotEquals(
                 null,
                 contact.Account.Name,

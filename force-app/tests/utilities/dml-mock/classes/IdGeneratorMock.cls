@@ -6,7 +6,6 @@
  *
  **/
 public with sharing class IdGeneratorMock {
-
     private String idPrefix;
     private Integer idIterator = 0;
     @SuppressWarnings('PMD.AvoidHardcodingId')
@@ -20,9 +19,9 @@ public with sharing class IdGeneratorMock {
     private String getPrefixOfId(Schema.SObjectType sObjectType) {
         String prefix;
 
-        try  {
+        try {
             prefix = sObjectType.getDescribe().getKeyPrefix();
-        }  catch (Exception exceptionToHandle) {
+        } catch (Exception exceptionToHandle) {
             throw new IdGeneratorMockException('Cannot resolve prefix for SObject,' + sObjectType);
         }
 
@@ -38,5 +37,6 @@ public with sharing class IdGeneratorMock {
         return (Id) generatedId;
     }
 
-    private class IdGeneratorMockException extends Exception { }
+    private class IdGeneratorMockException extends Exception {
+    }
 }
