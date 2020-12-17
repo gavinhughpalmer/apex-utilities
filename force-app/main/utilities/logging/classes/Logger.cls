@@ -108,7 +108,7 @@ public without sharing class Logger {
 
     private void runApexPofiling() {
         Profiler profiler = new ApexProfiler();
-        String profilingReport = profiler.getProfilingReport();
+        String profilingReport = profiler.generateProfilingReport();
         if (profiler.isBreachingWarning()) {
             warn(profilingReport);
         } else {

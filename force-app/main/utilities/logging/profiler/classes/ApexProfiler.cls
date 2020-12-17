@@ -2,7 +2,7 @@
  * @author Gavin Palmer
  * @date 2019-02-02
  * @group Logging
- * @description This class is used to logout the profiling information of the current running transaction.
+ * @description This class is used to log out the profiling information of the current running transaction.
  *  This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
  *
  **/

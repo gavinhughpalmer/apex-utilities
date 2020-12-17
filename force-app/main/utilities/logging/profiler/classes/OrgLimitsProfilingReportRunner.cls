@@ -21,9 +21,9 @@ public without sharing class OrgLimitsProfilingReportRunner extends LoggedSchedu
     public override void execute() {
         log.setType(LOG_TYPE);
         if (profiler.isBreachingWarning()) {
-            log.warn(profiler.getProfilingReport());
+            log.warn(profiler.generateProfilingReport());
         } else {
-            log.info(profiler.getProfilingReport());
+            log.info(profiler.generateProfilingReport());
         }
         log.close();
     }

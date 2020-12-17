@@ -2,7 +2,7 @@
  * @author Gavin Palmer
  * @date 2020-10-08
  * @group Logging
- * @description This is a generic profiling class, where the 2 current externtions are for the Apex transaction limits and the overall org limits
+ * @description This is a generic profiling class, which allows implementations to report on certain limits within the environment.
  *
  **/
 public abstract without sharing class Profiler {
@@ -35,6 +35,11 @@ public abstract without sharing class Profiler {
         return isBreachingWarning;
     }
 
+    /**
+     * @description This method should be implemented in the base classes to refresh the profiling limits,
+     * this will be called from the constructor and then at any point before this is planned to execute
+     *
+     **/
     public abstract void refreshProfiling();
 
     protected void addProfilingInfo(String limitName, Integer recorded, Integer limitTotal) {
@@ -45,7 +50,11 @@ public abstract without sharing class Profiler {
         }
     }
 
-    public String getProfilingReport() {
+    /**
+     * @description This method is used to generate the report, each line that is breeching the warning will be marked as Warning
+     *
+     **/
+    public String generateProfilingReport() {
         StringBuilder report = new StringBuilder();
         report.setSeparator('\n');
         for (ProfileInfo profile : profilingInfos.values()) {

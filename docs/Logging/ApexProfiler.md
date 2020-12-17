@@ -3,7 +3,7 @@ layout: default
 ---
 # ApexProfiler class
 
-This class is used to logout the profiling information of the current running transaction. This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
+This class is used to log out the profiling information of the current running transaction. This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
 
 
 **Author:** Gavin Palmer

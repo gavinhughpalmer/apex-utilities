@@ -50,7 +50,7 @@ This factory class is to be utilised within the tests of this package, the actua
 ### [ApexProfiler](/docs/Logging/ApexProfiler.md)
 
 
-This class is used to logout the profiling information of the current running transaction. This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
+This class is used to log out the profiling information of the current running transaction. This will log out as part of the trigger framework after any transaction if any of the limits are approaching 75%
 
 
 
@@ -127,7 +127,7 @@ This class will run the full profiling (ie including the org limits), and write 
 ### [Profiler](/docs/Logging/Profiler.md)
 
 
-This is a generic profiling class, where the 2 current externtions are for the Apex transaction limits and the overall org limits
+This is a generic profiling class, which allows implementations to report on certain limits within the environment.
 
 
 

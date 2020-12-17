@@ -33,7 +33,7 @@ private class ApexProfilerTest {
         System.assert(
             !profiler.isBreachingWarning(),
             'The warning should not be breached before any apex code is executed. Report:\n' +
-            profiler.getProfilingReport()
+            profiler.generateProfilingReport()
         );
         Test.stopTest();
     }
@@ -62,10 +62,10 @@ private class ApexProfilerTest {
     }
 
     @IsTest
-    private static void getProfilingReportTest() {
+    private static void generateProfilingReportTest() {
         ApexProfiler profiler = new ApexProfiler();
         System.assert(
-            String.isNotBlank(profiler.getProfilingReport()),
+            String.isNotBlank(profiler.generateProfilingReport()),
             'The profiling report should not be empty'
         );
     }

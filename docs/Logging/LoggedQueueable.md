@@ -12,5 +12,11 @@ This class wraps the queueable interface with the logging framework so that deve
 ---
 ## Methods
 ### `enqueue()` → `Id`
+
+The enqueue method will set the queueable off for execution following the transaction
+
 ### `execute(QueueableContext context)` → `void`
+
+This is the implementation of the Queueable method, this does not need to be extended. It adds the logging and general exception handling around the Queueable interface
+
 ---
