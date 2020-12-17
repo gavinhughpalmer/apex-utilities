@@ -46,7 +46,6 @@ trigger OpportunityBeforeInsert on Opportunity (before insert) {
     );
 }
 ```
-<!-- copy these details down to the class headers, and include method and properties headers, to add Logger,AbstractSObjectTestFactory,TriggerDispatcher(and other trigger classes),SchemaFacade -->
 
 ## Contributing
 Firstly, all contributions are welcomed for any improvements or issues that are noticed in the code. You are also welcome to create issues which I will then monitor and add to the repo as appropriate.

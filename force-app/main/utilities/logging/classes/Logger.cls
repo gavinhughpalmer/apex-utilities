@@ -101,6 +101,10 @@ public without sharing class Logger {
         error((new LogMessage(exceptionToLog)).toString(), recordId);
     }
 
+    /*
+     * @description this method should be called after the logs have been written,
+     * the logger adapter will then close off any open transactions (or fire the events in the case of the <<BulkLogObjectAdapter>>)
+     */
     public void close() {
         runApexPofiling();
         loggerAdapter.close();

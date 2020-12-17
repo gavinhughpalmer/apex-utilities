@@ -38,6 +38,10 @@ public without sharing class SchemaFacade {
         return !isValidSObject(objectApiName);
     }
 
+    /*
+     * @description will provide the describe sobject result for the object name specified,
+     * this method will travers the SObjectType so this doesn't have to be considered
+     */
     public DescribeSObjectResult getDescribe(String objectApiName) {
         objectApiName = objectApiName.toLowerCase();
         validateObjectApiName(objectApiName);
@@ -75,6 +79,10 @@ public without sharing class SchemaFacade {
         return fieldTypesByNameAndObject.get(objectApiName);
     }
 
+    /*
+     * @description retrieves the field describe for the object and field name provided,
+     * it will traverse the SObjectField's so you don't have to
+     */
     public DescribeFieldResult getFieldDescribe(String objectApiName, String fieldApiName) {
         objectApiName = objectApiName.toLowerCase();
         fieldApiName = fieldApiName.toLowerCase();

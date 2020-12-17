@@ -66,6 +66,10 @@ public without sharing abstract class AbstractSObjectTestFactory {
         return inserter.insertMultipleSObject(recordsToCreate);
     }
 
+    /*
+     * @desription This method should be called in the constructor which will define the dependancies for this SObject
+     * eg account for the contact
+     */
     public void addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
         dependancies.put(parentIdField, new FactoryDependancy(parentIdField, parentFactory));
     }

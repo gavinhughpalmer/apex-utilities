@@ -10,7 +10,17 @@
  *
  **/
 public abstract class Triggerable {
+    /*
+     * @description Within the trigger framework, this method will get called once (and only once) for every record entering the trigger.
+     * This should be used to build up a list of records that wish to be operated on, or in the case of validation it can run the validation directly.
+     */
     public abstract void register(SObjectTriggerWrapper wrappedSObject);
+
+    /*
+     * @description this method will be called once for every trigger action,
+     * that is after all the records have been iterated over. The use case is for performing any of the
+     * DML or SOQL that is required.
+     */
     @SuppressWarnings('PMD.EmptyStatementBlock')
     public virtual void performAction() {
         // This allows us to have not implement if not nessisary on extention classes, as without this there were a lot of validation like classes that would have an empty code block
