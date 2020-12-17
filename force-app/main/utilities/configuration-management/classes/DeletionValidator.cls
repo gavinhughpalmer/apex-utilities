@@ -2,7 +2,9 @@
  * @author Gavin Palmer
  * @date 2019-02-11
  * @group Configuration Management
- * @description This class will be used to validate the deletion of objects which are not covered by profiles
+ * @description This class will be used to validate the deletion of objects
+ * which are not covered by profiles (for example ContentVersions).
+ * A delete trigger should be implemented on the object calling into this triggerable
  *
  **/
 public without sharing class DeletionValidator extends Triggerable {

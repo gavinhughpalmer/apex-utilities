@@ -25,7 +25,13 @@ public class DisplayTypeParser implements Parsable {
         parser = PARSERS.containsKey(type) ? PARSERS.get(type) : PARSERS.get(null);
     }
 
-    // allow errors to surface as I will not be able to provide any additional detail
+    /*
+     * @example
+     * DescribeFieldResult field = Account.NumberOfEmployees.getDescribe(); // this would be more dynamic
+     * Parsable parser = new DisplayTypeParser(field.getType());
+     * Account newAccount = new Account();
+     * newAccount.put(field.getName(), parser.parse('100'));
+     */
     public Object parse(String value) {
         return parser.parse(value);
     }

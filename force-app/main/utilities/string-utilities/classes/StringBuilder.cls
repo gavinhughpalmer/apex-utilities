@@ -2,14 +2,7 @@
  * @author Gavin Palmer
  * @date 2018-06-28
  * @group String Utilities
- * @description In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object,
- * string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together
- * Usage:
- * StringBuilder text = new StringBuilder();
- * for (Integer i = 0; i < 10; i++) {
- *     text.append(String.valueOf(i));
- * }
- * System.debug(text.toString());
+ * @description This class is intended to be similar to the java StringBuilder, it allows strings to be dynamically constructed but only assigned at the point, similar to Javas StringBuffer
  *
  **/
 public virtual inherited sharing class StringBuilder {
@@ -24,14 +17,6 @@ public virtual inherited sharing class StringBuilder {
         buffer = new List<String>();
     }
 
-    // public StringBuilder(Boolean uniqueBuffer) {
-    //     if (uniqueBuffer) {
-    //         buffer = new Set<String>();
-    //     } else {
-    //         this();
-    //     }
-    // }
-
     public StringBuilder(Object value) {
         this();
         append(value);
@@ -40,7 +25,7 @@ public virtual inherited sharing class StringBuilder {
     public StringBuilder append(String value) {
         if (value != null) {
             buffer.add(value);
-            count += value.length(); // This isn't correct if the buffer is unique
+            count += value.length();
         }
         return this;
     }
@@ -65,14 +50,23 @@ public virtual inherited sharing class StringBuilder {
         }
     }
 
+    /**
+     * @description Capacity will return the total numbe of strings in the buffer
+     *
+     **/
     public Integer capacity() {
         return buffer.size();
     }
 
+    /**
+     * @description Length will return the total length of the string once it is combined
+     *
+     **/
     public Integer length() {
         return count + (separator.length() * (capacity() - 1));
     }
 
+    // TODO
     // delete
     // replace
     // subString

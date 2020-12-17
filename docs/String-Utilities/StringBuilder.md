@@ -3,7 +3,7 @@ layout: default
 ---
 # StringBuilder class
 
-In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object, string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together Usage: StringBuilder text = new StringBuilder(); for (Integer i = 0; i < 10; i++) { text.append(String.valueOf(i)); } System.debug(text.toString());
+This class is intended to be similar to the java StringBuilder, it allows strings to be dynamically constructed but only assigned at the point, similar to Javas StringBuffer
 
 
 **Author:** Gavin Palmer
@@ -19,7 +19,13 @@ In Apex String is an immutable object, meaning that whenever you wish to append 
 ### `append(Object value)` → `StringBuilder`
 ### `append(StringBuilder stringBuilder)` → `StringBuilder`
 ### `capacity()` → `Integer`
+
+Capacity will return the total numbe of strings in the buffer
+
 ### `length()` → `Integer`
+
+Length will return the total length of the string once it is combined
+
 ### `setSeparator(String separator)` → `void`
 ### `toString()` → `String`
 ---

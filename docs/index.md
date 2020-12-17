@@ -157,14 +157,14 @@ This class can be used to build custom HTTP responses to be used in test classes
 ### [ConfigurationManager](/docs/Configuration-Management/ConfigurationManager.md)
 
 
-This class will be used to manage the configuration settings in the system. it is essentially wrapping the custom setting to remove code dependancy on the custom setting
+This uses a custom setting underneath that will allow callers to programatically disable triggers, workflows, process builders and validation rules through code. This requires all new configurations to include a catch as the first line so that they can all be turned off. If you are using some form of a trigger framework the catch can be added in there so that this doesn't need to be remembered by all developers when adding new triggers. The class is mostly useful for turning off automation while setting up test data in test classes so that you can fully test your classes
 
 
 
 ### [DeletionValidator](/docs/Configuration-Management/DeletionValidator.md)
 
 
-This class will be used to validate the deletion of objects which are not covered by profiles
+This class will be used to validate the deletion of objects which are not covered by profiles (for example ContentVersions). A delete trigger should be implemented on the object calling into this triggerable
 
 
 ## String Utilities
@@ -186,7 +186,7 @@ This class can be used to build up dynamic soql queries
 ### [StringBuilder](/docs/String-Utilities/StringBuilder.md)
 
 
-In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object, string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together Usage: StringBuilder text = new StringBuilder(); for (Integer i = 0; i < 10; i++) { text.append(String.valueOf(i)); } System.debug(text.toString());
+This class is intended to be similar to the java StringBuilder, it allows strings to be dynamically constructed but only assigned at the point, similar to Javas StringBuffer
 
 
 ## Miscellaneous
@@ -302,7 +302,7 @@ This is a facade for the schema describe functions to make accessing the schema 
 ### [SecureSObjectWrapper](/docs/Schema/SecureSObjectWrapper.md)
 
 
-This class is a secure wrapper for the sobject that obeys field level security for the user accessing it
+This class is a secure wrapper for the sobject that obeys field level security for the user accessing it. This wraps [SObjectWrapper](/docs/Schema/SObjectWrapper.md) so the recursive retrieves will be enabled
 
 
 

@@ -2,7 +2,8 @@
  * @author Gavin Palmer
  * @date 2019-03-23
  * @group Schema
- * @description This is a wrapper around the SObject class that its primary function is to be able to retrieve parent fields dynamically
+ * @description This is a wrapper around the SObject class that its primary function is to be able
+ * to retrieve parent fields dynamically
  * Usage:
  * Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
  * SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
@@ -22,6 +23,13 @@ public virtual class SObjectWrapper {
         objectApiName = String.valueOf(sObjectToWrap.getSObjectType());
     }
 
+    /*
+     * @description get will recursively retrieve fields from parent objects
+     * @example
+     * Account myContact = [SELECT Account.Name FROM Contact LIMIT 1];
+     * SObjectWrapper wrappedContact = new SObjectWrapper(myContact);
+     * String accountName = (String) wrappedContact.get('Account.Name');
+     */
     public virtual Object get(String fieldApiName) {
         if (isRelatedField(fieldApiName)) {
             return getParentField(wrappedSObject, fieldApiName);

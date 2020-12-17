@@ -8,7 +8,6 @@
  **/
 @SuppressWarnings('PMD.ApexUnitTestMethodShouldHaveIsTestAnnotation')
 public class Assert {
-
     /**
      * @description This assertion will check the page message provided exists within the page messages
      *
