@@ -1,12 +1,10 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-*
-* 2019-04-20 : Gavin Palmer - Original
-**/
-@IsTest
+ * @author Gavin Palmer
+ * @date 2019-04-20
+ *
+ **/
+@IsTest(isParallel=true)
 private class LogWriterTest {
-
     @IsTest
     private static void testAction() {
         Log_Event__e logEvent = new Log_Event__e(
@@ -20,31 +18,33 @@ private class LogWriterTest {
         triggerAction.register(new SObjectTriggerWrapper(logEvent, logEvent));
         triggerAction.performAction();
         List<Log__c> createdLogs = [
-            SELECT Level__c,
-                Messages__c,
-                Record_Id__c,
-                Type__c
+            SELECT Level__c, Messages__c, Record_Id__c, Type__c
             FROM Log__c
         ];
 
         System.assertEquals(
-            1, createdLogs.size(),
+            1,
+            createdLogs.size(),
             'A single log should have been created during the conversion process'
         );
         System.assertEquals(
-            logEvent.Level__c, createdLogs[0].Level__c,
+            logEvent.Level__c,
+            createdLogs[0].Level__c,
             'The level field has not been converted correctly'
         );
         System.assertEquals(
-            logEvent.Messages__c, createdLogs[0].Messages__c,
+            logEvent.Messages__c,
+            createdLogs[0].Messages__c,
             'The messages field has not been converted correctly'
         );
         System.assertEquals(
-            logEvent.Record_Id__c, createdLogs[0].Record_Id__c,
+            logEvent.Record_Id__c,
+            createdLogs[0].Record_Id__c,
             'The record id field has not been converted correctly'
         );
         System.assertEquals(
-            logEvent.Type__c, createdLogs[0].Type__c,
+            logEvent.Type__c,
+            createdLogs[0].Type__c,
             'The type field has not been converted correctly'
         );
     }

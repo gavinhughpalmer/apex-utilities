@@ -1,11 +1,9 @@
 /**
- * @author Gavin Palmer (gavinhughpalmer@gmail.com)
- * @version 1.0
- * @description Test class for the SObjectRecordTypes class
+ * @author Gavin Palmer
+ * @date 2019-09-24
  *
- * 2019-09-24 : Gavin Palmer - Original
  **/
-@IsTest
+@IsTest(isParallel=true)
 private class SObjectRecordTypesTest {
     @IsTest
     private static void constructorInvalidSObjectTest() {
@@ -58,6 +56,18 @@ private class SObjectRecordTypesTest {
             null,
             opportunityRecordTypes.getRecordTypeId('Invalid record type developer name'),
             'The invalid record type name should return null as the record type id'
+        );
+    }
+
+    @IsTest
+    private static void getRecordTypeDeveloperNameTest() {
+        SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
+        final Id recordTypeId = opportunityRecordTypes.getDefaultId();
+
+        System.assertNotEquals(
+            null,
+            opportunityRecordTypes.getRecordTypeDeveloperName(recordTypeId),
+            'A developer record type name should have been returned'
         );
     }
 }

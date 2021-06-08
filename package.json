@@ -1,0 +1,16 @@
+{
+  "name": "apex-utilities",
+  "description": "This package allow us to automate some of the build tasks that are required in the development process",
+  "scripts": {
+    "preformat": "nohup start-apex-server >/dev/null 2>&1 &",
+    "format": "npx wait-on http://localhost:2117/api/ast/ && prettier --apex-standalone-parser built-in --write \"./force-app/**/*.{trigger,cls}\"",
+    "postformat": "stop-apex-server",
+    "predocs": "rm -rf docs",
+    "docs": "apexdocs-generate --sourceDir force-app --configPath apex-doc.json"
+  },
+  "devDependencies": {
+    "@cparra/apexdocs": "1.11.0",
+    "prettier": "2.2.1",
+    "prettier-plugin-apex": "^0.0.1"
+  }
+}

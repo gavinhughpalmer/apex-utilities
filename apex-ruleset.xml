@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset name="Standard Ruleset" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>This follows mostly the standard ruleset from PMD, excluding those that cause us issues.</description>
+
+    <rule ref="category/apex/bestpractices.xml"/>
+    <rule ref="category/apex/codestyle.xml"/>
+    <!-- Add naming convention for test classes... -->
+    <rule ref="category/apex/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="classPattern">
+                <value>[A-Z][a-zA-Z0-9]*</value>
+            </property>
+            <property name="testClassPattern">
+                <value>[A-Z][a-zA-Z0-9]*Test</value>
+            </property>
+            <property name="abstractClassPattern">
+                <value>[A-Z][a-zA-Z0-9]*</value>
+            </property>
+            <property name="interfacePattern">
+                <value>[A-Z][a-zA-Z0-9]*</value>
+            </property>
+            <property name="enumPattern">
+                <value>[A-Z][a-zA-Z0-9]*</value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="category/apex/design.xml"/>
+    <!-- <rule ref="category/apex/documentation.xml"/> -->
+    <rule ref="category/apex/errorprone.xml"/>
+    <rule ref="category/apex/performance.xml"/>
+
+    <rule ref="category/apex/security.xml">
+        <exclude name="ApexCRUDViolation"/>
+    </rule>
+</ruleset>

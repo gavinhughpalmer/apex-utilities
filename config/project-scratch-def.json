@@ -3,6 +3,9 @@
   "edition": "Developer",
   "features": ["StateAndCountryPicklist"],
   "settings": {
+    "apexSettings": {
+        "enableDisableParallelApexTesting": false
+    },
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
     }

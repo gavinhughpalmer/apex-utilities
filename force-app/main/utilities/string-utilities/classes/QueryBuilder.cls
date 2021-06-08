@@ -1,17 +1,11 @@
 /**
  * @author Gavin Palmer <gavinhughpalmer@gmail.com>
  * @date 2019-06-04
- * @group CloudShiftGroup
+ * @group String Utilities
  * @description This class can be used to build up dynamic soql queries
  *
- * Date          author             Change Description
- * -----------------------------------------------------------------------------------
- * 04/06/2019    Gavin Palmer       Created Class
  */
 public virtual class QueryBuilder {
-    public class QueryException extends Exception {
-    }
-
     private static final String SOQL_QUERY_STRUCTURE = 'SELECT {0} FROM {1}';
     protected final String objectName;
     private final Set<String> fieldsToQuery = new Set<String>();
@@ -47,7 +41,11 @@ public virtual class QueryBuilder {
     }
 
     public QueryBuilder selectFieldSet(String fieldSetName) {
-        for (Schema.FieldSetMember member : objectDescribe.FieldSets.getMap().get(fieldSetName).getFields()) {
+        for (
+            Schema.FieldSetMember member : objectDescribe.FieldSets.getMap()
+                .get(fieldSetName)
+                .getFields()
+        ) {
             selectField(member.getFieldPath());
         }
         return this;
@@ -73,7 +71,7 @@ public virtual class QueryBuilder {
         validateFields();
         return String.format(
             SOQL_QUERY_STRUCTURE,
-            new List<String>{String.join(new List<String>(fieldsToQuery), ','), objectName}
+            new List<String>{ String.join(new List<String>(fieldsToQuery), ','), objectName }
         );
     }
 
@@ -83,5 +81,8 @@ public virtual class QueryBuilder {
                 'No fields have been added into the query so it cannot be executed'
             );
         }
+    }
+
+    public class QueryException extends Exception {
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quiddity__c</fullName>
+    <description>This will contain the quiddity of the transaction that generated the log, see Quiddty docs for potential values https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_enum_System_Quiddity.htm#topic-title</description>
+    <externalId>false</externalId>
+    <label>Quiddity</label>
+    <length>80</length>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+</CustomField>

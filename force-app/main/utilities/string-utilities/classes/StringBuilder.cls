@@ -1,32 +1,31 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-* @description In Apex String is an immutable object, meaning that whenever you wish to append to a string you are creating a new instance of the object,
-* string builder mitigates this by only generating the string when it is needed. This class can be useful when joining a large number of strings together
-* Usage:
-* StringBuilder text = new StringBuilder();
-* for (Integer i = 0; i < 10; i++) {
-*     text.append(String.valueOf(i));
-* }
-* System.debug(text.toString());
-*
-* 2018-06-28 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer
+ * @date 2018-06-28
+ * @group String Utilities
+ * @description This class is intended to be similar to the java StringBuilder, it allows strings to be dynamically constructed but only assigned at the point, similar to Javas StringBuffer
+ *
+ **/
 public virtual inherited sharing class StringBuilder {
-
-    @testVisible private final List<String> buffer = new List<String>();
-    @testVisible private String separator = '';
+    @testVisible
+    private final List<String> buffer;
+    @testVisible
+    private String separator = '';
+    private Integer count = 0;
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
-    public StringBuilder() {}
+    public StringBuilder() {
+        buffer = new List<String>();
+    }
 
     public StringBuilder(Object value) {
+        this();
         append(value);
     }
 
     public StringBuilder append(String value) {
         if (value != null) {
             buffer.add(value);
+            count += value.length();
         }
         return this;
     }
@@ -36,15 +35,45 @@ public virtual inherited sharing class StringBuilder {
         return append(stringValue);
     }
 
+    public StringBuilder append(StringBuilder stringBuilder) {
+        if (stringBuilder == null) {
+            return append('null');
+        }
+        count += stringBuilder.count;
+        buffer.addAll(stringBuilder.buffer);
+        return this;
+    }
+
     public void setSeparator(String separator) {
         if (String.isNotEmpty(separator)) {
             this.separator = separator;
         }
     }
 
-    public Integer length() {
+    /**
+     * @description Capacity will return the total numbe of strings in the buffer
+     *
+     **/
+    public Integer capacity() {
         return buffer.size();
     }
+
+    /**
+     * @description Length will return the total length of the string once it is combined
+     *
+     **/
+    public Integer length() {
+        return count + (separator.length() * (capacity() - 1));
+    }
+
+    // TODO
+    // delete
+    // replace
+    // subString
+    // insert
+    // indexOf
+    // lastIndexOf
+    // reverse
 
     public override String toString() {
         return String.join(buffer, separator);

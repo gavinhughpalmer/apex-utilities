@@ -1,12 +1,10 @@
 /**
-* @author Gavin Palmer (gavinhughpalmer@gmail.com)
-* @version 1.0
-*
-* 2019-03-11 : Gavin Palmer - Original
-**/
+ * @author Gavin Palmer
+ * @date 2019-03-11
+ *
+ **/
 @IsTest
 private class LoggedSchedulableTest {
-
     private static final String LOG_MESSAGE = 'My test message';
 
     private class TestLog extends LoggedSchedulable {
@@ -30,7 +28,8 @@ private class LoggedSchedulableTest {
             'The cron job should be scheduled for tomorrow'
         );
         System.assertEquals(
-            null, cronJob.PreviousFireTime,
+            null,
+            cronJob.PreviousFireTime,
             'The cron job should never have run in the past'
         );
         Test.stopTest();
@@ -38,7 +37,6 @@ private class LoggedSchedulableTest {
 
     @IsTest
     private static void executeTest() {
-
         LoggedSchedulable schedulable = new TestLog();
 
         // call the execute method to mock the running of the schedulable
@@ -48,7 +46,8 @@ private class LoggedSchedulableTest {
 
         List<Log__c> logs = [SELECT Messages__c FROM Log__c];
         System.assertEquals(
-            1, logs.size(),
+            1,
+            logs.size(),
             'A message should have been written when the schedulable is run'
         );
         Assert.contains(logs[0].Messages__c, LOG_MESSAGE);
