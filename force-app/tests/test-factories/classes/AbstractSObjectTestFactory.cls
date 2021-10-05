@@ -21,10 +21,6 @@ public without sharing abstract class AbstractSObjectTestFactory {
         this.inserter = inserter;
     }
 
-    public void allowDuplicatesOnSave(Boolean areRulesOn) {
-        inserter.allowDuplicatesOnSave(areRulesOn);
-    }
-
     public abstract SObject getSObject();
 
     public virtual SObject insertSObject() {

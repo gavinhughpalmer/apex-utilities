@@ -63,7 +63,9 @@ public with sharing class TriggerDispatcher {
                 logUnknownException(exceptionToHandle.getMessage());
                 throw exceptionToHandle;
             } finally {
-                writeLogs();
+                if (TRIGGER_STACK.isEmpty()) {
+                    log.close();
+                }
             }
         }
     }
@@ -97,13 +99,6 @@ public with sharing class TriggerDispatcher {
                 TRIGGER_STACK.toString()
             );
             unknownExceptionLogged = true;
-        }
-    }
-
-    private void writeLogs() {
-        // only write when we are at the bottom of the TRIGGER_STACK
-        if (TRIGGER_STACK.isEmpty()) {
-            log.close();
         }
     }
 }
