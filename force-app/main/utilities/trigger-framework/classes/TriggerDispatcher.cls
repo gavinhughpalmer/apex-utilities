@@ -57,7 +57,7 @@ public with sharing class TriggerDispatcher {
                 TRIGGER_STACK.pop(); // pop in here so errors will get handled
             } catch (Stack.UnderflowException underflowException) {
                 logUnknownException('Stack underflow');
-                throw underflowException;
+                throw underflowException; // Surface up to users
             } catch (Exception exceptionToHandle) {
                 TRIGGER_STACK.pop(); // it wasn't popped
                 logUnknownException(exceptionToHandle.getMessage());

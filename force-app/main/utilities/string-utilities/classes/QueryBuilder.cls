@@ -52,6 +52,7 @@ public virtual class QueryBuilder {
     }
 
     public QueryBuilder selectAllFields() {
+        // should still be used over the FIELDS(ALL) method, to return all fields not just those the user has access to
         for (String field : objectDescribe.fields.getMap().keySet()) {
             selectField(field);
         }
@@ -59,11 +60,7 @@ public virtual class QueryBuilder {
     }
 
     public QueryBuilder selectAllAccessibleFields() {
-        for (Schema.SObjectField field : objectDescribe.fields.getMap().values()) {
-            if (field.getDescribe().isAccessible()) {
-                selectField(field.getDescribe().getName());
-            }
-        }
+        selectField('FIELDS(ALL)');
         return this;
     }
 
