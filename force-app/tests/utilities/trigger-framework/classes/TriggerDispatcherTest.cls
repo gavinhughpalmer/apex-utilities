@@ -123,7 +123,7 @@ private class TriggerDispatcherTest {
         List<Log__c> logsToAssert = [
             SELECT Messages__c
             FROM Log__c
-            WHERE LeveL__c = :BulkLogObjectAdapter.ERROR
+            WHERE LeveL__c = :EventBufferLogAdapter.ERROR
         ];
         System.assertEquals(1, logsToAssert.size(), 'One log message should have been created');
         System.assert(

@@ -12,7 +12,7 @@
  * log.close();
  *
  **/
-public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
+public without sharing class EventBufferLogAdapter extends LoggerAdapter {
     @testVisible
     private static final String ERROR = 'Error';
     @testVisible
@@ -22,7 +22,9 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
     @testVisible
     private static final String DEBUG = 'Debug';
 
-    private static final BulkLogObjectAdapter INSTANCE = new BulkLogObjectAdapter();
+    private static final Integer MAX_LOG_BUFFER = 10;
+
+    private static final EventBufferLogAdapter INSTANCE = new EventBufferLogAdapter();
 
     @testVisible
     private final List<Log_Event__e> logsToPublish = new List<Log_Event__e>();
@@ -35,12 +37,12 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
         }
     }
 
-    public static BulkLogObjectAdapter getInstance() {
+    public static EventBufferLogAdapter getInstance() {
         return INSTANCE;
     }
 
     @SuppressWarnings('PMD.EmptyStatementBlock')
-    private BulkLogObjectAdapter() {
+    private EventBufferLogAdapter() {
     }
 
     public override void log(Object logLevel, String message) {
@@ -50,6 +52,9 @@ public without sharing class BulkLogObjectAdapter extends LoggerAdapter {
         String logLevelString = (String) logLevel;
         if (LOGGING_LEVELS.contains(logLevelString)) {
             logsToPublish.add(createLogEvent(logLevelString, message, recordId));
+        }
+        if (logsToPublish.size() >= MAX_LOG_BUFFER) {
+            close();
         }
     }
     private Log_Event__e createLogEvent(String logLevel, String message, Id recordId) {

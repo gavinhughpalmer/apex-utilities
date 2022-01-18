@@ -9,10 +9,10 @@ private class OrgLimitsProfilingReportRunnerTest {
     @IsTest
     private static void testExecute() {
         Set<String> possibleLogLevels = new Set<String>{
-            BulkLogObjectAdapter.WARNING,
-            BulkLogObjectAdapter.INFO
+            EventBufferLogAdapter.WARNING,
+            EventBufferLogAdapter.INFO
         };
-        BulkLogObjectAdapter.LOGGING_LEVELS.addAll(possibleLogLevels);
+        EventBufferLogAdapter.LOGGING_LEVELS.addAll(possibleLogLevels);
 
         Test.startTest();
         OrgLimitsProfilingReportRunner report = new OrgLimitsProfilingReportRunner();

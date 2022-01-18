@@ -105,7 +105,7 @@ public without sharing class Logger {
 
     /*
      * @description this method should be called after the logs have been written,
-     * the logger adapter will then close off any open transactions (or fire the events in the case of the <<BulkLogObjectAdapter>>)
+     * the logger adapter will then close off any open transactions (or fire the events in the case of the <<EventBufferLogAdapter>>)
      */
     public void close() {
         runApexPofiling();

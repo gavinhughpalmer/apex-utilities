@@ -4,12 +4,12 @@
  *
  **/
 @IsTest(isParallel=true)
-private class BulkLogObjectAdapterTest {
+private class EventBufferLogAdapterTest {
     @IsTest
     private static void errorLevelTest() {
-        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        LoggerAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         System.assertEquals(
-            BulkLogObjectAdapter.ERROR,
+            EventBufferLogAdapter.ERROR,
             loggerAdapter.errorLevel(),
             'The error level should return the error string'
         );
@@ -17,9 +17,9 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void warningLevelTest() {
-        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        LoggerAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         System.assertEquals(
-            BulkLogObjectAdapter.WARNING,
+            EventBufferLogAdapter.WARNING,
             loggerAdapter.warningLevel(),
             'The warning level should return the warning string'
         );
@@ -27,9 +27,9 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void infoLevelTest() {
-        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        LoggerAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         System.assertEquals(
-            BulkLogObjectAdapter.INFO,
+            EventBufferLogAdapter.INFO,
             loggerAdapter.infoLevel(),
             'The info level should return the info string'
         );
@@ -37,9 +37,9 @@ private class BulkLogObjectAdapterTest {
 
     @IsTest
     private static void debugLevelTest() {
-        LoggerAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        LoggerAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         System.assertEquals(
-            BulkLogObjectAdapter.DEBUG,
+            EventBufferLogAdapter.DEBUG,
             loggerAdapter.debugLevel(),
             'The debug level should return the debug string'
         );
@@ -48,9 +48,9 @@ private class BulkLogObjectAdapterTest {
     @IsTest
     private static void logTest() {
         final String logType = 'Test Log Type';
-        final String logLevel = BulkLogObjectAdapter.ERROR;
+        final String logLevel = EventBufferLogAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        EventBufferLogAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         loggerAdapter.setType(logType);
 
         System.assert(
@@ -88,9 +88,9 @@ private class BulkLogObjectAdapterTest {
         SObjectTestFactory testFactory = new SObjectTestFactory();
         SObject testSObject = testFactory.insertSObject();
         final String logType = 'Test Log Type';
-        final String logLevel = BulkLogObjectAdapter.ERROR;
+        final String logLevel = EventBufferLogAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        EventBufferLogAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         loggerAdapter.setType(logType);
         System.assert(
             loggerAdapter.logsToPublish.isEmpty(),
@@ -135,9 +135,9 @@ private class BulkLogObjectAdapterTest {
             'There should be no logs in the system before the test'
         );
         final String logType = 'Test Log Type';
-        final String logLevel = BulkLogObjectAdapter.ERROR;
+        final String logLevel = EventBufferLogAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        EventBufferLogAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         loggerAdapter.setType(logType);
 
         loggerAdapter.log(logLevel, message);
@@ -184,9 +184,9 @@ private class BulkLogObjectAdapterTest {
             'There should be no logs in the system before the test'
         );
         final String logType = 'Test Log Type';
-        final String logLevel = BulkLogObjectAdapter.ERROR;
+        final String logLevel = EventBufferLogAdapter.ERROR;
         final String message = 'Test Log Message';
-        BulkLogObjectAdapter loggerAdapter = BulkLogObjectAdapter.getInstance();
+        EventBufferLogAdapter loggerAdapter = EventBufferLogAdapter.getInstance();
         loggerAdapter.setType(logType);
 
         loggerAdapter.log(logLevel, message);
