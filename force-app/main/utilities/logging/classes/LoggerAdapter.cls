@@ -31,6 +31,7 @@ public abstract class LoggerAdapter {
      * Implementation of LoggerAdapter that directs all logging through the built-in Apex method <code>System.debug()</code>
      */
     public class DebugLogAdapter extends LoggerAdapter {
+        @SuppressWarnings('PMD.AvoidDebugStatements')
         public override void log(Object logLevel, String message) {
             System.debug((LoggingLevel) logLevel, message);
         }

@@ -38,15 +38,17 @@ private class SchemaFacadeTest {
     }
 
     @IsTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getDescribe() {
         System.assertEquals(
-            Account.SObjectType.getDescribe(),
+            Account.SObjectType.getDescribe(SObjectDescribeOptions.FULL),
             SchemaFacade.getInstance().getDescribe('Account'),
             'The dynamic describe call should return the account describe object'
         );
     }
 
     @IsTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getFieldDescribe() {
         System.assertEquals(
             Account.Name.getDescribe(),
@@ -56,6 +58,7 @@ private class SchemaFacadeTest {
     }
 
     @IsTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getDescribeException() {
         final String invalidObjectName = 'Invalid Object';
         try {

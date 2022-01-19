@@ -10,8 +10,9 @@ private class AbstractSObjectTestFactoryTest {
     @IsTest
     private static void insertWithDependanciesTest() {
         MockContactTestFactory contactFactory = new MockContactTestFactory();
-        contactFactory.setInserter(new MockInserter());
-        contactFactory.allowDuplicatesOnSave(false);
+        Insertable inserter = new MockInserter();
+        inserter.allowDuplicatesOnSave(false);
+        contactFactory.setInserter(inserter);
         Contact testContact = (Contact) contactFactory.insertWithDependancies();
         System.assertNotEquals(
             null,
@@ -23,8 +24,9 @@ private class AbstractSObjectTestFactoryTest {
     @IsTest
     private static void insertMultipleWithDependanciesTest() {
         MockContactTestFactory contactFactory = new MockContactTestFactory();
-        contactFactory.setInserter(new MockInserter());
-        contactFactory.allowDuplicatesOnSave(true);
+        Insertable inserter = new MockInserter();
+        inserter.allowDuplicatesOnSave(true);
+        contactFactory.setInserter(inserter);
         List<Contact> testContacts = (List<Contact>) contactFactory.insertMultipleWithDependancies(
             50
         );
@@ -54,7 +56,7 @@ private class AbstractSObjectTestFactoryTest {
     public class MockContactTestFactory extends AbstractSObjectTestFactory {
         public String lastName = 'TestUser';
         public MockContactTestFactory() {
-            addDependancy('AccountId', new MockAccountTestFactory());
+            addDependancy('AccountId', MockAccountTestFactory.class);
         }
         public override SObject getSObject() {
             return new Contact(LastName = lastName);

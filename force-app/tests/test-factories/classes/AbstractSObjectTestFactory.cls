@@ -11,6 +11,7 @@
  *
  **/
 public without sharing abstract class AbstractSObjectTestFactory {
+
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
     private Insertable inserter = new DmlInserter();
     public String uniqueValue = 'test';
@@ -21,34 +22,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
         this.inserter = inserter;
     }
 
-    public void allowDuplicatesOnSave(Boolean areRulesOn) {
-        inserter.allowDuplicatesOnSave(areRulesOn);
-    }
-
     public abstract SObject getSObject();
-
-    public virtual SObject insertSObject() {
-        recordToCreate = getSObject();
-        return inserter.insertSObject(recordToCreate);
-    }
-
-    public virtual SObject insertWithDependancies() {
-        recordToCreate = getSObject();
-        for (FactoryDependancy dependancy : dependancies.values()) {
-            dependancy.parentFactory.setInserter(inserter);
-            dependancy.createDependancyFor(recordToCreate);
-        }
-        return inserter.insertSObject(recordToCreate);
-    }
-
-    public virtual List<SObject> insertMultipleWithDependancies(Integer numberToInsert) {
-        recordsToCreate = getMultipleSObjects(numberToInsert);
-        for (FactoryDependancy dependancy : dependancies.values()) {
-            dependancy.parentFactory.setInserter(inserter);
-            dependancy.createDependanciesFor(recordsToCreate);
-        }
-        return inserter.insertMultipleSObject(recordsToCreate);
-    }
 
     public virtual List<SObject> getMultipleSObjects(Integer numberToCreate) {
         List<SObject> sObjectsToReturn = new List<SObject>();
@@ -61,8 +35,43 @@ public without sharing abstract class AbstractSObjectTestFactory {
         return sObjectsToReturn;
     }
 
+    public virtual SObject insertSObject() {
+        if (recordToCreate != null) {
+            return recordToCreate;
+        }
+        recordToCreate = getSObject();
+        return inserter.insertSObject(recordToCreate);
+    }
+
+    public virtual SObject insertWithDependancies() {
+        if (recordToCreate != null) {
+            return recordToCreate;
+        }
+        recordToCreate = getSObject();
+        for (FactoryDependancy dependancy : dependancies.values()) {
+            dependancy.parentFactory.setInserter(inserter);
+            dependancy.createDependancyFor(recordToCreate);
+        }
+        return inserter.insertSObject(recordToCreate);
+    }
+
     public virtual List<SObject> insertMultipleSObjects(Integer numberToInsert) {
+        if (recordsToCreate != null) {
+            return recordsToCreate;
+        }
         recordsToCreate = getMultipleSObjects(numberToInsert);
+        return inserter.insertMultipleSObject(recordsToCreate);
+    }
+
+    public virtual List<SObject> insertMultipleWithDependancies(Integer numberToInsert) {
+        if (recordsToCreate != null) {
+            return recordsToCreate;
+        }
+        recordsToCreate = getMultipleSObjects(numberToInsert);
+        for (FactoryDependancy dependancy : dependancies.values()) {
+            dependancy.parentFactory.setInserter(inserter);
+            dependancy.createDependanciesFor(recordsToCreate);
+        }
         return inserter.insertMultipleSObject(recordsToCreate);
     }
 
@@ -70,16 +79,18 @@ public without sharing abstract class AbstractSObjectTestFactory {
      * @desription This method should be called in the constructor which will define the dependancies for this SObject
      * eg account for the contact
      */
-    public void addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
-        dependancies.put(parentIdField, new FactoryDependancy(parentIdField, parentFactory));
+    public void addDependancy(String parentIdField, Type parentFactoryType) {
+        dependancies.put(parentIdField, new FactoryDependancy(parentIdField, parentFactoryType));
     }
 
     private class FactoryDependancy {
         private final Relationship parentRelationship;
+        private final Type parentFactoryType;
         private final AbstractSObjectTestFactory parentFactory;
 
-        public FactoryDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory) {
-            this.parentFactory = parentFactory;
+        public FactoryDependancy(String parentIdField, Type parentFactoryType) {
+            this.parentFactory = (AbstractSObjectTestFactory) parentFactoryType.newInstance();
+            // this.parentFactory = parentFactory;
             parentRelationship = Relationship.fromIdField(parentIdField);
         }
         public void createDependancyFor(SObject childSObject) {

@@ -47,7 +47,7 @@ public without sharing class SchemaFacade {
         validateObjectApiName(objectApiName);
         if (!sObjectDescribeByObjectNames.containsKey(objectApiName)) {
             DescribeSObjectResult sObjectDescribe = sObjectTypeByObjectNames.get(objectApiName)
-                .getDescribe();
+                .getDescribe(SObjectDescribeOptions.FULL);
             sObjectDescribe.fields.getMap();
             sObjectDescribeByObjectNames.put(objectApiName, sObjectDescribe);
         }
@@ -69,6 +69,7 @@ public without sharing class SchemaFacade {
         return !isValidField(objectApiName, fieldApiName);
     }
 
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private Map<String, SObjectField> getFieldsMap(String objectApiName) {
         objectApiName = objectApiName.toLowerCase();
         validateObjectApiName(objectApiName);
@@ -83,6 +84,7 @@ public without sharing class SchemaFacade {
      * @description retrieves the field describe for the object and field name provided,
      * it will traverse the SObjectField's so you don't have to
      */
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     public DescribeFieldResult getFieldDescribe(String objectApiName, String fieldApiName) {
         objectApiName = objectApiName.toLowerCase();
         fieldApiName = fieldApiName.toLowerCase();

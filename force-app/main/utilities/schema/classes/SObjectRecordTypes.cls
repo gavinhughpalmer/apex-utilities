@@ -12,6 +12,7 @@ public inherited sharing class SObjectRecordTypes {
     private final Map<Id, Schema.RecordTypeInfo> recordTypesById;
     private RecordTypeInfo defaultRecordTypeInfo;
 
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     public SObjectRecordTypes(final String objectApiName) {
         final SchemaFacade schema = SchemaFacade.getInstance();
         final DescribeSObjectResult objectDescribe = schema.getDescribe(objectApiName);
