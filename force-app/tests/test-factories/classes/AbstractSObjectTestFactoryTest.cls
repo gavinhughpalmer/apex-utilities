@@ -56,7 +56,7 @@ private class AbstractSObjectTestFactoryTest {
     public class MockContactTestFactory extends AbstractSObjectTestFactory {
         public String lastName = 'TestUser';
         public MockContactTestFactory() {
-            addDependancy('AccountId', new MockAccountTestFactory());
+            addDependancy('AccountId', MockAccountTestFactory.class);
         }
         public override SObject getSObject() {
             return new Contact(LastName = lastName);

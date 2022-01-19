@@ -89,7 +89,7 @@ public without sharing abstract class AbstractSObjectTestFactory {
         private final AbstractSObjectTestFactory parentFactory;
 
         public FactoryDependancy(String parentIdField, Type parentFactoryType) {
-            this.parentFactory = parentFactoryType;
+            this.parentFactory = (AbstractSObjectTestFactory) parentFactoryType.newInstance();
             // this.parentFactory = parentFactory;
             parentRelationship = Relationship.fromIdField(parentIdField);
         }
