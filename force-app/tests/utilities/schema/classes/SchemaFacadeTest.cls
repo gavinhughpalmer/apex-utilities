@@ -41,7 +41,7 @@ private class SchemaFacadeTest {
     @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getDescribe() {
         System.assertEquals(
-            Account.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED),
+            Account.SObjectType.getDescribe(SObjectDescribeOptions.FULL),
             SchemaFacade.getInstance().getDescribe('Account'),
             'The dynamic describe call should return the account describe object'
         );
