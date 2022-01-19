@@ -73,6 +73,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void describeTestObjectField() {
         Account testAccount = new Account();
         SObjectWrapper wrappedTestAccount = new SObjectWrapper(testAccount);
@@ -84,6 +85,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void describeTestRelatedObjectField() {
         Contact testContact = new Contact();
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
@@ -95,6 +97,7 @@ private class SObjectWrapperTest {
     }
 
     @isTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void describeRelatedObjectFieldRecursive() {
         Contact testContact = new Contact();
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);

@@ -84,6 +84,7 @@ public without sharing class SchemaFacade {
      * @description retrieves the field describe for the object and field name provided,
      * it will traverse the SObjectField's so you don't have to
      */
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     public DescribeFieldResult getFieldDescribe(String objectApiName, String fieldApiName) {
         objectApiName = objectApiName.toLowerCase();
         fieldApiName = fieldApiName.toLowerCase();

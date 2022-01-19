@@ -12,6 +12,7 @@ public virtual class QueryBuilder {
     protected final SchemaFacade schema = SchemaFacade.getInstance();
     protected final DescribeSObjectResult objectDescribe;
 
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     protected QueryBuilder(String objectName) {
         validateObjectName(objectName);
         this.objectName = objectName;

@@ -40,7 +40,7 @@ private class SObjectRecordTypesTest {
     private static void getRecordTypeIdTest() {
         SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
         final String recordTypeName = (new List<String>(
-            Account.SObjectType.getDescribe().getRecordTypeInfosByDeveloperName().keySet()
+            Account.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosByDeveloperName().keySet()
         ))[0];
         System.assertNotEquals(
             null,

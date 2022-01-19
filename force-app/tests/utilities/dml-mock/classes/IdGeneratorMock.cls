@@ -20,7 +20,7 @@ public with sharing class IdGeneratorMock {
         String prefix;
 
         try {
-            prefix = sObjectType.getDescribe().getKeyPrefix();
+            prefix = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getKeyPrefix();
         } catch (Exception exceptionToHandle) {
             throw new IdGeneratorMockException('Cannot resolve prefix for SObject,' + sObjectType);
         }
