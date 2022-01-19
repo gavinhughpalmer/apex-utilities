@@ -38,6 +38,7 @@ private class SchemaFacadeTest {
     }
 
     @IsTest
+    @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getDescribe() {
         System.assertEquals(
             Account.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED),
