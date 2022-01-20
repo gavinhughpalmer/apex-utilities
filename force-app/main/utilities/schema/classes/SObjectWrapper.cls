@@ -84,7 +84,9 @@ public virtual class SObjectWrapper {
             objectApiName,
             relationshipFieldName
         );
-        return relationshipField.getReferenceTo()[0].getDescribe(SObjectDescribeOptions.DEFERRED).getName();
+        return relationshipField.getReferenceTo()[0]
+            .getDescribe(SObjectDescribeOptions.DEFERRED)
+            .getName();
     }
 
     private DescribeFieldResult describeField(String fieldApiName) {

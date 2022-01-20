@@ -45,7 +45,6 @@ public without sharing class Logger {
         this.loggerAdapter.setType(type);
     }
 
-
     // Logger should somehow take a map of string to object to log more complex messages with fiels that can then be made searchable?
     public void debug(String messageToLog) {
         loggerAdapter.log(loggerAdapter.debugLevel(), (new LogMessage(messageToLog)).toString());
