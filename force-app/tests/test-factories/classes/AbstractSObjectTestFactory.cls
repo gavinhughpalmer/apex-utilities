@@ -11,7 +11,6 @@
  *
  **/
 public without sharing abstract class AbstractSObjectTestFactory {
-
     private final Map<String, FactoryDependancy> dependancies = new Map<String, FactoryDependancy>();
     private Insertable inserter = new DmlInserter();
     public String uniqueValue = 'test';
