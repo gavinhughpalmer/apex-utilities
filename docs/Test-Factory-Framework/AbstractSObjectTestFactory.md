@@ -16,9 +16,8 @@ This factory class will be used as a base for any SObject creation in test class
 
 ---
 ## Methods
-### `FactoryDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory)` → `public`
-### `addDependancy(String parentIdField, AbstractSObjectTestFactory parentFactory)` → `void`
-### `allowDuplicatesOnSave(Boolean areRulesOn)` → `void`
+### `FactoryDependancy(String parentIdField, Type parentFactoryType)` → `public`
+### `addDependancy(String parentIdField, Type parentFactoryType)` → `void`
 ### `createDependanciesFor(List<SObject> childSObjects)` → `void`
 ### `createDependancyFor(SObject childSObject)` → `void`
 ### `getMultipleSObjects(Integer numberToCreate)` → `List<SObject>`
