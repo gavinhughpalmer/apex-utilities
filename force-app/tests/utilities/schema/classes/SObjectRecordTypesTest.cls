@@ -10,13 +10,12 @@ private class SObjectRecordTypesTest {
         final String invalidObjectName = 'This is not an object';
         try {
             new SObjectRecordTypes(invalidObjectName);
-            System.assert(
-                false,
+            Assert.fail(
                 'An exception should have been thrown when the object is not valid'
             );
         } catch (Exception exceptionThrown) {
             final String errorMessage = exceptionThrown.getMessage();
-            System.assert(
+            Assert.isTrue(
                 errorMessage.containsIgnoreCase(invalidObjectName),
                 'The error should have contained ' +
                 invalidObjectName +
@@ -29,8 +28,7 @@ private class SObjectRecordTypesTest {
     @IsTest
     private static void getDefaultIdTest() {
         SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
-        System.assertNotEquals(
-            null,
+        Assert.isNotNull(
             opportunityRecordTypes.getDefaultId(),
             'The opportunity should have a default record type id'
         );
@@ -40,10 +38,11 @@ private class SObjectRecordTypesTest {
     private static void getRecordTypeIdTest() {
         SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
         final String recordTypeName = (new List<String>(
-            Account.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosByDeveloperName().keySet()
+            Account.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED)
+                .getRecordTypeInfosByDeveloperName()
+                .keySet()
         ))[0];
-        System.assertNotEquals(
-            null,
+        Assert.isNotNull(
             opportunityRecordTypes.getRecordTypeId(recordTypeName),
             'The opportunity should return the record type from the SObjectRecordTypes instance'
         );
@@ -52,8 +51,7 @@ private class SObjectRecordTypesTest {
     @IsTest
     private static void getRecordTypeIdInvalidDeveloperNameTest() {
         SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
-        System.assertEquals(
-            null,
+        Assert.isNull(
             opportunityRecordTypes.getRecordTypeId('Invalid record type developer name'),
             'The invalid record type name should return null as the record type id'
         );
@@ -64,8 +62,7 @@ private class SObjectRecordTypesTest {
         SObjectRecordTypes opportunityRecordTypes = new SObjectRecordTypes('Opportunity');
         final Id recordTypeId = opportunityRecordTypes.getDefaultId();
 
-        System.assertNotEquals(
-            null,
+        Assert.isNotNull(
             opportunityRecordTypes.getRecordTypeDeveloperName(recordTypeId),
             'A developer record type name should have been returned'
         );

@@ -22,27 +22,27 @@ private class LogWriterTest {
             FROM Log__c
         ];
 
-        System.assertEquals(
+        Assert.areEqual(
             1,
             createdLogs.size(),
             'A single log should have been created during the conversion process'
         );
-        System.assertEquals(
+        Assert.areEqual(
             logEvent.Level__c,
             createdLogs[0].Level__c,
             'The level field has not been converted correctly'
         );
-        System.assertEquals(
+        Assert.areEqual(
             logEvent.Messages__c,
             createdLogs[0].Messages__c,
             'The messages field has not been converted correctly'
         );
-        System.assertEquals(
+        Assert.areEqual(
             logEvent.Record_Id__c,
             createdLogs[0].Record_Id__c,
             'The record id field has not been converted correctly'
         );
-        System.assertEquals(
+        Assert.areEqual(
             logEvent.Type__c,
             createdLogs[0].Type__c,
             'The type field has not been converted correctly'

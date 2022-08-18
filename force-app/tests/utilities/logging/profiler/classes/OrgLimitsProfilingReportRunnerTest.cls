@@ -24,12 +24,12 @@ private class OrgLimitsProfilingReportRunnerTest {
             FROM Log__c
             WHERE Type__c = :OrgLimitsProfilingReportRunner.LOG_TYPE
         ];
-        System.assertEquals(
+        Assert.areEqual(
             2,
             logs.size(),
             'A single log record should have been created containing the profiling report for the org, and one for the transactional logs'
         );
-        System.assert(
+        Assert.isTrue(
             possibleLogLevels.contains(logs[0].Level__c),
             'The log created should either be a warning or info, recieved ' + logs[0].Level__c
         );

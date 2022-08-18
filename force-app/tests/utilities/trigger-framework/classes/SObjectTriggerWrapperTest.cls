@@ -11,7 +11,7 @@ private class SObjectTriggerWrapperTest {
         Account oldAccount = new Account(Name = 'Different Name');
         SObjectTriggerWrapper wrappedAccount = new SObjectTriggerWrapper(newAccount, oldAccount);
 
-        System.assert(
+        Assert.isTrue(
             wrappedAccount.hasChanged(Account.Name),
             'The method should return true when the field has changed'
         );
@@ -23,7 +23,7 @@ private class SObjectTriggerWrapperTest {
         Account oldAccount = new Account(Name = 'Different Name');
         SObjectTriggerWrapper wrappedAccount = new SObjectTriggerWrapper(newAccount, oldAccount);
 
-        System.assert(
+        Assert.isTrue(
             wrappedAccount.hasChanged('Name'),
             'The method should return true when the field has changed'
         );
@@ -35,8 +35,8 @@ private class SObjectTriggerWrapperTest {
         Account oldAccount = new Account(Name = 'Name 1');
         SObjectTriggerWrapper wrappedAccount = new SObjectTriggerWrapper(newAccount, oldAccount);
 
-        System.assert(
-            !wrappedAccount.hasChanged(Account.Name),
+        Assert.isFalse(
+            wrappedAccount.hasChanged(Account.Name),
             'The method should return false when the field has not changed'
         );
     }
@@ -47,8 +47,8 @@ private class SObjectTriggerWrapperTest {
         Account oldAccount = new Account(Name = 'Name 1');
         SObjectTriggerWrapper wrappedAccount = new SObjectTriggerWrapper(newAccount, oldAccount);
 
-        System.assert(
-            !wrappedAccount.hasChanged('Name'),
+        Assert.isFalse(
+            wrappedAccount.hasChanged('Name'),
             'The method should return false when the field has not changed'
         );
     }
@@ -60,7 +60,7 @@ private class SObjectTriggerWrapperTest {
         Account oldAccount = new Account(Name = 'Tests');
         SObjectTriggerWrapper wrappedAccount = new SObjectTriggerWrapper(newAccount, oldAccount);
 
-        System.assert(
+        Assert.isTrue(
             wrappedAccount.hasChangedTo(Account.Name, fieldValue),
             'The method should return true when the field has changed to the provided value'
         );
@@ -73,7 +73,7 @@ private class SObjectTriggerWrapperTest {
         Account oldAccount = new Account(Name = 'Tests');
         SObjectTriggerWrapper wrappedAccount = new SObjectTriggerWrapper(newAccount, oldAccount);
 
-        System.assert(
+        Assert.isTrue(
             wrappedAccount.hasChangedTo('Name', fieldValue),
             'The method should return true when the field has changed to the provided value'
         );

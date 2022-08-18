@@ -19,12 +19,12 @@ public with sharing class MockDmlInserterTest {
         SObject objectToInsert = mockDmlInserter.insertSObject(testSObject);
         Integer dmlLimitAfter = Limits.getDMLStatements();
 
-        System.assert(
-            !String.isBlank(objectToInsert.Id),
+        Assert.isFalse(
+            String.isBlank(objectToInsert.Id),
             'The Object should have an Id, ' + objectToInsert.Id
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             dmlLimitBefore,
             dmlLimitAfter,
             'The dml limits should not have changed'
@@ -43,13 +43,13 @@ public with sharing class MockDmlInserterTest {
         Integer dmlLimitAfter = Limits.getDMLStatements();
 
         for (SObject objectToInsert : objectsToInsert) {
-            System.assert(
-                !String.isBlank(objectToInsert.Id),
+            Assert.isFalse(
+                String.isBlank(objectToInsert.Id),
                 'The Object should have an Id, ' + objectToInsert.Id
             );
         }
 
-        System.assertEquals(
+        Assert.areEqual(
             dmlLimitBefore,
             dmlLimitAfter,
             'The dml limits should not have changed'
@@ -61,6 +61,6 @@ public with sharing class MockDmlInserterTest {
         MockDmlInserter mockDmlInserter = new MockDmlInserter();
         Boolean allowDups = mockDmlInserter.allowDuplicatesOnSave(true);
 
-        System.assert(allowDups, 'The allow dups variable should be set to true');
+        Assert.isTrue(allowDups, 'The allow dups variable should be set to true');
     }
 }

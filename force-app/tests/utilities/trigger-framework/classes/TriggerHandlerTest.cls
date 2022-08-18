@@ -22,7 +22,7 @@ private class TriggerHandlerTest {
 
         TriggerHandler handler = new TriggerHandler(new List<Triggerable>{ mockAction });
         handler.register(null);
-        System.assert(
+        Assert.isTrue(
             mockAction.registerWasCalled,
             'The register method was not called in the Triggerable'
         );
@@ -34,7 +34,7 @@ private class TriggerHandlerTest {
 
         TriggerHandler handler = new TriggerHandler(new List<Triggerable>{ mockAction });
         handler.performAction();
-        System.assert(
+        Assert.isTrue(
             mockAction.performActionsWasCalled,
             'The performAction method was not called in the Triggerable'
         );

@@ -30,13 +30,13 @@ private class LoggerTest {
         }
 
         public override void log(Object logLevel, String message) {
-            System.assert(logLevel instanceof String, 'The log level should return a string');
-            System.assertEquals(
+            Assert.isTrue(logLevel instanceof String, 'The log level should return a string');
+            Assert.areEqual(
                 levelToAssert,
                 (String) logLevel,
                 'The log level should be the same as what was constructed in the adapter'
             );
-            System.assert(
+            Assert.isTrue(
                 message.containsIgnoreCase(messageToAssert),
                 'The provided error, ' +
                 messageToAssert +

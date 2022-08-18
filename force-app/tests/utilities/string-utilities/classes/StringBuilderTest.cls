@@ -11,13 +11,13 @@ private class StringBuilderTest {
         StringBuilder builder = new StringBuilder();
         builder.append(expectedOutput);
 
-        System.assertEquals(
+        Assert.areEqual(
             1,
             builder.capacity(),
             'There should be a single string in the builder'
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             expectedOutput,
             builder.buffer[0],
             'The string in the builder should be what was appended to the string builder'
@@ -29,13 +29,13 @@ private class StringBuilderTest {
         final Integer value = 1;
         StringBuilder builder = new StringBuilder(value);
 
-        System.assertEquals(
+        Assert.areEqual(
             1,
             builder.capacity(),
             'There should be a single string in the builder'
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             '1',
             builder.buffer[0],
             'The string in the builder should be what was appended to the string builder'
@@ -48,7 +48,7 @@ private class StringBuilderTest {
         String value = null;
         builder.append(value);
 
-        System.assertEquals(
+        Assert.areEqual(
             0,
             builder.capacity(),
             'The empty string should not be added to be built'
@@ -61,7 +61,7 @@ private class StringBuilderTest {
         StringBuilder builder = new StringBuilder();
         builder.setSeparator(expectedOutput);
 
-        System.assertEquals(
+        Assert.areEqual(
             expectedOutput,
             builder.separator,
             'The separator should be set by the method'
@@ -73,7 +73,7 @@ private class StringBuilderTest {
         StringBuilder builder = new StringBuilder();
         builder.setSeparator(null);
 
-        System.assertEquals(
+        Assert.areEqual(
             '',
             builder.separator,
             'A null separator should not be added to the string builder'
@@ -94,7 +94,7 @@ private class StringBuilderTest {
         builder.append(expectedOutputEnd);
         builder.setSeparator(separator);
 
-        System.assertEquals(
+        Assert.areEqual(
             expectedOutputStart +
             separator +
             expectedOutputEnd,

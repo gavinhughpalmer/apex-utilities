@@ -21,8 +21,7 @@ private class QueueableSchedulerTest {
         QueueableScheduler scheduler = new QueueableScheduler(new TestQueueable());
         scheduler.execute();
         Id queableId = scheduler.getRunningQueueableId();
-        System.assertNotEquals(
-            null,
+        Assert.isNotNull(
             queableId,
             'The id should have been assigned when the queable is scheduled in the queueable'
         );

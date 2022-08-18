@@ -23,12 +23,11 @@ private class LoggedSchedulableTest {
             FROM CronTrigger
             WHERE Id = :cronJobId
         ];
-        System.assert(
+        Assert.isTrue(
             cronJob.NextFireTime <= Date.today().addDays(1),
             'The cron job should be scheduled for tomorrow'
         );
-        System.assertEquals(
-            null,
+        Assert.isNull(
             cronJob.PreviousFireTime,
             'The cron job should never have run in the past'
         );
@@ -45,11 +44,17 @@ private class LoggedSchedulableTest {
         Test.stopTest();
 
         List<Log__c> logs = [SELECT Messages__c FROM Log__c];
-        System.assertEquals(
+        Assert.areEqual(
             1,
             logs.size(),
             'A message should have been written when the schedulable is run'
         );
-        Assert.contains(logs[0].Messages__c, LOG_MESSAGE);
+        Assert.isTrue(
+            logs[0].Messages__c.contains(LOG_MESSAGE),
+            'The string (' +
+            LOG_MESSAGE +
+            ') was not found in the string: ' +
+            logs[0].Messages__c
+        );
     }
 }

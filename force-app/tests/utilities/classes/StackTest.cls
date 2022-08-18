@@ -10,28 +10,28 @@ private class StackTest {
         final String firstItem = 'First Item';
         final String secondItem = 'Second Item';
         Stack stack = new Stack();
-        System.assert(stack.isEmpty(), 'The stack should be empty before anything is added to it');
+        Assert.isTrue(stack.isEmpty(), 'The stack should be empty before anything is added to it');
 
         stack.push(firstItem);
 
-        System.assert(
-            !stack.isEmpty(),
+        Assert.isFalse(
+            stack.isEmpty(),
             'The stack should no longer be empty after an item is pushed onto it'
         );
-        System.assertEquals(1, stack.size(), 'There should be one item on the stack');
+        Assert.areEqual(1, stack.size(), 'There should be one item on the stack');
 
         stack.push(secondItem);
-        System.assertEquals(2, stack.size(), 'There should be 2 items on the stack');
+        Assert.areEqual(2, stack.size(), 'There should be 2 items on the stack');
 
         String firstPopped = (String) stack.pop();
-        System.assertEquals(
+        Assert.areEqual(
             secondItem,
             firstPopped,
             'The second item added to the stack should be popped off first'
         );
 
         String secondPopped = (String) stack.pop();
-        System.assertEquals(
+        Assert.areEqual(
             firstItem,
             secondPopped,
             'The first item added to the stack should be popped off last'
@@ -60,7 +60,7 @@ private class StackTest {
         Stack stack = new Stack();
         stack.push('1');
         stack.push('2');
-        System.assertEquals(
+        Assert.areEqual(
             '1\n2',
             stack.toString(),
             'The stack should be joined together in the toString method'
@@ -78,7 +78,7 @@ private class StackTest {
             reversedValues[(bulkAmount - i - 1)] = i;
         }
         for (Integer expectedValue : reversedValues) {
-            System.assertEquals(
+            Assert.areEqual(
                 expectedValue,
                 (Integer) stack.pop(),
                 'The popped value should be the last value added to the list'

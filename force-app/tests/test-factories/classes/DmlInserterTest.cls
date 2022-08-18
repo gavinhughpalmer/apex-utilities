@@ -17,13 +17,12 @@ public with sharing class DmlInserterTest {
         SObject testSObject = testFactory.getSObject();
         SObject objectToInsert = dmlInserter.insertSObject(testSObject);
         Integer dmlLimitAfter = Limits.getDMLStatements();
-
-        System.assert(
-            !String.isBlank(objectToInsert.Id),
+        Assert.isFalse(
+            String.isBlank(objectToInsert.Id),
             'The Object should have an Id, ' + objectToInsert.Id
         );
 
-        System.assertNotEquals(
+        Assert.areNotEqual(
             dmlLimitBefore,
             dmlLimitAfter,
             'The dml limits should have changed, dmlLimitBefore: ' +
@@ -45,13 +44,13 @@ public with sharing class DmlInserterTest {
         Integer dmlLimitAfter = Limits.getDMLStatements();
 
         for (SObject objectToInsert : objectsToInsert) {
-            System.assert(
-                !String.isBlank(objectToInsert.Id),
+            Assert.isFalse(
+                String.isBlank(objectToInsert.Id),
                 'The Object should have an Id, ' + objectToInsert.Id
             );
         }
 
-        System.assertNotEquals(
+        Assert.areNotEqual(
             dmlLimitBefore,
             dmlLimitAfter,
             'The dml limits should have changed, dmlLimitBefore: ' +
@@ -64,14 +63,11 @@ public with sharing class DmlInserterTest {
     @IsTest
     private static void allowDuplicatesOnSaveTest() {
         DmlInserter dmlInserter = new DmlInserter();
-
-        System.assert(
-            !dmlInserter.allowDuplicatesOnSave,
+        Assert.isFalse(
+            dmlInserter.allowDuplicatesOnSave,
             'The allow dups variable should be set to false at initialisation'
         );
-
         Boolean allowDups = dmlInserter.allowDuplicatesOnSave(true);
-
-        System.assert(allowDups, 'The allow dups variable should be set to true');
+        Assert.isTrue(allowDups, 'The allow dups variable should be set to true');
     }
 }

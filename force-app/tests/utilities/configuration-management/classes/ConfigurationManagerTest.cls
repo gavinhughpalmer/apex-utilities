@@ -9,8 +9,8 @@ private class ConfigurationManagerTest {
     private static void singletonTest() {
         ConfigurationManager initialInstance = ConfigurationManager.getInstance();
         ConfigurationManager secondaryInstance = ConfigurationManager.getInstance();
-
-        System.assert(
+        // We have to use a comparison to validate the exact instance is the same
+        Assert.isTrue(
             initialInstance === secondaryInstance,
             'The get instance method should always return the same instance of the ConfigurationManager'
         );
@@ -21,20 +21,20 @@ private class ConfigurationManagerTest {
         ConfigurationManager.turnAutomationsOn();
 
         Configuration__c configurationSetting = Configuration__c.getInstance();
-        System.assert(
-            !configurationSetting.Are_Triggers_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Triggers_Off__c,
             'The trigger should all be turned on'
         );
-        System.assert(
-            !configurationSetting.Are_Workflows_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Workflows_Off__c,
             'The workflows should all be turned on'
         );
-        System.assert(
-            !configurationSetting.Are_Validations_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Validations_Off__c,
             'The validations should all be turned on'
         );
-        System.assert(
-            !configurationSetting.Are_Processes_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Processes_Off__c,
             'The processes should all be turned on'
         );
     }
@@ -44,19 +44,19 @@ private class ConfigurationManagerTest {
         ConfigurationManager.turnAutomationsOff();
 
         Configuration__c configurationSetting = Configuration__c.getInstance();
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Triggers_Off__c,
             'The triggers should all be turned on'
         );
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Workflows_Off__c,
             'The workflows should all be turned on'
         );
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Validations_Off__c,
             'The validations should all be turned on'
         );
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Processes_Off__c,
             'The processes should all be turned on'
         );
@@ -64,7 +64,7 @@ private class ConfigurationManagerTest {
 
     @IsTest
     private static void areTriggersOffTestNoSetting() {
-        System.assert(
+        Assert.isTrue(
             ConfigurationManager.getInstance().areTriggersOn(),
             'The triggers should always be off by default, ie when a configuration record does not exist in the system'
         );
@@ -74,12 +74,12 @@ private class ConfigurationManagerTest {
     private static void toggleTriggersTest() {
         ConfigurationManager configuration = ConfigurationManager.getInstance();
         configuration.turnTriggersOff();
-        System.assert(
+        Assert.isTrue(
             configuration.areTriggersOff(),
             'Triggers should have truned off after the off method is called'
         );
         configuration.turnTriggersOn();
-        System.assert(
+        Assert.isTrue(
             configuration.areTriggersOn(),
             'Triggers should have truned On after the On method is called'
         );
@@ -87,14 +87,14 @@ private class ConfigurationManagerTest {
 
     @IsTest
     private static void commitChangesTestWithoutExistingSetting() {
-        System.assertEquals(
+        Assert.areEqual(
             0,
             [SELECT COUNT() FROM Configuration__c],
             'There should be no Configuration__c records in the system before the save method is called'
         );
         ConfigurationManager configuration = ConfigurationManager.getInstance();
         configuration.commitChanges();
-        System.assertEquals(
+        Assert.areEqual(
             1,
             [SELECT COUNT() FROM Configuration__c],
             'There should be 1 Configuration__c records after the bypass method is called'
@@ -117,8 +117,8 @@ private class ConfigurationManagerTest {
             FROM Configuration__c
             WHERE Id = :configurationSetting.Id
         ];
-        System.assert(
-            !configurationSetting.Are_Workflows_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Workflows_Off__c,
             'The Configuration__c setting should have been comitted with workflows on'
         );
         configuration.turnWorkflowsOff();
@@ -129,7 +129,7 @@ private class ConfigurationManagerTest {
             FROM Configuration__c
             WHERE Id = :configurationSetting.Id
         ];
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Workflows_Off__c,
             'The Configuration__c setting should have been comitted with workflows off'
         );
@@ -151,8 +151,8 @@ private class ConfigurationManagerTest {
             FROM Configuration__c
             WHERE Id = :configurationSetting.Id
         ];
-        System.assert(
-            !configurationSetting.Are_Validations_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Validations_Off__c,
             'The Configuration__c setting should have been comitted with Validations on'
         );
         configuration.turnValidationsOff();
@@ -163,7 +163,7 @@ private class ConfigurationManagerTest {
             FROM Configuration__c
             WHERE Id = :configurationSetting.Id
         ];
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Validations_Off__c,
             'The Configuration__c setting should have been comitted with Validations off'
         );
@@ -185,8 +185,8 @@ private class ConfigurationManagerTest {
             FROM Configuration__c
             WHERE Id = :configurationSetting.Id
         ];
-        System.assert(
-            !configurationSetting.Are_Processes_Off__c,
+        Assert.isFalse(
+            configurationSetting.Are_Processes_Off__c,
             'The Configuration__c setting should have been comitted with Processes on'
         );
         configuration.turnProcessesOff();
@@ -197,7 +197,7 @@ private class ConfigurationManagerTest {
             FROM Configuration__c
             WHERE Id = :configurationSetting.Id
         ];
-        System.assert(
+        Assert.isTrue(
             configurationSetting.Are_Processes_Off__c,
             'The Configuration__c setting should have been comitted with Processes off'
         );

@@ -14,8 +14,7 @@ private class AbstractSObjectTestFactoryTest {
         inserter.allowDuplicatesOnSave(false);
         contactFactory.setInserter(inserter);
         Contact testContact = (Contact) contactFactory.insertWithDependancies();
-        System.assertNotEquals(
-            null,
+        Assert.isNotNull(
             testContact.Account.Name,
             'The account dependancy should have been created when the contact record is inserted with dependancies'
         );
@@ -30,16 +29,13 @@ private class AbstractSObjectTestFactoryTest {
         List<Contact> testContacts = (List<Contact>) contactFactory.insertMultipleWithDependancies(
             50
         );
-
-        System.assertNotEquals(
-            true,
+        Assert.isTrue(
             testContacts.isEmpty(),
             'Multiple contacts should have been created'
         );
 
         for (Contact contact : testContacts) {
-            System.assertNotEquals(
-                null,
+            Assert.isNotNull(
                 contact.Account.Name,
                 'The account dependancy should have been created when the contact record is inserted with dependancies'
             );

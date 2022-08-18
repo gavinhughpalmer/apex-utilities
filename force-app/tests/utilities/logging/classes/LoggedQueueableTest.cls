@@ -20,11 +20,17 @@ private class LoggedQueueableTest {
         testQueueable.enqueue();
         Test.stopTest();
         List<Log__c> logs = [SELECT Messages__c FROM Log__c];
-        System.assertEquals(
+        Assert.areEqual(
             1,
             logs.size(),
             'A message should have been written when the queueable is ran'
         );
-        Assert.contains(logs[0].Messages__c, LOG_MESSAGE);
+        Assert.isTrue(
+            logs[0].Messages__c.contains(LOG_MESSAGE),
+            'The string (' +
+            LOG_MESSAGE +
+            ') was not found in the string: ' +
+            logs[0].Messages__c
+        );
     }
 }

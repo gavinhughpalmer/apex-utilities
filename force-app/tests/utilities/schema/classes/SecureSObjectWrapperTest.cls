@@ -9,7 +9,7 @@ private class SecureSObjectWrapperTest {
     private static void getTestIsAccessible() {
         Account testAccount = new Account(Name = 'Test Account');
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
-        System.assertEquals(
+        Assert.areEqual(
             testAccount.Name,
             secureAccount.get('Name'),
             'The field should be returned for users that have access to it'
@@ -21,8 +21,7 @@ private class SecureSObjectWrapperTest {
         Account testAccount = new Account(Name = 'Test Account');
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
         System.runAs(getTestUser()) {
-            System.assertEquals(
-                null,
+            Assert.isNull(
                 secureAccount.get('Name'),
                 'The field should not be returned for users that have access to it'
             );
@@ -35,7 +34,7 @@ private class SecureSObjectWrapperTest {
         SecureSObjectWrapper secureAccount = new SecureSObjectWrapper(testAccount);
         final String testName = 'Gavin';
         secureAccount.put('Name', testName);
-        System.assertEquals(
+        Assert.areEqual(
             testName,
             testAccount.Name,
             'The name should be set for the system admin as they have access'
@@ -49,8 +48,7 @@ private class SecureSObjectWrapperTest {
         System.runAs(getTestUser()) {
             secureAccount.put('Name', 'Gavin');
         }
-        System.assertEquals(
-            null,
+        Assert.isNull(
             testAccount.Name,
             'The field should not be set if the user does not have edit access'
         );

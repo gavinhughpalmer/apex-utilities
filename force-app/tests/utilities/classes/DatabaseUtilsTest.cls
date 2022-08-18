@@ -8,8 +8,7 @@ private class DatabaseUtilsTest {
     @IsTest
     private static void getErrorStringTest() {
         Database.SaveResult insertResult = Database.insert(new Account(), false);
-
-        System.assert(
+        Assert.isTrue(
             DatabaseUtils.getErrorString(insertResult.getErrors()).contains('Required'),
             'The error string should return the missing required fields error'
         );

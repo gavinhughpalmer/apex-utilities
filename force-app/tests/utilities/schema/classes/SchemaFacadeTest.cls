@@ -7,7 +7,7 @@
 private class SchemaFacadeTest {
     @IsTest
     private static void isValidSObject() {
-        System.assert(
+        Assert.isTrue(
             SchemaFacade.getInstance().isValidSObject('account'),
             'The account object should return as an existing object'
         );
@@ -15,7 +15,7 @@ private class SchemaFacadeTest {
 
     @IsTest
     private static void isNotValidSObject() {
-        System.assert(
+        Assert.isTrue(
             SchemaFacade.getInstance().isNotValidSObject('abaoefjk'),
             'The invalid object name should return as a not valid object'
         );
@@ -23,7 +23,7 @@ private class SchemaFacadeTest {
 
     @IsTest
     private static void isValidField() {
-        System.assert(
+        Assert.isTrue(
             SchemaFacade.getInstance().isValidField('account', 'Name'),
             'The account object should return as an existing object'
         );
@@ -31,7 +31,7 @@ private class SchemaFacadeTest {
 
     @IsTest
     private static void isNotValidField() {
-        System.assert(
+        Assert.isTrue(
             SchemaFacade.getInstance().isNotValidField('Account', 'adfasd'),
             'The invalid object name should return as a not valid object'
         );
@@ -40,7 +40,7 @@ private class SchemaFacadeTest {
     @IsTest
     @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getDescribe() {
-        System.assertEquals(
+        Assert.areEqual(
             Account.SObjectType.getDescribe(SObjectDescribeOptions.FULL),
             SchemaFacade.getInstance().getDescribe('Account'),
             'The dynamic describe call should return the account describe object'
@@ -50,7 +50,7 @@ private class SchemaFacadeTest {
     @IsTest
     @SuppressWarnings('PMD.EagerlyLoadedDescribeSObjectResult')
     private static void getFieldDescribe() {
-        System.assertEquals(
+        Assert.areEqual(
             Account.Name.getDescribe(),
             SchemaFacade.getInstance().getFieldDescribe('Account', 'Name'),
             'The dynamic describe call should return the account name describe object'
@@ -65,7 +65,7 @@ private class SchemaFacadeTest {
             SchemaFacade.getInstance().getDescribe(invalidObjectName);
             Assert.fail('An exception should have been thrown');
         } catch (SchemaFacade.InvalidDescribeException invalidDescribeException) {
-            System.assert(
+            Assert.isTrue(
                 invalidDescribeException.getMessage().containsIgnoreCase(invalidObjectName),
                 'The error message should contain the invalid object name: ' + invalidObjectName
             );
@@ -81,7 +81,7 @@ private class SchemaFacadeTest {
             SchemaFacade.getInstance().getFieldDescribe('Account', invalidFieldName);
             Assert.fail('An exception should have been thrown');
         } catch (SchemaFacade.InvalidDescribeException invalidDescribeException) {
-            System.assert(
+            Assert.isTrue(
                 invalidDescribeException.getMessage().containsIgnoreCase(invalidFieldName),
                 'The error message should contain the invalid field name: ' + invalidFieldName
             );

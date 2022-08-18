@@ -139,12 +139,6 @@ This class will schedule a queuebale class to run by injecting the queuebale int
 
 ## Test Utilities
 
-### [Assert](/docs/Test-Utilities/Assert.md)
-
-
-This class is intended to extend the usage of the standard System.assert methods in salesforce, the class has been anotated with @IsTest because it is untestable due to the assert statement
-
-
 
 ### [MockHttpResponse](/docs/Test-Utilities/MockHttpResponse.md)
 

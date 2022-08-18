@@ -12,7 +12,7 @@ private class SObjectWrapperTest {
         Account testAccount = new Account(Name = testAccountName);
 
         SObjectWrapper wrappedTestAccount = new SObjectWrapper(testAccount);
-        System.assertEquals(
+        Assert.areEqual(
             testAccountName,
             wrappedTestAccount.get('Name'),
             'The name should be returned from the sobject wrapper when get is called'
@@ -26,7 +26,7 @@ private class SObjectWrapperTest {
         Contact testContact = new Contact(Account = testAccount);
 
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
-        System.assertEquals(
+        Assert.areEqual(
             testAccountName,
             wrappedTestContact.get('Account.Name'),
             'The name should be returned from the sobject wrapper when get is called with the relationship field'
@@ -41,7 +41,7 @@ private class SObjectWrapperTest {
         Contact testContact = new Contact(Account = testAccount);
 
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
-        System.assertEquals(
+        Assert.areEqual(
             testUserLastName,
             wrappedTestContact.get('Account.Owner.LastName'),
             'The name should be returned from the sobject wrapper when get is called with the relationship field'
@@ -59,9 +59,12 @@ private class SObjectWrapperTest {
                 'An error should have been thrown when an object is accessed that has not been initialised on the object'
             );
         } catch (InvalidFieldException exceptionToHandle) {
-            Assert.contains(
-                exceptionToHandle.getMessage(),
-                SObjectWrapper.NON_INITIALISED_RELATIONSHIP
+            Assert.isTrue(
+                exceptionToHandle.getMessage().contains(SObjectWrapper.NON_INITIALISED_RELATIONSHIP),
+                'The string (' +
+                SObjectWrapper.NON_INITIALISED_RELATIONSHIP +
+                ') was not found in the string: ' +
+                exceptionToHandle.getMessage()
             );
         } catch (Exception exceptionToHandle) {
             Assert.fail(
@@ -77,7 +80,7 @@ private class SObjectWrapperTest {
     private static void describeTestObjectField() {
         Account testAccount = new Account();
         SObjectWrapper wrappedTestAccount = new SObjectWrapper(testAccount);
-        System.assertEquals(
+        Assert.areEqual(
             Account.Name.getDescribe(),
             wrappedTestAccount.describe('Name'),
             'The describe method called on the sobject wrapper should return the describe result'
@@ -89,7 +92,7 @@ private class SObjectWrapperTest {
     private static void describeTestRelatedObjectField() {
         Contact testContact = new Contact();
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
-        System.assertEquals(
+        Assert.areEqual(
             Account.Name.getDescribe(),
             wrappedTestContact.describe('Account.Name'),
             'The describe method called on the sobject wrapper should return the describe result'
@@ -101,7 +104,7 @@ private class SObjectWrapperTest {
     private static void describeRelatedObjectFieldRecursive() {
         Contact testContact = new Contact();
         SObjectWrapper wrappedTestContact = new SObjectWrapper(testContact);
-        System.assertEquals(
+        Assert.areEqual(
             User.LastName.getDescribe(),
             wrappedTestContact.describe('Account.Owner.LastName'),
             'The describe method called on the sobject wrapper should return the describe result'
@@ -117,7 +120,7 @@ private class SObjectWrapperTest {
                 'An error should have been thrown when an invalid relationship is passed into the RelationshipField constructor'
             );
         } catch (InvalidFieldException exceptionToHandle) {
-            System.assertEquals(
+            Assert.areEqual(
                 SObjectWrapper.INVALID_PARENT_MESSAGE,
                 exceptionToHandle.getMessage(),
                 'The error raised does not match the invalid parent relationship message'

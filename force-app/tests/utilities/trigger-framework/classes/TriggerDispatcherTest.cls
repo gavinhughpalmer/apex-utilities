@@ -38,19 +38,19 @@ private class TriggerDispatcherTest {
         );
         dispatcher.run();
 
-        System.assertEquals(
+        Assert.areEqual(
             1,
             allowedRegisterTriggerable.registeredSObjects.size(),
             'One SObject should have been added if when register is called'
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             0,
             notAllowedRegisterTriggerable.registeredSObjects.size(),
             'No SObject should have been added if when register is called'
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             2,
             runList.size(),
             'The run list should have been added to for the number of triggerables passed into the trigger handler'
@@ -72,7 +72,7 @@ private class TriggerDispatcherTest {
         TriggerDispatcher.disable(Account.getSObjectType(), operation);
         dispatcher.run();
 
-        System.assertEquals(
+        Assert.areEqual(
             0,
             allowedRegisterTriggerable.registeredSObjects.size(),
             'No records should be added when the object and action are disabled'
@@ -81,7 +81,7 @@ private class TriggerDispatcherTest {
         TriggerDispatcher.enable(Account.getSObjectType(), operation);
         dispatcher.run();
 
-        System.assertEquals(
+        Assert.areEqual(
             1,
             allowedRegisterTriggerable.registeredSObjects.size(),
             'a record should be added when the object and trigger actions are reenabled'
@@ -125,8 +125,8 @@ private class TriggerDispatcherTest {
             FROM Log__c
             WHERE LeveL__c = :EventBufferLogAdapter.ERROR
         ];
-        System.assertEquals(1, logsToAssert.size(), 'One log message should have been created');
-        System.assert(
+        Assert.areEqual(1, logsToAssert.size(), 'One log message should have been created');
+        Assert.isTrue(
             logsToAssert[0].Messages__c.startsWith('Unhandled exception'),
             'The log message thrown should start with Unhandled exception. Actual message: ' +
             logsToAssert[0].Messages__c

@@ -9,7 +9,7 @@ private class QueryBuilderTest {
     private static void buildQueryTest() {
         QueryBuilder accountQuery = QueryBuilder.fromObject('Account').selectField('Id');
 
-        System.assertEquals(
+        Assert.areEqual(
             'select id from account',
             accountQuery.toString().toLowerCase(),
             'The query has not been generated correctly'

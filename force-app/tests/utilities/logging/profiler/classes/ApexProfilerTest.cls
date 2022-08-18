@@ -10,14 +10,14 @@ private class ApexProfilerTest {
     private static void refreshProfilingTest() {
         Test.startTest();
         ApexProfiler profiler = new ApexProfiler();
-        System.assertEquals(
+        Assert.areEqual(
             profiler.profilingInfos.get('Queries').recorded,
             0,
             'The profiling for queries should be 0 before any queries are performed'
         );
         List<Account> testQuery = [SELECT Id FROM Account LIMIT 1];
         profiler.refreshProfiling();
-        System.assertEquals(
+        Assert.areEqual(
             profiler.profilingInfos.get('Queries').recorded,
             1,
             'The profiling for queries should be 1 after a query is performed'
@@ -30,8 +30,8 @@ private class ApexProfilerTest {
         Test.startTest();
         ApexProfiler profiler = new ApexProfiler();
         // Set to not include org limits for this test as this is
-        System.assert(
-            !profiler.isBreachingWarning(),
+        Assert.isFalse(
+            profiler.isBreachingWarning(),
             'The warning should not be breached before any apex code is executed. Report:\n' +
             profiler.generateProfilingReport()
         );
@@ -54,7 +54,7 @@ private class ApexProfilerTest {
             List<Account> testQuery = [SELECT Id FROM Account LIMIT 1];
         }
         apexProfiler.refreshProfiling();
-        System.assert(
+        Assert.isTrue(
             apexProfiler.isBreachingWarning(),
             'The warning should be flagged when the queries have run'
         );
@@ -64,7 +64,7 @@ private class ApexProfilerTest {
     @IsTest
     private static void generateProfilingReportTest() {
         ApexProfiler profiler = new ApexProfiler();
-        System.assert(
+        Assert.isTrue(
             String.isNotBlank(profiler.generateProfilingReport()),
             'The profiling report should not be empty'
         );

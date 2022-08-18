@@ -12,16 +12,16 @@ private class CsvBuilderTest {
         CsvBuilder testCsv = new CsvBuilder();
         testCsv.appendField(fieldName, fieldValue);
 
-        System.assert(
+        Assert.isTrue(
             testCsv.headerToValues.containsKey(fieldName),
             'The csv should have the header value in it'
         );
-        System.assertEquals(
+        Assert.areEqual(
             1,
             testCsv.headerToValues.get(fieldName).size(),
             'The column should have a single value in it'
         );
-        System.assertEquals(
+        Assert.areEqual(
             fieldValue,
             testCsv.headerToValues.get(fieldName).get(0),
             'The field value should match the one that is set in the function call'
@@ -37,21 +37,21 @@ private class CsvBuilderTest {
         testCsv.newRow();
         testCsv.appendField(fieldName, fieldValue);
 
-        System.assert(
+        Assert.isTrue(
             testCsv.headerToValues.containsKey(fieldName),
             'The csv should have the header value in it'
         );
-        System.assertEquals(
+        Assert.areEqual(
             2,
             testCsv.headerToValues.get(fieldName).size(),
             'The column should have a 2 rows after addRow is called'
         );
-        System.assertEquals(
+        Assert.areEqual(
             fieldValue,
             testCsv.headerToValues.get(fieldName).get(0),
             'The field value should match the one that is set in the function call'
         );
-        System.assertEquals(
+        Assert.areEqual(
             fieldValue,
             testCsv.headerToValues.get(fieldName).get(1),
             'The field value should match the one that is set in the function call'
@@ -69,7 +69,7 @@ private class CsvBuilderTest {
 
         String csvContent = testCsv.toString();
 
-        System.assertEquals(
+        Assert.areEqual(
             'Column1,Column2' +
             lineEnding +
             'value11,value12' +
@@ -87,7 +87,7 @@ private class CsvBuilderTest {
 
         String csvContent = testCsv.toString();
 
-        System.assertEquals(
+        Assert.areEqual(
             'null' +
             CsvBuilder.UNIX_LINE_ENDING +
             'value11',
@@ -103,7 +103,7 @@ private class CsvBuilderTest {
 
         String csvContent = testCsv.toString();
 
-        System.assertEquals(
+        Assert.areEqual(
             'Header' +
             CsvBuilder.UNIX_LINE_ENDING +
             'null',

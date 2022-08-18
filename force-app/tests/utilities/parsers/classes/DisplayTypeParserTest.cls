@@ -10,13 +10,12 @@ private class DisplayTypeParserTest {
         final String valueToParse = 'value to parse';
         Parsable parser = new DisplayTypeParser(DisplayType.TEXTAREA);
         Object parsedValue = parser.parse(valueToParse);
-
-        System.assert(
-            parsedValue instanceof String,
+        Assert.isInstanceOfType(
+            parsedValue, String.class,
             'The field should have been parsed to a string'
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             valueToParse,
             (String) parsedValue,
             'The string value should not have changed when parsed'
@@ -28,12 +27,12 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.DOUBLE);
         Object parsedValue = parser.parse('3.3');
 
-        System.assert(
-            parsedValue instanceof Decimal,
+        Assert.isInstanceOfType(
+            parsedValue, Decimal.class,
             'The field should have been parsed to a decimal'
         );
 
-        System.assertEquals(3.3, (Decimal) parsedValue, 'The value shold have been parsed to 3.3');
+        Assert.areEqual(3.3, (Decimal) parsedValue, 'The value shold have been parsed to 3.3');
     }
 
     @isTest
@@ -41,9 +40,9 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.DATE);
         Object parsedValue = parser.parse('1993-06-29');
 
-        System.assert(parsedValue instanceof Date, 'The field should have been parsed to a date');
+        Assert.isInstanceOfType(parsedValue, Date.class, 'The field should have been parsed to a date');
 
-        System.assertEquals(
+        Assert.areEqual(
             Date.newInstance(1993, 6, 29),
             (Date) parsedValue,
             'The date should have been parsed'
@@ -55,12 +54,12 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.DATETIME);
         Object parsedValue = parser.parse('1993-06-29 10:10:10');
 
-        System.assert(
-            parsedValue instanceof Datetime,
+        Assert.isInstanceOfType(
+            parsedValue, Datetime.class,
             'The field should have been parsed to a datetime'
         );
 
-        System.assertEquals(
+        Assert.areEqual(
             Datetime.newInstance(1993, 6, 29, 10, 10, 10),
             (Datetime) parsedValue,
             'The datetime should have been parsed'
@@ -72,12 +71,12 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.BOOLEAN);
         Object parsedValue = parser.parse('true');
 
-        System.assert(
-            parsedValue instanceof Boolean,
+        Assert.isInstanceOfType(
+            parsedValue, Boolean.class,
             'The field should have been parsed to a boolean'
         );
 
-        System.assertEquals(true, (Boolean) parsedValue, 'The boolean should have been parsed');
+        Assert.isTrue((Boolean) parsedValue, 'The boolean should have been parsed');
     }
 
     @isTest
@@ -85,9 +84,9 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.ID);
         Object parsedValue = parser.parse(UserInfo.getUserId());
 
-        System.assert(parsedValue instanceof Id, 'The field should have been parsed to an id');
+        Assert.isInstanceOfType(parsedValue, Id.class, 'The field should have been parsed to an id');
 
-        System.assertEquals(
+        Assert.areEqual(
             UserInfo.getUserId(),
             (Id) parsedValue,
             'The user Id should have been parsed'
@@ -99,9 +98,9 @@ private class DisplayTypeParserTest {
         Parsable parser = new DisplayTypeParser(DisplayType.DATE);
         try {
             parser.parse('Invalid date');
-            System.assert(false, 'An exception should be thrown for an invalid display type');
+            Assert.fail('An exception should be thrown for an invalid display type');
         } catch (Exception exceptionToCheck) {
-            System.assert(
+            Assert.isTrue(
                 exceptionToCheck.getMessage().containsIgnoreCase('invalid date'),
                 'An exception should be thrown when specifying date when the input is not a date type'
             );

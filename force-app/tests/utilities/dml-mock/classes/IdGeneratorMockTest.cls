@@ -11,7 +11,7 @@ public with sharing class IdGeneratorMockTest {
     private static void getPrefixOfIdOfStandardObject() {
         IdGeneratorMock idMock = new IdGeneratorMock(Account.getSobjectType());
         String prefix = idMock.getPrefixOfId(Account.getSobjectType());
-        System.assertEquals(String.isBlank(prefix), false, 'Prefix should not be blank');
+        Assert.isFalse(String.isBlank(prefix), 'Prefix should not be blank');
     }
 
     @IsTest
@@ -19,15 +19,14 @@ public with sharing class IdGeneratorMockTest {
         Log__c testCustomObject = new Log__c();
         IdGeneratorMock idMock = new IdGeneratorMock(testCustomObject.getSObjectType());
         String prefix = idMock.getPrefixOfId(testCustomObject.getSObjectType());
-        System.assertEquals(String.isBlank(prefix), false, 'Prefix should not be blank');
+        Assert.isFalse(String.isBlank(prefix), 'Prefix should not be blank');
     }
 
     @IsTest
     private static void getNextAvailableIdForSingleTime() {
         IdGeneratorMock idMock = new IdGeneratorMock(Account.getSobjectType());
-        System.assertEquals(
+        Assert.isFalse(
             String.isBlank(idMock.getNextAvailableId()),
-            false,
             'Generated Id should not be blank'
         );
     }
@@ -37,6 +36,6 @@ public with sharing class IdGeneratorMockTest {
         IdGeneratorMock idMock = new IdGeneratorMock(Account.getSobjectType());
         String firstId = idMock.getNextAvailableId();
         String secondId = idMock.getNextAvailableId();
-        System.assertNotEquals(firstId, secondId, 'The two ids should not be the same');
+        Assert.areNotEqual(firstId, secondId, 'The two ids should not be the same');
     }
 }
